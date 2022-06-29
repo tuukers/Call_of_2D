@@ -1,7 +1,8 @@
 using System;
+using System.Numerics;
 
 
-namespace Tron.Game.Casting
+namespace Unit04.Game.Casting
 {
     /// <summary>
     /// <para>A thing that participates in the game.</para>
@@ -14,9 +15,9 @@ namespace Tron.Game.Casting
     {
         private string text = "";
         private int fontSize = 15;
-        private Color color = Constants.WHITE;
-        private Point position = new Point(0, 0);
-        private Point velocity = new Point(0, 0);
+        private Color color = new Color(255, 255, 255); // white
+        private Vector2 position = new Vector2(0, 0);
+        private Vector2 velocity = new Vector2(0, 0);
 
         /// <summary>
         /// Constructs a new instance of Actor.
@@ -47,7 +48,7 @@ namespace Tron.Game.Casting
         /// Gets the actor's position.
         /// </summary>
         /// <returns>The position.</returns>
-        public Point GetPosition()
+        public Vector2 GetPosition()
         {
             return position;
         }
@@ -65,7 +66,7 @@ namespace Tron.Game.Casting
         /// Gets the actor's current velocity.
         /// </summary>
         /// <returns>The velocity.</returns>
-        public Point GetVelocity()
+        public Vector2 GetVelocity()
         {
             return velocity;
         }
@@ -75,11 +76,28 @@ namespace Tron.Game.Casting
         /// from one side of the screen to the other when it reaches the maximum x and y 
         /// values.
         /// </summary>
-        public virtual void MoveNext()
+        /// <param name="maxX">The maximum x value.</param>
+        /// <param name="maxY">The maximum y value.</param>
+        public void MoveNext(int maxX, int maxY)
         {
-            int x = ((position.GetX() + velocity.GetX()) + Constants.MAX_X) % Constants.MAX_X;
-            int y = ((position.GetY() + velocity.GetY()) + Constants.MAX_Y) % Constants.MAX_Y;
-            position = new Point(x, y);
+            // float x = (position.X + velocity.X + maxX) % maxX; 
+            // float y = (position.Y + velocity.Y + maxY) % maxY;
+
+            Vector2 newPosition = Vector2.Add(position, velocity);
+
+            this.position = newPosition;
+            // new Vector2(x,y)
+        }
+
+        public bool isInFrame(int maxX, int maxY) {
+            if (position.X < 0 || position.X > maxX || position.Y < 0 || position.Y > maxY)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         /// <summary>
@@ -117,7 +135,7 @@ namespace Tron.Game.Casting
         /// </summary>
         /// <param name="position">The given position.</param>
         /// <exception cref="ArgumentException">When position is null.</exception>
-        public void SetPosition(Point position)
+        public void SetPosition(Vector2 position)
         {
             if (position == null)
             {
@@ -145,7 +163,7 @@ namespace Tron.Game.Casting
         /// </summary>
         /// <param name="velocity">The given velocity.</param>
         /// <exception cref="ArgumentException">When velocity is null.</exception>
-        public void SetVelocity(Point velocity)
+        public void SetVelocity(Vector2 velocity)
         {
             if (velocity == null)
             {

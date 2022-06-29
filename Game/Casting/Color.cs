@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace Tron.Game.Casting
+namespace Unit04.Game.Casting
 {
     /// <summary>
     /// <para>A color.</para>
@@ -64,8 +64,6 @@ namespace Tron.Game.Casting
         {
             return red;
         }
-
-      
 
     }
 }
