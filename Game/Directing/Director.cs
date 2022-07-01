@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Unit04.Game.Casting;
-using Unit04.Game.Services;
-using System;
+using Callof2d.Game.Casting;
+using Callof2d.Game.Services;
 using System.Numerics;
+using Callof2d.Game.Scripting;
 
 
-namespace Unit04.Game.Directing
+namespace Callof2d.Game.Directing
 {
     /// <summary>
     /// <para>A person who directs the game.</para>
@@ -35,110 +35,119 @@ namespace Unit04.Game.Directing
         /// Starts the game by running the main game loop for the given cast.
         /// </summary>
         /// <param name="cast">The given cast.</param>
-        public void StartGame(Cast cast)
+        public void StartGame(Cast cast, Script script)
         {
             videoService.OpenWindow();
             while (videoService.IsWindowOpen())
             {
-                GetInputs(cast);
-                DoUpdates(cast);
-                DoOutputs(cast);
+                ExecuteActions("inputs", cast, script);
+                ExecuteActions("updates", cast, script);
+                ExecuteActions("outputs", cast, script);
             }
             videoService.CloseWindow();
         }
 
-        /// <summary>
-        /// Gets directional input from the keyboard and applies it to the robot.
-        /// </summary>
-        /// <param name="cast">The given cast.</param>
-        private void GetInputs(Cast cast)
+        private void ExecuteActions(string group, Cast cast, Script script)
         {
-            Actor robot = cast.GetFirstActor("robot");
-            Vector2 velocity = keyboardService.GetDirection();
-            robot.SetVelocity(velocity);     
+            List<Action> actions = script.GetActions(group);
+            foreach(Action action in actions)
+            {
+                action.Execute(cast, script);
+            }
+        }
+
+        // /// <summary>
+        // /// Gets directional input from the keyboard and applies it to the player.
+        // /// </summary>
+        // /// <param name="cast">The given cast.</param>
+        // private void GetInputs(Cast cast)
+        // {
+        //     Actor player = cast.GetFirstActor("player");
+        //     Vector2 velocity = keyboardService.GetDirection();
+        //     player.SetVelocity(velocity);     
             
-            if(mouseService.IsMousePressed())
-            {
-                Vector2 mousePosition = mouseService.GetMousePosition();
+        //     if(mouseService.IsMousePressed())
+        //     {
+        //         Vector2 mousePosition = mouseService.GetMousePosition();
 
-                Player player = (Player) robot;
-                player.Shoot(cast, mousePosition);
-            }
-        }
+        //         Player player = (Player) player;
+        //         player.Shoot(cast, mousePosition);
+        //     }
+        // }
 
-        /// <summary>
-        /// Updates the robot's position and resolves any collisions with artifacts.
-        /// </summary>
-        /// <param name="cast">The given cast.</param>
-        private void DoUpdates(Cast cast)
-        {
-            Actor banner = cast.GetFirstActor("banner");
-            Actor robot = cast.GetFirstActor("robot");
-            List<Actor> artifacts = cast.GetActors("artifacts");
-            List<Actor> bullets = cast.GetActors("bullets");
+        // /// <summary>
+        // /// Updates the player's position and resolves any collisions with artifacts.
+        // /// </summary>
+        // /// <param name="cast">The given cast.</param>
+        // private void DoUpdates(Cast cast)
+        // {
+        //     Actor banner = cast.GetFirstActor("banner");
+        //     Actor player = cast.GetFirstActor("player");
+        //     List<Actor> artifacts = cast.GetActors("artifacts");
+        //     List<Actor> bullets = cast.GetActors("bullets");
 
-            // Get robot position x and y
-            Vector2 robotPosition = robot.GetPosition();
-
-
-            // Updates zombie velocity to track player.
-            foreach (Actor actor in artifacts) {
-                Vector2 zombiePosition = actor.GetPosition();
-
-                int maxX1 = videoService.GetWidth();
-                int maxY1 = videoService.GetHeight();
-
-                // Subtract player position from mouse position.
-                Vector2 a = Vector2.Subtract(robotPosition, zombiePosition);
-
-                // Normalize result so contains only direction, not magnitude.
-                Vector2 normalized = Vector2.Normalize(a);
-
-                actor.SetVelocity(normalized);
-                actor.MoveNext(maxX1, maxY1);
-            }
+        //     // Get player position x and y
+        //     Vector2 playerPosition = player.GetPosition();
 
 
-            banner.SetText("");
-            int maxX = videoService.GetWidth();
-            int maxY = videoService.GetHeight();
-            robot.MoveNext(maxX, maxY);
+        //     // Updates zombie velocity to track player.
+        //     foreach (Actor actor in artifacts) {
+        //         Vector2 zombiePosition = actor.GetPosition();
 
-            foreach (Actor actor in artifacts)
-            {
-                if (robot.GetPosition().Equals(actor.GetPosition()))
-                {
-                    Artifact artifact = (Artifact) actor;
-                    string message = artifact.GetMessage();
-                    banner.SetText(message);
-                }
-            } 
+        //         int maxX1 = videoService.GetWidth();
+        //         int maxY1 = videoService.GetHeight();
 
-            foreach (Actor bullet in bullets)
-            {
-                bullet.MoveNext(maxX, maxY);
-                bool isInFrame = bullet.isInFrame(maxX, maxY);
-                Console.WriteLine(isInFrame);
+        //         // Subtract player position from mouse position.
+        //         Vector2 a = Vector2.Subtract(playerPosition, zombiePosition);
 
-                if (!isInFrame) {
-                    cast.RemoveActor("bullets", bullet);
-                }
-            }
-        }
+        //         // Normalize result so contains only direction, not magnitude.
+        //         Vector2 normalized = Vector2.Normalize(a);
 
-        /// <summary>
-        /// Draws the actors on the screen.
-        /// </summary>
-        /// <param name="cast">The given cast.</param>
-        public void DoOutputs(Cast cast)
-        {
-            List<Actor> actors = cast.GetAllActors();
-            Vector2 mousePosition = mouseService.GetMousePosition();
+        //         actor.SetVelocity(normalized);
+        //         actor.MoveNext(maxX1, maxY1);
+        //     }
 
-            videoService.ClearBuffer();
-            videoService.DrawActors(actors);
-            videoService.DrawPointer(cast.GetFirstActor("robot"), mousePosition);
-            videoService.FlushBuffer();
-        }
+
+        //     banner.SetText("");
+        //     int maxX = videoService.GetWidth();
+        //     int maxY = videoService.GetHeight();
+        //     player.MoveNext(maxX, maxY);
+
+        //     foreach (Actor actor in artifacts)
+        //     {
+        //         if (player.GetPosition().Equals(actor.GetPosition()))
+        //         {
+        //             Artifact artifact = (Artifact) actor;
+        //             string message = artifact.GetMessage();
+        //             banner.SetText(message);
+        //         }
+        //     } 
+
+        //     foreach (Actor bullet in bullets)
+        //     {
+        //         bullet.MoveNext(maxX, maxY);
+        //         bool isInFrame = bullet.isInFrame(maxX, maxY);
+        //         Console.WriteLine(isInFrame);
+
+        //         if (!isInFrame) {
+        //             cast.RemoveActor("bullets", bullet);
+        //         }
+        //     }
+        // }
+
+        // /// <summary>
+        // /// Draws the actors on the screen.
+        // /// </summary>
+        // /// <param name="cast">The given cast.</param>
+        // public void DoOutputs(Cast cast)
+        // {
+        //     List<Actor> actors = cast.GetAllActors();
+        //     Vector2 mousePosition = mouseService.GetMousePosition();
+
+        //     videoService.ClearBuffer();
+        //     videoService.DrawActors(actors);
+        //     videoService.DrawPointer(cast.GetFirstActor("player"), mousePosition);
+        //     videoService.FlushBuffer();
+        // }
     }
 }

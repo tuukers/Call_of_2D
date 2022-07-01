@@ -2,7 +2,7 @@ using System;
 using System.Numerics;
 
 
-namespace Unit04.Game.Casting
+namespace Callof2d.Game.Casting
 {
     /// <summary>
     /// <para>A thing that participates in the game.</para>
@@ -78,7 +78,7 @@ namespace Unit04.Game.Casting
         /// </summary>
         /// <param name="maxX">The maximum x value.</param>
         /// <param name="maxY">The maximum y value.</param>
-        public void MoveNext(int maxX, int maxY)
+        public void MoveNext()
         {
             // float x = (position.X + velocity.X + maxX) % maxX; 
             // float y = (position.Y + velocity.Y + maxY) % maxY;

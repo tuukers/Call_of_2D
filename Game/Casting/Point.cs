@@ -1,4 +1,4 @@
-namespace Unit04.Game.Casting
+namespace Callof2d.Game.Casting
 {
     /// <summary>
     /// <para>A distance from a relative origin (0, 0).</para>

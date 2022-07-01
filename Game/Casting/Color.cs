@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace Unit04.Game.Casting
+namespace Callof2d.Game.Casting
 {
     /// <summary>
     /// <para>A color.</para>

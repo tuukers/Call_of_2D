@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 
-namespace Unit04.Game.Casting
+namespace Callof2d.Game.Casting
 {
     /// <summary>
     /// <para>A collection of actors.</para>
@@ -85,6 +85,8 @@ namespace Unit04.Game.Casting
             }
             return result;
         }
+
+        
 
         /// <summary>
         /// Removes the given actor from the given group.
