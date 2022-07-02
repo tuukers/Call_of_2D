@@ -19,11 +19,13 @@ namespace Callof2d.Game.Casting
         private Vector2 position = new Vector2(0, 0);
         private Vector2 velocity = new Vector2(0, 0);
 
+
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
         public Actor()
         {
+
         }
 
         /// <summary>
@@ -172,5 +174,6 @@ namespace Callof2d.Game.Casting
             this.velocity = velocity;
         }
 
+        
     }
 }

@@ -36,6 +36,7 @@ namespace Callof2d.Game.Casting
 
             // Add bullet to actors so it is displayed.
             cast.AddActor("bullets", bullet);
+
         }
     }
 }

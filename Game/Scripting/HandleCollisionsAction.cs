@@ -27,6 +27,21 @@ namespace Callof2d.Game.Scripting
         /// <inheritdoc/>
         public void Execute(Cast cast, Script script)
         {
+            Actor player = cast.GetFirstActor("player");
+            List<Actor> zombies = cast.GetActors("zombie");
+            List<Actor> bullets = cast.GetActors("bullets");
+            
+            foreach(Actor zombie in zombies)
+            {
+                foreach(Actor bullet in bullets)
+                {
+                    if(zombie.Overlaps(bullet))
+                    {
+                        cast.RemoveActor("zombie",zombie);
+                        cast.RemoveActor("bullets",bullet);
+                    }
+                }
+            }
 
         }
 
