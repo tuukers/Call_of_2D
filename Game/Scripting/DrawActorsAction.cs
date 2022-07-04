@@ -62,12 +62,13 @@ namespace Callof2d.Game.Scripting
 
             foreach (Actor actor in zombies)
             {
+                Zombie zombie = (Zombie) actor;
                 if (player.GetPosition().Equals(actor.GetPosition()))
                 {
-                    Zombie zombie = (Zombie) actor;
                     string message = zombie.GetMessage();
                     banner.SetText(message);
                 }
+                float health = zombie.GetHealth();
             } 
 
             foreach (Actor bullet in bullets)

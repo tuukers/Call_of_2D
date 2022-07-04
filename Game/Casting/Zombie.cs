@@ -9,12 +9,15 @@ namespace Callof2d.Game.Casting
     public class Zombie : Actor
     {
         private string message = "";
+        private float health = 5;
+        private Cast cast;
 
         /// <summary>
         /// Constructs a new instance of an Zombie.
         /// </summary>
         public Zombie()
         {
+            this.health=5;
         }
 
         /// <summary>
@@ -33,6 +36,21 @@ namespace Callof2d.Game.Casting
         public void SetMessage(string message)
         {
             this.message = message;
+        }
+
+        public void TakeDamage(Zombie zombie)
+        {
+            this.health-=1;
+
+
+            if(this.health==0){
+                cast.RemoveActor("Zombie", zombie);
+            }
+        }
+
+        public float GetHealth()
+        {
+            return this.health;
         }
     }
 }

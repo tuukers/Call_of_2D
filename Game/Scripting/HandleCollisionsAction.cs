@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using System.Collections.Generic;
 using System.Data;
 using Callof2d.Game.Casting;
@@ -31,14 +32,27 @@ namespace Callof2d.Game.Scripting
             List<Actor> zombies = cast.GetActors("zombie");
             List<Actor> bullets = cast.GetActors("bullets");
             
-            foreach(Actor zombie in zombies)
+            foreach(Zombie zombie in zombies)
             {
+                Vector2 zombiePosition=zombie.GetPosition();
+                float zombiePosition_X=zombiePosition.X;
+                float zombiePosition_Y=zombiePosition.Y;
+
                 foreach(Actor bullet in bullets)
                 {
-                    if(zombie.Overlaps(bullet))
+                    Vector2 bulletPosition=bullet.GetPosition();
+                    float bulletPosition_X=bulletPosition.X;
+                    float bulletPosition_Y=bulletPosition.Y;
+
+                    float x_difference= zombiePosition_X-bulletPosition_X;
+                    float y_difference= zombiePosition_Y-bulletPosition_Y;
+                    float x_difference_abs=Math.Abs(x_difference);
+                    float y_difference_abs=Math.Abs(y_difference);
+
+                    if(x_difference_abs<10 && y_difference_abs<10)
                     {
-                        cast.RemoveActor("zombie",zombie);
                         cast.RemoveActor("bullets",bullet);
+                        cast.RemoveActor("zombie",zombie);
                     }
                 }
             }
