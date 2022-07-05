@@ -14,7 +14,7 @@ namespace Callof2d.Game.Casting
         public void Shoot(Cast cast, Vector2 mousePosition)
         {
             // Construct bullet.
-            Actor bullet = new Actor();
+            Bullet bullet = new Bullet();
 
             // Set bullet position to player position.
             bullet.SetPosition(this.GetPosition());

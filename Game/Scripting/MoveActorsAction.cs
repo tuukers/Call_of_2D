@@ -33,21 +33,15 @@ namespace Callof2d.Game.Scripting
             List<Actor> actors = cast.GetAllActors();
             Vector2 mousePosition = mouseService.GetMousePosition();
 
+            foreach (Actor actor in actors)
+            {
+                actor.MoveNext();
+            }
+
             videoService.ClearBuffer();
             videoService.DrawActors(actors);
             videoService.DrawPointer(cast.GetFirstActor("player"), mousePosition);
             videoService.FlushBuffer();
         }
-
-
-
-
-        // {
-        //     List<Actor> actors = cast.GetAllActors();
-        //     foreach (Actor actor in actors)
-        //     {
-        //         actor.MoveNext();
-        //     }
-        // }
     }
 }

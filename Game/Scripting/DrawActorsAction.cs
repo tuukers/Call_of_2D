@@ -38,27 +38,29 @@ namespace Callof2d.Game.Scripting
 
 
             // Updates zombie velocity to track player.
-            foreach (Actor actor in zombies) {
-                Vector2 zombiePosition = actor.GetPosition();
+            // foreach (Actor actor in zombies) {
+            //     Vector2 zombiePosition = actor.GetPosition();
 
-                int maxX1 = videoService.GetWidth();
-                int maxY1 = videoService.GetHeight();
+            //     int maxX1 = videoService.GetWidth();
+            //     int maxY1 = videoService.GetHeight();
 
-                // Subtract player position from mouse position.
-                Vector2 a = Vector2.Subtract(playerPosition, zombiePosition);
+            //     // Subtract player position from mouse position.
+            //     Vector2 a = Vector2.Subtract(playerPosition, zombiePosition);
 
-                // Normalize result so contains only direction, not magnitude.
-                Vector2 normalized = Vector2.Normalize(a);
+            //     // Normalize result so contains only direction, not magnitude.
+            //     Vector2 normalized = Vector2.Normalize(a);
 
-                actor.SetVelocity(normalized);
-                actor.MoveNext();
-            }
+            //     actor.SetVelocity(normalized);
+
+
+            //     //actor.MoveNext();
+            // }
 
 
             banner.SetText("");
             int maxX = videoService.GetWidth();
             int maxY = videoService.GetHeight();
-            player.MoveNext();
+            //player.MoveNext();
 
             foreach (Actor actor in zombies)
             {

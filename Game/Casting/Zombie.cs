@@ -3,7 +3,7 @@ namespace Callof2d.Game.Casting
     /// <summary>
     /// <para>An item of cultural or historical interest.</para>
     /// <para>
-    /// The responsibility of an Zombie is to provide a message about itself.
+    /// The responsibility of an Zombie is to chase the player.
     /// </para>
     /// </summary>
     public class Zombie : Actor
@@ -38,14 +38,9 @@ namespace Callof2d.Game.Casting
             this.message = message;
         }
 
-        public void TakeDamage(Zombie zombie)
+        public void TakeDamage(int bulletDamage)
         {
             this.health-=1;
-
-
-            if(this.health==0){
-                cast.RemoveActor("Zombie", zombie);
-            }
         }
 
         public float GetHealth()

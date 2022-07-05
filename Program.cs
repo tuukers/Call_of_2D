@@ -97,7 +97,8 @@ namespace Callof2d
             Script script = new Script();
             script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService));
             script.AddAction("updates", new MoveActorsAction(videoService, mouseService));
-            script.AddAction("updates", new HandleCollisionsAction());
+            script.AddAction("updates", new HandleBulletZombieCollisionsAction());
+            script.AddAction("updates", new HandleZombieZombieCollisionsAction());
             script.AddAction("outputs", new DrawActorsAction(videoService));
 
 

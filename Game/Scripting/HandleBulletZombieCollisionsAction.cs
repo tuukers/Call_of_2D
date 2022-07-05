@@ -15,13 +15,13 @@ namespace Callof2d.Game.Scripting
     /// collides with its segments, or the game is over.
     /// </para>
     /// </summary>
-    public class HandleCollisionsAction : Action
+    public class HandleBulletZombieCollisionsAction : Action
     {
 
         /// <summary>
         /// Constructs a new instance of HandleCollisionsAction.
         /// </summary>
-        public HandleCollisionsAction()
+        public HandleBulletZombieCollisionsAction()
         {
         }
 
@@ -41,6 +41,7 @@ namespace Callof2d.Game.Scripting
                 foreach(Actor bullet in bullets)
                 {
                     Vector2 bulletPosition=bullet.GetPosition();
+                    Bullet shot = (Bullet)bullet;
                     float bulletPosition_X=bulletPosition.X;
                     float bulletPosition_Y=bulletPosition.Y;
 
@@ -52,7 +53,10 @@ namespace Callof2d.Game.Scripting
                     if(x_difference_abs<10 && y_difference_abs<10)
                     {
                         cast.RemoveActor("bullets",bullet);
-                        cast.RemoveActor("zombie",zombie);
+                        zombie.TakeDamage(shot.GetBulletDamage());
+                        if (zombie.GetHealth()<=0){
+                            cast.RemoveActor("zombie",zombie);
+                        }
                     }
                 }
             }
