@@ -1,3 +1,5 @@
+using System;
+
 namespace Callof2d.Game.Casting
 {
     /// <summary>
@@ -42,9 +44,9 @@ namespace Callof2d.Game.Casting
         /// <param name="points">The given points.</param>
         /// <param name="addend">Modifies number of points with addition/subtraction.</param>
         /// <param name="multiplier">Modifies number of points with multiplication.</param>
-        public void AddPoints(int points, int addend, int multiplier)
+        public void AddPoints(int points, float addend, float multiplier)
         {
-            score += (points + addend) * multiplier;
+            score += (int)Math.Ceiling((points + addend) * multiplier);
         }
 
         /// <summary>
