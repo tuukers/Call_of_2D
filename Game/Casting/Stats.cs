@@ -5,27 +5,27 @@ namespace Callof2d.Game.Casting
     /// </summary>
     public class Stats : Actor
     {
-        private int wave;
+        private int round;
         private int lives;
         private int score;
 
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
-        public Stats(int wave = 1, int lives = 3, int score = 0, 
+        public Stats(int round = 1, int lives = 3, int score = 0, 
                 bool debug = false)
         {
-            this.wave = wave;
+            this.round = round;
             this.lives = lives;
             this.score = score;
         }
 
         /// <summary>
-        /// Adds one wave.
+        /// Adds one round.
         /// </summary>
-        public void AddWave()
+        public void AddRound()
         {
-            wave++;
+            round++;
         }
 
         /// <summary>
@@ -44,16 +44,16 @@ namespace Callof2d.Game.Casting
         /// <param name="multiplier">Modifies number of points with multiplication.</param>
         public void AddPoints(int points, int addend, int multiplier)
         {
-            score = (points + addend) * multiplier;
+            score += (points + addend) * multiplier;
         }
 
         /// <summary>
-        /// Gets the wave.
+        /// Gets the round.
         /// </summary>
-        /// <returns>The wave.</returns>
-        public int GetWave()
+        /// <returns>The round.</returns>
+        public int GetRound()
         {
-            return wave;
+            return round;
         }
 
         /// <summary>
