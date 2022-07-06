@@ -56,8 +56,6 @@ namespace Callof2d.Game.Scripting
             //     //actor.MoveNext();
             // }
 
-
-            banner.SetText("");
             int maxX = videoService.GetWidth();
             int maxY = videoService.GetHeight();
             //player.MoveNext();
@@ -65,11 +63,6 @@ namespace Callof2d.Game.Scripting
             foreach (Actor actor in zombies)
             {
                 Zombie zombie = (Zombie) actor;
-                if (player.GetPosition().Equals(actor.GetPosition()))
-                {
-                    string message = zombie.GetMessage();
-                    banner.SetText(message);
-                }
                 float health = zombie.GetHealth();
             } 
 

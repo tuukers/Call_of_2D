@@ -25,9 +25,11 @@ namespace Callof2d
         private static int COLS = 60;
         private static int ROWS = 40;
         private static string CAPTION = "Call Of 2d";
-        private static string DATA_PATH = "Data/messages.txt";
         private static Color WHITE = new Color(255, 255, 255);
         private static int DEFAULT_ZOMBIES = 40;
+        private static float PLAYER_RADIUS = 20;
+        private static float ZOMBIE_RADIUS = 10;
+        public static float BULLET_RADIUS = 5;
         
 
 
@@ -44,35 +46,18 @@ namespace Callof2d
 
             // create the cast
             Cast cast = new Cast();
-            
-
-            // create the banner
-            Actor banner = new Actor();
-            banner.SetText("");
-            banner.SetFontSize(FONT_SIZE);
-            banner.SetColor(WHITE);
-            banner.SetPosition(new Vector2(CELL_SIZE, 0));
-            cast.AddActor("banner", banner);
 
             // create the player
             Player player = new Player();
-            player.SetText("#");
-            player.SetFontSize(FONT_SIZE);
             player.SetColor(WHITE);
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
+            player.SetRadius(PLAYER_RADIUS);
             cast.AddActor("player", player);
-
-            // load the messages
-            List<string> messages = File.ReadAllLines(DATA_PATH).ToList<string>();
 
             // create the zombies
             Random random = new Random();
             for (int i = 0; i < DEFAULT_ZOMBIES; i++)
             {
-                string text = "Z";
-                    // (char)random.Next(33, 126)).ToString();
-                string message = messages[i];
-
                 int x = random.Next(1, MAX_X);
                 int y = random.Next(1, MAX_Y);
                 Vector2 position = new Vector2(x, y);
@@ -83,13 +68,10 @@ namespace Callof2d
                 Color color = new Color(r, g, b);
 
                 Zombie zombie = new Zombie();
-                zombie.SetText(text);
-                zombie.SetFontSize(FONT_SIZE);
                 zombie.SetColor(color);
                 zombie.SetPosition(position);
-                zombie.SetMessage(message);
+                zombie.SetRadius(ZOMBIE_RADIUS);
                 cast.AddActor("zombie", zombie);
-                
             }
 
             // create script
@@ -100,9 +82,6 @@ namespace Callof2d
             script.AddAction("updates", new HandleBulletZombieCollisionsAction());
             script.AddAction("updates", new HandleZombieZombieCollisionsAction());
             script.AddAction("outputs", new DrawActorsAction(videoService));
-
-
-
 
             // start the game
             Director director = new Director(keyboardService, videoService, mouseService);

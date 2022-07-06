@@ -8,7 +8,6 @@ namespace Callof2d.Game.Casting
     /// </summary>
     public class Zombie : Actor
     {
-        private string message = "";
         private float health = 5;
         private Cast cast;
 
@@ -18,24 +17,6 @@ namespace Callof2d.Game.Casting
         public Zombie()
         {
             this.health=5;
-        }
-
-        /// <summary>
-        /// Gets the zombie's message.
-        /// </summary>
-        /// <returns>The message.</returns>
-        public string GetMessage()
-        {
-            return message;
-        }
-
-        /// <summary>
-        /// Sets the zombie's message to the given value.
-        /// </summary>
-        /// <param name="message">The given message.</param>
-        public void SetMessage(string message)
-        {
-            this.message = message;
         }
 
         public void TakeDamage(int bulletDamage)

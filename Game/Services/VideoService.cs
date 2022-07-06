@@ -65,14 +65,11 @@ namespace Callof2d.Game.Services
         /// <param name="actor">The actor to draw.</param>
         public void DrawActor(Actor actor)
         {
-            Font font = Raylib.LoadFont("resources/fonts/setback.png");
-
-            string text = actor.GetText();
             Vector2 position = actor.GetPosition();
-            int fontSize = actor.GetFontSize();
             Casting.Color c = actor.GetColor();
+            float radius = actor.GetRadius();
             Raylib_cs.Color color = ToRaylibColor(c);
-            Raylib.DrawTextEx(font, text, position, fontSize, 1, color);
+            Raylib.DrawCircleV(position, radius, color);
         }
 
         /// <summary>

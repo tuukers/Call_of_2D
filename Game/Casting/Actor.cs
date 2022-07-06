@@ -13,11 +13,10 @@ namespace Callof2d.Game.Casting
     /// </summary>
     public class Actor
     {
-        private string text = "";
-        private int fontSize = 15;
         private Color color = new Color(255, 255, 255); // white
         private Vector2 position = new Vector2(0, 0);
         private Vector2 velocity = new Vector2(0, 0);
+        private float radius;
 
 
         /// <summary>
@@ -38,15 +37,6 @@ namespace Callof2d.Game.Casting
         }
 
         /// <summary>
-        /// Gets the actor's font size.
-        /// </summary>
-        /// <returns>The font size.</returns>
-        public int GetFontSize()
-        {
-            return fontSize;
-        }
-
-        /// <summary>
         /// Gets the actor's position.
         /// </summary>
         /// <returns>The position.</returns>
@@ -56,21 +46,17 @@ namespace Callof2d.Game.Casting
         }
 
         /// <summary>
-        /// Gets the actor's text.
-        /// </summary>
-        /// <returns>The text.</returns>
-        public string GetText()
-        {
-            return text;
-        }
-
-        /// <summary>
         /// Gets the actor's current velocity.
         /// </summary>
         /// <returns>The velocity.</returns>
         public Vector2 GetVelocity()
         {
             return velocity;
+        }
+
+        public float GetRadius() 
+        {   
+            return radius;
         }
 
         /// <summary>
@@ -116,21 +102,6 @@ namespace Callof2d.Game.Casting
             this.color = color;
         }
 
-        /// <summary>
-        /// Sets the actor's font size to the given value.
-        /// </summary>
-        /// <param name="fontSize">The given font size.</param>
-        /// <exception cref="ArgumentException">
-        /// When font size is less than or equal to zero.
-        /// </exception>
-        public void SetFontSize(int fontSize)
-        {
-            if (fontSize <= 0)
-            {
-                throw new ArgumentException("fontSize must be greater than zero");
-            }
-            this.fontSize = fontSize;
-        }
 
         /// <summary>
         /// Sets the actor's position to the given value.
@@ -147,20 +118,6 @@ namespace Callof2d.Game.Casting
         }
 
         /// <summary>
-        /// Sets the actor's text to the given value.
-        /// </summary>
-        /// <param name="text">The given text.</param>
-        /// <exception cref="ArgumentException">When text is null.</exception>
-        public void SetText(string text)
-        {
-            if (text == null)
-            {
-                throw new ArgumentException("text can't be null");
-            }
-            this.text = text;
-        }
-
-        /// <summary>
         /// Sets the actor's velocity to the given value.
         /// </summary>
         /// <param name="velocity">The given velocity.</param>
@@ -172,6 +129,11 @@ namespace Callof2d.Game.Casting
                 throw new ArgumentException("velocity can't be null");
             }
             this.velocity = velocity;
+        }
+
+        public void SetRadius(float radius) 
+        {
+            this.radius = radius;
         }
 
         

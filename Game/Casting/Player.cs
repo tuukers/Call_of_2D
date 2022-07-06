@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using Callof2d.Game;
 
 
 namespace Callof2d.Game.Casting
@@ -31,7 +32,7 @@ namespace Callof2d.Game.Casting
 
             // Finish bullet.
             bullet.SetVelocity(normalized);
-            bullet.SetText("-");
+            bullet.SetRadius(Program.BULLET_RADIUS);
             bullet.SetColor(this.GetColor());
 
             // Add bullet to actors so it is displayed.
