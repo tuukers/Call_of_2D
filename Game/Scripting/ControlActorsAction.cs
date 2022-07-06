@@ -19,8 +19,8 @@ namespace Callof2d.Game.Scripting
         private KeyboardService keyboardService;
         private MouseService mouseService;
         private VideoService videoService;
-        private Point direction = new Point(0,-Constants.CELL_SIZE);
-        private Point direction2 = new Point(0,-Constants.CELL_SIZE);
+        private Point direction = new Point(0,-Program.CELL_SIZE);
+        private Point direction2 = new Point(0,-Program.CELL_SIZE);
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
