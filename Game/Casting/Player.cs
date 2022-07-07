@@ -7,6 +7,7 @@ namespace Callof2d.Game.Casting
 {
     public class Player : Actor
     {
+        public static int playerHealth = 100;
 
         public Player() 
         { 
@@ -38,6 +39,12 @@ namespace Callof2d.Game.Casting
             // Add bullet to actors so it is displayed.
             cast.AddActor("bullets", bullet);
 
+        }
+
+        public static void PlayerTakeDamage(int damage)
+        {
+            playerHealth -= 20;
+            Console.WriteLine($"Player took {damage} damage. Player Health: {playerHealth}");
         }
     }
 }
