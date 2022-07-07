@@ -19,7 +19,7 @@ namespace Callof2d
         private static int FRAME_RATE = 60;
         private static int MAX_X = 900;
         private static int MAX_Y = 600;
-        private static int CELL_SIZE = 15;
+        public static int CELL_SIZE = 15;
         private static int FONT_SIZE = 15;
         private static int PLAYER_SPEED = 3;
         private static int COLS = 60;
@@ -43,6 +43,7 @@ namespace Callof2d
             KeyboardService keyboardService = new KeyboardService(PLAYER_SPEED);
             VideoService videoService = new VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE, false);
             MouseService mouseService = new MouseService();
+            ContactService contactService = new ContactService();
 
             // create the cast
             Cast cast = new Cast();
@@ -62,9 +63,9 @@ namespace Callof2d
                 int y = random.Next(1, MAX_Y);
                 Vector2 position = new Vector2(x, y);
 
-                int r = random.Next(0, 256);
-                int g = random.Next(0, 256);
-                int b = random.Next(0, 256);
+                int r = 0;//random.Next(0, 256);
+                int g = 255;//random.Next(0, 256);
+                int b = 0;//random.Next(0, 256);
                 Color color = new Color(r, g, b);
 
                 Zombie zombie = new Zombie();
@@ -80,7 +81,7 @@ namespace Callof2d
             script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService));
             script.AddAction("updates", new MoveActorsAction(videoService, mouseService));
             script.AddAction("updates", new HandleBulletZombieCollisionsAction());
-            script.AddAction("updates", new HandleZombieZombieCollisionsAction());
+            script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));
             script.AddAction("outputs", new DrawActorsAction(videoService));
 
             // start the game

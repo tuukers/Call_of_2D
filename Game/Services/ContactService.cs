@@ -27,24 +27,31 @@ namespace Callof2d.Game.Services
             }
         public bool Collision(Actor actor1, Actor actor2)
         {
-            float radius1 = actor1.GetRadius();
-            float radius2 = actor2.GetRadius();
-
-            Vector2 actor1Position = actor1.GetPosition();
-            Vector2 actor2Position = actor2.GetPosition();
-
-            Vector2 vector = actor1Position - actor2Position;
-            float distance = Vector2.Distance(actor1Position,actor2Position);
-
-            if(distance <= radius1 + radius2)
+            if(!(actor1==null || actor2==null))
             {
-                collision=true;
+                return false;
             }
             else
             {
-                collision=false;
+                float radius1 = actor1.GetRadius();
+                float radius2 = actor2.GetRadius();
+
+                Vector2 actor1Position = actor1.GetPosition();
+                Vector2 actor2Position = actor2.GetPosition();
+
+                Vector2 vector = actor1Position - actor2Position;
+                float distance = Vector2.Distance(actor1Position,actor2Position);
+
+                if(distance <= radius1 + radius2)
+                {
+                    collision=true;
+                }
+                else
+                {
+                    collision=false;
+                }
+                return collision;
             }
-            return collision;
         }
     }
 }
