@@ -27,9 +27,9 @@ namespace Callof2d
         private static string CAPTION = "Call Of 2d";
         private static Color WHITE = new Color(255, 255, 255);
         private static int DEFAULT_ZOMBIES = 40;
-        private static float PLAYER_RADIUS = 20;
+        private static float PLAYER_RADIUS = 10;
         private static float ZOMBIE_RADIUS = 10;
-        public static float BULLET_RADIUS = 5;
+        public static float BULLET_RADIUS = 2;
         
 
 

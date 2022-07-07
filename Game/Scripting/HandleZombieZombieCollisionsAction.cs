@@ -41,7 +41,7 @@ public class HandleZombieZombieCollisionsAction : Action
                         float x_difference_abs=Math.Abs(x_difference);
                         float y_difference_abs=Math.Abs(y_difference);
 
-                        if(x_difference_abs<10 && y_difference_abs<10)
+                        if(x_difference_abs<20 && y_difference_abs<20)
                         {
                             Vector2 movingAway=otherZombiePosition - zombiePosition;
                             zombie.SetVelocity(Vector2.Normalize(-movingAway));
