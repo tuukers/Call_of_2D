@@ -15,14 +15,17 @@ namespace Callof2d.Game.Scripting
     /// collides with its segments, or the game is over.
     /// </para>
     /// </summary>
-    public class HandleBulletZombieCollisionsAction : Action
+    public class HandleBulletCollisionsAction : Action
     {
 
         /// <summary>
         /// Constructs a new instance of HandleCollisionsAction.
         /// </summary>
-        public HandleBulletZombieCollisionsAction()
+        private ContactService contactService;
+        bool collision = false;
+        public HandleBulletCollisionsAction(ContactService contactService)
         {
+            this.contactService = contactService;
         }
 
         /// <inheritdoc/>
@@ -31,6 +34,7 @@ namespace Callof2d.Game.Scripting
             Actor player = cast.GetFirstActor("player");
             List<Actor> zombies = cast.GetActors("zombie");
             List<Actor> bullets = cast.GetActors("bullets");
+            List<Actor> walls = cast.GetActors("wall");
             
             foreach(Zombie zombie in zombies)
             {
@@ -56,6 +60,16 @@ namespace Callof2d.Game.Scripting
                         zombie.TakeDamage(shot.GetBulletDamage());
                         if (zombie.GetHealth()<=0){
                             cast.RemoveActor("zombie",zombie);
+                        }
+                    }
+
+                    foreach (Actor wallT in walls)
+                    {
+                        Wall wall= (Wall)wallT;
+                        collision=contactService.WallCollision(bullet,wall);
+                        if(collision)
+                        {
+                            cast.RemoveActor("bullets",bullet);
                         }
                     }
                 }

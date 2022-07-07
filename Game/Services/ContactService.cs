@@ -53,5 +53,43 @@ namespace Callof2d.Game.Services
                 return collision;
             }
         }
+        public bool WallCollision(Actor actor, Wall wall)
+        {
+            float radius = actor.GetRadius();
+            float height = wall.GetHeight();
+            float width = wall.GetWidth();
+
+            Vector2 actorPosition = actor.GetPosition();
+            Vector2 wallPosition = wall.GetPosition();
+
+            float wallLeft = wall.GetLeft(wallPosition);
+            float wallRight = wall.GetRight(wallPosition);
+            float wallTop = wall.GetTop(wallPosition);
+            float wallBottom = wall.GetBottom(wallPosition);
+
+            if((actorPosition.X+radius >= wallLeft & actorPosition.X+radius <=wallRight) & actorPosition.Y+radius <=wallBottom & actorPosition.Y-radius >= wallTop)
+            {
+                collision=true;
+            }
+            else if((actorPosition.X-radius >= wallLeft & actorPosition.X-radius <=wallRight) & actorPosition.Y+radius <=wallBottom & actorPosition.Y-radius >= wallTop)
+            {
+                collision=true;
+            }
+            else if((actorPosition.Y+radius <= wallBottom & actorPosition.Y+radius >= wallTop)& actorPosition.X+radius <= wallRight & actorPosition.X-radius >= wallLeft)
+            {
+                collision = true;
+                
+            }
+            else if((actorPosition.Y-radius <= wallBottom & actorPosition.Y-radius >= wallTop)& actorPosition.X+radius <= wallRight & actorPosition.X-radius >= wallLeft)
+            {
+                collision = true;
+                
+            }
+            else
+            {
+                collision=false;
+            }
+            return collision;
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace Callof2d.Game.Casting
 
             // Normalize result so contains only direction, not magnitude.
             Vector2 normalized = Vector2.Normalize(a);
-            normalized = Vector2.Multiply(normalized, 10);
+            normalized = Vector2.Multiply(normalized, Program.BULLET_SPEED);
 
             // Finish bullet.
             bullet.SetVelocity(normalized);

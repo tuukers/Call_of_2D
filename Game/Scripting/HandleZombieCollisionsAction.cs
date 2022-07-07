@@ -54,8 +54,10 @@ public class HandleZombieZombieCollisionsAction : Action
 
                                 // Normalize result so contains only direction, not magnitude.
                                 Vector2 normalized = Vector2.Normalize(a);
+                                float zombieDivideSpeed = Program.ZOMBIE_NORMAL_SPEED_DIVIDE;
+                                Vector2 velocity = Vector2.Divide(normalized,zombieDivideSpeed);
 
-                                zombie.SetVelocity(normalized);
+                                zombie.SetVelocity(velocity);
                             }  
                 }
             }
