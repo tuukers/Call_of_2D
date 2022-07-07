@@ -25,24 +25,18 @@ namespace Callof2d.Game.Services
                     a=(float)Math.Atan(y_difference/x_difference);
                 return a;
             }
-        public bool ListListCollision(Actor actor1, Actor actor2)
+        public bool Collision(Actor actor1, Actor actor2)
         {
+            float radius1 = actor1.GetRadius();
+            float radius2 = actor2.GetRadius();
 
-            Vector2 actor1Position=actor1.GetPosition();
-            float actor1Position_X=actor1Position.X;
-            float actor1Position_Y=actor1Position.Y;
+            Vector2 actor1Position = actor1.GetPosition();
+            Vector2 actor2Position = actor2.GetPosition();
 
-            Vector2 actor2Position=actor2.GetPosition();
-            Bullet shot = (Bullet)actor2;
-            float actor2Position_X=actor2Position.X;
-            float actor2Position_Y=actor2Position.Y;
+            Vector2 vector = actor1Position - actor2Position;
+            float distance = Vector2.Distance(actor1Position,actor2Position);
 
-            float x_difference= actor1Position_X-actor2Position_X;
-            float y_difference= actor1Position_Y-actor2Position_Y;
-            float x_difference_abs=Math.Abs(x_difference);
-            float y_difference_abs=Math.Abs(y_difference);
-
-            if(x_difference_abs<10 && y_difference_abs<10)
+            if(distance <= radius1 + radius2)
             {
                 collision=true;
             }
