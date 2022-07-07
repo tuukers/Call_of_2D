@@ -1,3 +1,5 @@
+using System;
+
 namespace Callof2d.Game.Casting
 {
     /// <summary>
@@ -19,14 +21,20 @@ namespace Callof2d.Game.Casting
             this.health=5;
         }
 
-        public void TakeDamage(int bulletDamage)
+        public void TakeDamage(int damage)
         {
-            this.health-=1;
+            this.health -= damage;
         }
 
         public float GetHealth()
         {
             return this.health;
+        }
+
+        public static void BasicAttack()
+        {
+            Player.PlayerTakeDamage(20);
+            Console.WriteLine("BasicAttack performed");
         }
     }
 }
