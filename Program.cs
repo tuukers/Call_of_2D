@@ -26,6 +26,7 @@ namespace Callof2d
         private static int ROWS = 40;
         private static string CAPTION = "Call Of 2d";
         private static Color WHITE = new Color(255, 255, 255);
+        private static Color GREY = new Color(100,100,100);
         private static int DEFAULT_ZOMBIES = 40;
         private static float PLAYER_RADIUS = 10;
         private static float ZOMBIE_RADIUS = 10;
@@ -54,6 +55,14 @@ namespace Callof2d
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
             player.SetRadius(PLAYER_RADIUS);
             cast.AddActor("player", player);
+
+            // create walls
+            Wall wall = new Wall();
+            wall.SetColor(GREY);
+            wall.SetPosition(new Vector2(MAX_X/3, MAX_Y/2));
+            wall.SetHeight(100);
+            wall.SetWidth(20);
+            cast.AddActor("wall",wall);
 
             // create the zombies
             Random random = new Random();

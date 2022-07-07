@@ -13,7 +13,6 @@ public class HandleZombieZombieCollisionsAction : Action
         /// Constructs a new instance of HandleCollisionsAction.
         /// </summary>
         private ContactService contactService;
-        private bool contact = false;
         public HandleZombieZombieCollisionsAction(ContactService contactService)
         {
 
@@ -32,10 +31,19 @@ public class HandleZombieZombieCollisionsAction : Action
 
                 foreach(Actor otherZombie in zombies)
                 {
-                        contact=false;
-                        contact=contactService.Collision(zombie,otherZombie);
-                        Vector2 otherZombiePosition =  otherZombie.GetPosition();
-                            if(contact)
+                        //contact=contactService.Collision(zombie,otherZombie);
+                        float radius1 = zombie.GetRadius();
+                        float radius2 = otherZombie.GetRadius();
+
+                        Vector2 actor1Position = zombie.GetPosition();
+                        Vector2 actor2Position = otherZombie.GetPosition();
+
+                        Vector2 vector = actor1Position - actor2Position;
+                        float distance = Vector2.Distance(actor1Position,actor2Position);
+
+                        Vector2 otherZombiePosition =  otherZombie.GetPosition(); //I copied it in and it works. I don't know why
+
+                            if(distance <= radius1 + radius2)
                             {
                                 Vector2 movingAway=otherZombiePosition - zombiePosition;
                                 zombie.SetVelocity(Vector2.Normalize(-movingAway));

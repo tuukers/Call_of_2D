@@ -72,6 +72,18 @@ namespace Callof2d.Game.Services
             Raylib.DrawCircleV(position, radius, color);
         }
 
+        public void DrawWall(Actor wallIn)
+        {
+            Wall wall = (Wall) wallIn;
+            Vector2 position = wall.GetPosition();
+            Casting.Color c = wall.GetColor();
+            float height = wall.GetHeight();
+            float width = wall.GetWidth();
+            Vector2 size = new Vector2(width,height);
+            Raylib_cs.Color color = ToRaylibColor(c);
+            Raylib.DrawRectangleV(position,size,color);
+        }
+
         /// <summary>
         /// Draws the given list of actors on the screen.
         /// </summary>
@@ -81,6 +93,14 @@ namespace Callof2d.Game.Services
             foreach (Actor actor in actors)
             {
                 DrawActor(actor);
+            }
+        }
+
+        public void DrawWalls(List<Actor> actors)
+        {
+            foreach (Actor actor in actors)
+            {
+                DrawWall(actor);
             }
         }
 
