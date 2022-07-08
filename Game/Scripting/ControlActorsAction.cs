@@ -69,7 +69,20 @@ namespace Callof2d.Game.Scripting
                     // bottomCollision = contactService.WallCollisionTop((Actor)player);
                     // velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
                     // player.SetVelocity(velocity);
-                    if(contactService.WallCollisionTop(player, wall))
+                    
+                    if(contactService.WallCollisionLeft(player, wall))
+                    {
+                        leftCollision = true;
+                    }
+                    else if(contactService.WallCollisionRight(player, wall))
+                    {
+                        rightCollision=true;
+                    }
+                    else if(contactService.WallCollisionBottom(player, wall))
+                    {
+                        bottomCollision=true;
+                    }
+                    else if(contactService.WallCollisionTop(player, wall))
                     {
                         topCollision=true;
                         // if(contactService.WallCollisionRight(player,wall))
@@ -87,18 +100,6 @@ namespace Callof2d.Game.Scripting
                         //     velocity = keyboardService.GetDirection(true,false,false,false);
                         //     player.SetVelocity(velocity);
                         // }
-                    }
-                    else if(contactService.WallCollisionLeft(player, wall))
-                    {
-                        leftCollision = true;
-                    }
-                    else if(contactService.WallCollisionRight(player, wall))
-                    {
-                        rightCollision=true;
-                    }
-                    else if(contactService.WallCollisionBottom(player, wall))
-                    {
-                        bottomCollision=true;
                     }
                 }
             }
