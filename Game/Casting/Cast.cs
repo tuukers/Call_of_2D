@@ -86,6 +86,19 @@ namespace Callof2d.Game.Casting
             return result;
         }
 
+        public Actor GetSpecificActor(string group, int index)
+        {
+            Actor result = null;
+            if (actors.ContainsKey(group))
+            {
+                if (actors[group].Count > 0)
+                {
+                    result = actors[group][index];
+                }
+            }
+            return result;
+        }
+
         
 
         /// <summary>

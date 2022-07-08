@@ -23,6 +23,11 @@ namespace Callof2d.Game.Scripting
         private Point direction = new Point(0,-Program.CELL_SIZE);
         private Point direction2 = new Point(0,-Program.CELL_SIZE);
         private bool collision = false;
+        private bool topCollision = false;
+        private bool leftCollision = false;
+        private bool rightCollision = false;
+        private bool bottomCollision = false;
+
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
@@ -42,8 +47,9 @@ namespace Callof2d.Game.Scripting
             Player player = (Player)cast.GetFirstActor("player");
             List<Actor> walls = cast.GetActors("wall");
             Vector2 playerPosition = player.GetPosition();
-            Vector2 velocity = keyboardService.GetDirection();
+            Vector2 velocity = keyboardService.GetDirection(false,false,false,false);
             player.SetVelocity(velocity);
+            
             
             if(mouseService.IsMousePressed())
             {
@@ -51,96 +57,84 @@ namespace Callof2d.Game.Scripting
 
                 player.Shoot(cast, mousePosition);
             }
-
+            
             foreach (Actor wallT in walls)
-                    {
-                        Wall wall= (Wall)wallT;
-                        Vector2 wallPosition = wall.GetPosition(); 
-                        Vector2 wallCenter = wall.GetCenter(wallPosition);
-                        collision=contactService.WallCollision(player,wall);
-                        if(collision)
-                        {
-                            // Console.WriteLine("colided"); //collision testing
-                            if(wall.GetHorizontal())
-                            {
-                                if(playerPosition.Y>wallCenter.Y)
-                                {
-                                    velocity = keyboardService.GetDirectionTopCollision();
-                                    player.SetVelocity(velocity);
-                                }
-                                else
-                                {
-                                    velocity = keyboardService.GetDirectionBottomCollision();
-                                    player.SetVelocity(velocity);
-                                }
-                            }
-                            else
-                            {
-                                if(playerPosition.X > wallCenter.X)
-                                {
-                                    velocity = keyboardService.GetDirectionLeftCollision();
-                                    player.SetVelocity(velocity);
-                                }
-                                else
-                                {
-                                    velocity = keyboardService.GetDirectionRightCollision();
-                                    player.SetVelocity(velocity);
-                                }
-                            }
-                        }
-                    }
+            {
+                Wall wall = (Wall) wallT;
+                collision = contactService.WallCollision(player,wall);
+                if(collision)
+                {
+                    topCollision = contactService.WallCollisionTop((Actor)player);
+                    leftCollision = contactService.WallCollisionLeft((Actor)player);
+                    rightCollision = contactService.WallCollisionRight((Actor)player);
+                    bottomCollision = contactService.WallCollisionTop((Actor)player);
+                    velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
+                    player.SetVelocity(velocity);
+                }
+            }
+
+            // foreach (Actor wallT in walls)
+            //         {
+            //             Wall wall= (Wall)wallT;
+            //             bool topCollision = contactService.WallCollisionTop(player);
+            //             if(topCollision)
+            //             {
+            //                 Console.WriteLine("colided");
+            //             }
+            //             bool leftCollision = contactService.WallCollisionLeft(player);
+            //             bool rightCollision = contactService.WallCollisionRight(player);
+            //             bool bottomCollision = contactService.WallCollisionTop(player);
+            //             // if(collision)
+            //             // {
+            //             //     velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
+            //             //     player.SetVelocity(velocity);
+            //             // }
+
+
+
+            //             Vector2 wallPosition = wall.GetPosition(); 
+            //             Vector2 wallCenter = wall.GetCenter(wallPosition);
+            //             collision=contactService.WallCollision(player,wall);
+            //             bool collisionTopRight=contactService.WallCollisionTop(player) & contactService.WallCollisionRight(player);
+            //             bool collisionTopLeft=contactService.WallCollisionTop(player) & contactService.WallCollisionLeft(player);
+            //             bool collisionBottomRight=contactService.WallCollisionBottom(player) & contactService.WallCollisionRight(player);
+            //             bool collisionBottomLeft=contactService.WallCollisionBottom(player) & contactService.WallCollisionLeft(player);
+            //             if(collision)
+            //             {
+            //                 // Console.WriteLine("colided"); //collision testing
+            //                 if(wall.GetHorizontal())
+            //                 {
+            //                     if(playerPosition.Y>wallCenter.Y)
+            //                     {
+            //                         velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
+            //                         // if()
+            //                         // {
+
+            //                         // }
+            //                         player.SetVelocity(velocity);
+            //                     }
+            //                     else
+            //                     {
+            //                         velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
+            //                         player.SetVelocity(velocity);
+            //                     }
+            //                 }
+            //                 else
+            //                 {
+            //                     if(playerPosition.X > wallCenter.X)
+            //                     {
+            //                         velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
+            //                         player.SetVelocity(velocity);
+            //                     }
+            //                     else
+            //                     {
+            //                         velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
+            //                         player.SetVelocity(velocity);
+            //                     }
+            //                 }
+            //             }
+            //         }
         }
 
-
-
-
-        // {
-        //     Player player = (Player)cast.GetFirstActor("player");
-        //     Vector2 velocity = keyboardService.GetDirection();
-        //     player.SetVelocity(velocity);     
-            
-        //     if(mouseService.IsMousePressed())
-        //     {
-        //         Vector2 mousePosition = mouseService.GetMousePosition();
-
-        //         player.Shoot(cast, mousePosition);
-        //     }
-
-        //     List<Actor> zombies = cast.GetActors("zombies");
-        //     List<Actor> bullets = cast.GetActors("bullets");
-
-        //     // Get player position x and y
-        //     Vector2 playerPosition = player.GetPosition();
-
-
-        //     // Updates zombie velocity to track player.
-        //     foreach (Actor actor in zombies) {
-        //         Vector2 zombiePosition = actor.GetPosition();
-
-        //         int maxX1 = videoService.GetWidth();
-        //         int maxY1 = videoService.GetHeight();
-
-        //         // Subtract player position from mouse position.
-        //         Vector2 a = Vector2.Subtract(playerPosition, zombiePosition);
-
-        //         // Normalize result so contains only direction, not magnitude.
-        //         Vector2 normalized = Vector2.Normalize(a);
-
-        //         actor.SetVelocity(normalized);
-        //     }
-
-        //     foreach (Actor bullet in bullets)
-        //     {
-        //         int maxX = videoService.GetWidth();
-        //         int maxY = videoService.GetHeight();
-        //         bullet.MoveNext();
-        //         bool isInFrame = bullet.isInFrame(maxX, maxY);
-        //         Console.WriteLine(isInFrame);
-
-        //         if (!isInFrame) {
-        //             cast.RemoveActor("bullets", bullet);
-        //         }
-        //     }
-        // }
     }
 }

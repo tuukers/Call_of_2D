@@ -16,6 +16,7 @@ namespace Callof2d.Game.Services
     {
         private int playerSpeed = 0;
 
+
         /// <summary>
         /// Constructs a new instance of KeyboardService using the given cell size.
         /// </summary>
@@ -29,28 +30,28 @@ namespace Callof2d.Game.Services
         /// Gets the selected direction based on the currently pressed keys.
         /// </summary>
         /// <returns>The direction as an instance of Point.</returns>
-        public Vector2 GetDirection()
+        public Vector2 GetDirection(bool topCollision, bool leftCollision, bool rightCollision, bool bottomCollision)
         {
 
             int dx = 0;
             int dy = 0;
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_A) & !leftCollision)
             {
                 dx = -1;
             }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_D) & !rightCollision)
             {
                 dx = 1;
             }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_W) & !topCollision)
             {
                 dy = -1;
             }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_S) & !bottomCollision)
             {
                 dy = 1;
             }
@@ -63,138 +64,206 @@ namespace Callof2d.Game.Services
             
         }
 
-        public Vector2 GetDirectionTopCollision()
-        {
+        // public Vector2 GetDirectionTopCollision()
+        // {
 
-            int dx = 0;
-            int dy = 0;
+        //     int dx = 0;
+        //     int dy = 0;
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
-            {
-                dx = -1;
-            }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+        //     {
+        //         dx = -1;
+        //     }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
-            {
-                dx = 1;
-            }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+        //     {
+        //         dx = 1;
+        //     }
 
-            // if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
-            // {
-            //     dy = -1;
-            // }
+        //     // if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+        //     // {
+        //     //     dy = -1;
+        //     // }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
-            {
-                dy = 1;
-            }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+        //     {
+        //         dy = 1;
+        //     }
             
-            Vector2 direction = new Vector2(dx,dy);
-            direction = Vector2.Multiply(direction, 7);
+        //     Vector2 direction = new Vector2(dx,dy);
+        //     direction = Vector2.Multiply(direction, 7);
 
-            return direction;
-        }
+        //     return direction;
+        // }
 
-        public Vector2 GetDirectionBottomCollision()
-        {
+        // public Vector2 GetDirectionBottomCollision()
+        // {
 
-            int dx = 0;
-            int dy = 0;
+        //     int dx = 0;
+        //     int dy = 0;
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
-            {
-                dx = -1;
-            }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+        //     {
+        //         dx = -1;
+        //     }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
-            {
-                dx = 1;
-            }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+        //     {
+        //         dx = 1;
+        //     }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
-            {
-                dy = -1;
-            }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+        //     {
+        //         dy = -1;
+        //     }
 
-            // if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
-            // {
-            //     dy = 1;
-            // }
+        //     // if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+        //     // {
+        //     //     dy = 1;
+        //     // }
             
-            Vector2 direction = new Vector2(dx,dy);
-            direction = Vector2.Multiply(direction, 7);
+        //     Vector2 direction = new Vector2(dx,dy);
+        //     direction = Vector2.Multiply(direction, 7);
 
-            return direction;
-
-            
-        }
-
-        public Vector2 GetDirectionLeftCollision()
-        {
-
-            int dx = 0;
-            int dy = 0;
-
-            // if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
-            // {
-            //     dx = -1;
-            // }
-
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
-            {
-                dx = 1;
-            }
-
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
-            {
-                dy = -1;
-            }
-
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
-            {
-                dy = 1;
-            }
-            
-            Vector2 direction = new Vector2(dx,dy);
-            direction = Vector2.Multiply(direction, 7);
-
-            return direction;
+        //     return direction;
 
             
-        }
+        // }
 
-        public Vector2 GetDirectionRightCollision()
-        {
+        // public Vector2 GetDirectionLeftCollision()
+        // {
 
-            int dx = 0;
-            int dy = 0;
+        //     int dx = 0;
+        //     int dy = 0;
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
-            {
-                dx = -1;
-            }
+        //     // if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+        //     // {
+        //     //     dx = -1;
+        //     // }
 
-            // if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
-            // {
-            //     dx = 1;
-            // }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+        //     {
+        //         dx = 1;
+        //     }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
-            {
-                dy = -1;
-            }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+        //     {
+        //         dy = -1;
+        //     }
 
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
-            {
-                dy = 1;
-            }
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+        //     {
+        //         dy = 1;
+        //     }
             
-            Vector2 direction = new Vector2(dx,dy);
-            direction = Vector2.Multiply(direction, 7);
+        //     Vector2 direction = new Vector2(dx,dy);
+        //     direction = Vector2.Multiply(direction, 7);
 
-            return direction;
+        //     return direction;
 
             
-        }
+        // }
+
+        // public Vector2 GetDirectionRightCollision()
+        // {
+
+        //     int dx = 0;
+        //     int dy = 0;
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+        //     {
+        //         dx = -1;
+        //     }
+
+        //     // if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+        //     // {
+        //     //     dx = 1;
+        //     // }
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+        //     {
+        //         dy = -1;
+        //     }
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+        //     {
+        //         dy = 1;
+        //     }
+            
+        //     Vector2 direction = new Vector2(dx,dy);
+        //     direction = Vector2.Multiply(direction, 7);
+
+        //     return direction;
+
+            
+        // }
+
+        // public Vector2 GetDirectionTopRightCollision()
+        // {
+
+        //     int dx = 0;
+        //     int dy = 0;
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+        //     {
+        //         dx = -1;
+        //     }
+
+        //     // if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+        //     // {
+        //     //     dx = 1;
+        //     // }
+
+        //     // if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+        //     // {
+        //     //     dy = -1;
+        //     // }
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+        //     {
+        //         dy = 1;
+        //     }
+            
+        //     Vector2 direction = new Vector2(dx,dy);
+        //     direction = Vector2.Multiply(direction, 7);
+
+        //     return direction;
+
+            
+        // }
+
+        // public Vector2 GetDirectionTopLeftCollision()
+        // {
+
+        //     int dx = 0;
+        //     int dy = 0;
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+        //     {
+        //         dx = -1;
+        //     }
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+        //     {
+        //         dx = 1;
+        //     }
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_W))
+        //     {
+        //         dy = -1;
+        //     }
+
+        //     if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+        //     {
+        //         dy = 1;
+        //     }
+            
+        //     Vector2 direction = new Vector2(dx,dy);
+        //     direction = Vector2.Multiply(direction, 7);
+
+        //     return direction;
+
+            
+        // }
     }
 }

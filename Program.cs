@@ -45,14 +45,15 @@ namespace Callof2d
         /// <param name="args">The given arguments.</param>
         static void Main(string[] args)
         {
+            // create the cast
+            Cast cast = new Cast();
+
             // create survices
             KeyboardService keyboardService = new KeyboardService(PLAYER_SPEED);
             VideoService videoService = new VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE, false);
             MouseService mouseService = new MouseService();
-            ContactService contactService = new ContactService();
+            ContactService contactService = new ContactService(cast);
 
-            // create the cast
-            Cast cast = new Cast();
 
             // create the player
             Player player = new Player();
@@ -67,27 +68,31 @@ namespace Callof2d
             Wall wall3 = new Wall();
             Wall wall4 = new Wall();
 
+            //left wall
             wall1.SetColor(GREY);
             wall1.SetPosition(new Vector2(MAX_X/3, MAX_Y/5));
             wall1.SetHeight(ROOM1_HEIGHT);
             wall1.SetWidth(WALL_THICKNESS);
             wall1.SetHorizontal(false);
 
+            //top wall
             wall2.SetColor(GREY);
             wall2.SetPosition(new Vector2(MAX_X/3, MAX_Y/5));
             wall2.SetHeight(WALL_THICKNESS);
             wall2.SetWidth(ROOM1_WIDTH);
             wall2.SetHorizontal(true);
 
+            //bottom wall
             wall3.SetColor(GREY);
             wall3.SetPosition(new Vector2(MAX_X/3, MAX_Y/5+ROOM1_HEIGHT));
             wall3.SetHeight(WALL_THICKNESS);
             wall3.SetWidth(ROOM1_WIDTH);
             wall3.SetHorizontal(true);
 
+            //right wall
             wall4.SetColor(GREY);
             wall4.SetPosition(new Vector2(MAX_X/3+ROOM1_WIDTH, MAX_Y/5));
-            wall4.SetHeight(ROOM1_HEIGHT);
+            wall4.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall4.SetWidth(WALL_THICKNESS);
             wall4.SetHorizontal(false);
             
