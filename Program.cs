@@ -143,10 +143,10 @@ namespace Callof2d
             
             Script script = new Script();
             script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService));
-            script.AddAction("updates", new MoveActorsAction(videoService, mouseService));
+            script.AddAction("updates", new DrawActorsAction(videoService, mouseService));
             script.AddAction("updates", new HandleBulletCollisionsAction(contactService));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));
-            script.AddAction("outputs", new DrawActorsAction(videoService));
+            script.AddAction("outputs", new MoveActorsAction(videoService));
 
             // start the game
             

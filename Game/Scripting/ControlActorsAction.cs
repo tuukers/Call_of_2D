@@ -41,6 +41,7 @@ namespace Callof2d.Game.Scripting
         {
             Player player = (Player)cast.GetFirstActor("player");
             List<Actor> walls = cast.GetActors("wall");
+            HUD hud = (HUD)cast.GetFirstActor("HUD");
             Vector2 playerPosition = player.GetPosition();
             
             
@@ -50,12 +51,14 @@ namespace Callof2d.Game.Scripting
                 Vector2 mousePosition = mouseService.GetMousePosition();
 
                 player.Shoot(cast, mousePosition);
+                hud.WeaponHUD();
             }
 
             if(keyboardService.RKeyPressed())
             {
                 Weapon weapon = player.GetHeldWeapon();
-                weapon.reload();
+                player.PlayerReload();
+                hud.WeaponHUD();
             }
             
             bool topCollision = false;

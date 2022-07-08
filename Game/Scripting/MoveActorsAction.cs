@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -5,47 +6,95 @@ using Callof2d.Game.Casting;
 using Callof2d.Game.Services;
 
 
+
 namespace Callof2d.Game.Scripting
 {
     /// <summary>
-    /// <para>An update action that moves all the actors.</para>
-    /// <para>
-    /// The responsibility of MoveActorsAction is to move all the actors.
-    /// </para>
+    /// <para>An output action that draws all the actors.</para>
+    /// <para>The responsibility of DrawActorsAction is to draw each of the actors.</para>
     /// </summary>
     public class MoveActorsAction : Action
     {
         private VideoService videoService;
-        private MouseService mouseService;
 
         /// <summary>
-        /// Constructs a new instance of MoveActorsAction.
+        /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
         /// </summary>
-        public MoveActorsAction(VideoService videoService,MouseService mouseService)
+        public MoveActorsAction(VideoService videoService)
         {
             this.videoService = videoService;
-            this.mouseService = mouseService;
         }
 
         /// <inheritdoc/>
         public void Execute(Cast cast, Script script)
         {
-            List<Actor> actors = cast.GetAllActors();
-            List<Actor> walls = cast.GetActors("wall");
-            List<Actor> hUDs = cast.GetActors("HUD");
-            Vector2 mousePosition = mouseService.GetMousePosition();
+            Actor banner = cast.GetFirstActor("banner");
+            Actor player = cast.GetFirstActor("player");
+            List<Actor> zombies = cast.GetActors("zombie");
+            List<Actor> bullets = cast.GetActors("bullets");
 
-            foreach (Actor actor in actors)
+            // Get player position x and y
+            Vector2 playerPosition = player.GetPosition();
+
+
+            // Updates zombie velocity to track player.
+            // foreach (Actor actor in zombies) {
+            //     Vector2 zombiePosition = actor.GetPosition();
+
+            //     int maxX1 = videoService.GetWidth();
+            //     int maxY1 = videoService.GetHeight();
+
+            //     // Subtract player position from mouse position.
+            //     Vector2 a = Vector2.Subtract(playerPosition, zombiePosition);
+
+            //     // Normalize result so contains only direction, not magnitude.
+            //     Vector2 normalized = Vector2.Normalize(a);
+
+            //     actor.SetVelocity(normalized);
+
+
+            //     //actor.MoveNext();
+            // }
+
+            int maxX = videoService.GetWidth();
+            int maxY = videoService.GetHeight();
+            //player.MoveNext();
+
+            foreach (Actor actor in zombies)
             {
-                actor.MoveNext();
-            }
+                Zombie zombie = (Zombie) actor;
+                float health = zombie.GetHealth();
+            } 
 
-            videoService.ClearBuffer();
-            videoService.DrawActors(actors);
-            videoService.DrawWalls(walls);
-            videoService.DrawHUDs(hUDs);
-            videoService.DrawPointer(cast.GetFirstActor("player"), mousePosition);
-            videoService.FlushBuffer();
+            foreach (Actor bullet in bullets)
+            {
+                bullet.MoveNext();
+                bool isInFrame = bullet.isInFrame(maxX, maxY);
+
+                if (!isInFrame) {
+                    cast.RemoveActor("bullets", bullet);
+                }
+            }
         }
+        
+        
+        
+        
+        // {
+        //     Player player = (Player)cast.GetFirstActor("player");
+
+            
+        //     List<Actor> zombies = cast.GetActors("zombie");
+        //     List<Actor> bullets = cast.GetActors("bullets");
+
+
+            
+        //     videoService.ClearBuffer();
+        //     videoService.DrawActor(player);
+        //     videoService.DrawActors(zombies);
+        //     //videoService.DrawActor(winner);
+        //     videoService.DrawActors(bullets);
+        //     videoService.FlushBuffer();
+        // }
     }
 }

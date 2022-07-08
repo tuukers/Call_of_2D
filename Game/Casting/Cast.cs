@@ -138,5 +138,12 @@ namespace Callof2d.Game.Casting
             }
         }
 
+        public void RemoveHUD(string group, HUD hUD)
+        {
+            if (HUDs.ContainsKey(group))
+            {
+                HUDs[group].Remove(hUD);
+            }
+        }
     }
 }
