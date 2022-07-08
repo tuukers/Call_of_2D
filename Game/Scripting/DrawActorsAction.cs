@@ -70,7 +70,6 @@ namespace Callof2d.Game.Scripting
             {
                 bullet.MoveNext();
                 bool isInFrame = bullet.isInFrame(maxX, maxY);
-                Console.WriteLine(isInFrame);
 
                 if (!isInFrame) {
                     cast.RemoveActor("bullets", bullet);

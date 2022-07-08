@@ -17,12 +17,13 @@ namespace Callof2d.Game.Services
         private Wall wall2;
         private Wall wall3;
         private Wall wall4;
-        public ContactService(Cast cast)
+
+        public ContactService(Wall wall1, Wall wall2, Wall wall3, Wall wall4)
         {
-            Wall wall1=(Wall)cast.GetSpecificActor("wall",1);
-            Wall wall2=(Wall)cast.GetSpecificActor("wall",2);
-            Wall wall3=(Wall)cast.GetSpecificActor("wall",3);
-            Wall wall4=(Wall)cast.GetSpecificActor("wall",4);
+            this.wall1 = wall1;
+            this.wall2 = wall2;
+            this.wall3 = wall3;
+            this.wall4 = wall4;
         }
         public float Rotation(Vector2 referencePosition, Vector2 otherPosition){
                 
@@ -143,18 +144,18 @@ namespace Callof2d.Game.Services
 
         public bool WallCollisionTop(Actor actor)
         {
-            Wall wall = wall2;
+            // Wall wall = wall2;
             float radius = actor.GetRadius();
-            height = wall.GetHeight();
-            float width = wall.GetWidth();
+            height = wall2.GetHeight();
+            float width = wall2.GetWidth();
 
             Vector2 actorPosition = actor.GetPosition();
-            Vector2 wallPosition = wall.GetPosition();
+            Vector2 wallPosition = wall2.GetPosition();
 
-            float wallLeft = wall.GetLeft(wallPosition);
-            float wallRight = wall.GetRight(wallPosition);
-            float wallTop = wall.GetTop(wallPosition);
-            float wallBottom = wall.GetBottom(wallPosition);
+            float wallLeft = wall2.GetLeft(wallPosition);
+            float wallRight = wall2.GetRight(wallPosition);
+            float wallTop = wall2.GetTop(wallPosition);
+            float wallBottom = wall2.GetBottom(wallPosition);
 
             // if((actorPosition.X+radius >= wallLeft & actorPosition.X+radius <=wallRight) & actorPosition.Y+radius <=wallBottom & actorPosition.Y-radius >= wallTop)
             // {
