@@ -53,7 +53,6 @@ namespace Callof2d
             KeyboardService keyboardService = new KeyboardService(PLAYER_SPEED);
             VideoService videoService = new VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE, false);
             MouseService mouseService = new MouseService();
-            ContactService contactService = new ContactService(cast);
 
 
             // create the player
@@ -125,6 +124,7 @@ namespace Callof2d
             }
 
             // create script
+            ContactService contactService = new ContactService(wall1, wall2, wall3, wall4);
             
             Script script = new Script();
             script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService));
@@ -134,6 +134,7 @@ namespace Callof2d
             script.AddAction("outputs", new DrawActorsAction(videoService));
 
             // start the game
+            
             Director director = new Director(keyboardService, videoService, mouseService);
             director.StartGame(cast,script);
         }
