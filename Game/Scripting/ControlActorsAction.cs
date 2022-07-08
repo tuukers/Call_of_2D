@@ -51,6 +51,12 @@ namespace Callof2d.Game.Scripting
 
                 player.Shoot(cast, mousePosition);
             }
+
+            if(keyboardService.RKeyPressed())
+            {
+                Weapon weapon = player.GetHeldWeapon();
+                weapon.reload();
+            }
             
             bool topCollision = false;
             bool leftCollision = false;

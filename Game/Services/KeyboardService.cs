@@ -64,6 +64,16 @@ namespace Callof2d.Game.Services
             
         }
 
+        public bool RKeyPressed()
+        {
+            bool pressed = false;
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_R))
+            {
+                pressed = true;
+            }
+            return pressed;
+        }
+
         // public Vector2 GetDirectionTopCollision()
         // {
 

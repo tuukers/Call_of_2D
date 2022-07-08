@@ -32,6 +32,7 @@ namespace Callof2d.Game.Scripting
         {
             List<Actor> actors = cast.GetAllActors();
             List<Actor> walls = cast.GetActors("wall");
+            List<Actor> hUDs = cast.GetActors("HUD");
             Vector2 mousePosition = mouseService.GetMousePosition();
 
             foreach (Actor actor in actors)
@@ -42,6 +43,7 @@ namespace Callof2d.Game.Scripting
             videoService.ClearBuffer();
             videoService.DrawActors(actors);
             videoService.DrawWalls(walls);
+            videoService.DrawHUDs(hUDs);
             videoService.DrawPointer(cast.GetFirstActor("player"), mousePosition);
             videoService.FlushBuffer();
         }

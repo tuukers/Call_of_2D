@@ -13,6 +13,7 @@ namespace Callof2d.Game.Casting
     public class Cast
     {
         private Dictionary<string, List<Actor>> actors = new Dictionary<string, List<Actor>>();
+        private Dictionary<string, List<Actor>> HUDs = new Dictionary<string, List<Actor>>();        
 
         /// <summary>
         /// Constructs a new instance of Cast.
@@ -39,6 +40,19 @@ namespace Callof2d.Game.Casting
             }
         }
 
+        public void AddHUD(string group, HUD hUD)
+        {
+            if (!HUDs.ContainsKey(group))
+            {
+                HUDs[group] = new List<Actor>();
+            }
+
+            if (!HUDs[group].Contains(hUD))
+            {
+                actors[group].Add(hUD);
+            }
+        }
+
         /// <summary>
         /// Gets the actors in the given group. Returns an empty list if there aren't any.
         /// </summary>
@@ -53,6 +67,16 @@ namespace Callof2d.Game.Casting
             }
             return results;
         }
+
+        // public List<HUD> GetHUDs(string group)
+        // {
+        //     List<HUD> results = new List<HUD>();
+        //     if (HUDs.ContainsKey(group))
+        //     {
+        //         results.AddRange(actors[group]);
+        //     }
+        //     return results;
+        // }
 
         /// <summary>
         /// Gets all the actors in the cast.

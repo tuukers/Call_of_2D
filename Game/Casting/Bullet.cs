@@ -8,10 +8,15 @@ namespace Callof2d.Game.Casting
     {
 
         int bulletDamage=1;
-        public Bullet() 
+        public Bullet(int bulletDamage) 
         { 
+            this.bulletDamage=bulletDamage;
         }
 
+        public void SetBulletDamage(int bulletDamage)
+        {
+            this.bulletDamage= bulletDamage;
+        }
         public int GetBulletDamage(){
             return bulletDamage;
         }

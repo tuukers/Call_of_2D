@@ -8,37 +8,59 @@ namespace Callof2d.Game.Casting
     public class Player : Actor
     {
         public static int playerHealth = 100;
+        private Weapon heldWeapon;
+        private Weapon storedWeapon;
 
         public Player() 
         { 
         }
 
+        public void SetHeldWeapon(Weapon weapon)
+        {
+            this.heldWeapon= weapon;
+        }
+
+        public void SetStoredWeapon(Weapon weapon)
+        {
+            this.storedWeapon= weapon;
+        }
+
+        public Weapon GetHeldWeapon()
+        {
+            return this.heldWeapon;
+        }
+        
+
         public void Shoot(Cast cast, Vector2 mousePosition)
         {
-            // Construct bullet.
-            Bullet bullet = new Bullet();
+            bool shot = heldWeapon.Shoot();
+            if(shot)
+            {
+                // Construct bullet.
+                Bullet bulletType = heldWeapon.GetBulletType();
+                Bullet bullet = new Bullet(bulletType.GetBulletDamage());
 
-            // Set bullet position to player position.
-            bullet.SetPosition(this.GetPosition());
+                // Set bullet position to player position.
+                bullet.SetPosition(this.GetPosition());
 
-            // Get player postion to calculate firing direction.
-            Vector2 pointPosition = this.GetPosition();
+                // Get player postion to calculate firing direction.
+                Vector2 pointPosition = this.GetPosition();
 
-            // Subtract player position from mouse position.
-            Vector2 a = Vector2.Subtract(mousePosition, pointPosition);
+                // Subtract player position from mouse position.
+                Vector2 a = Vector2.Subtract(mousePosition, pointPosition);
 
-            // Normalize result so contains only direction, not magnitude.
-            Vector2 normalized = Vector2.Normalize(a);
-            normalized = Vector2.Multiply(normalized, Program.BULLET_SPEED);
+                // Normalize result so contains only direction, not magnitude.
+                Vector2 normalized = Vector2.Normalize(a);
+                normalized = Vector2.Multiply(normalized, Program.BULLET_SPEED);
 
-            // Finish bullet.
-            bullet.SetVelocity(normalized);
-            bullet.SetRadius(Program.BULLET_RADIUS);
-            bullet.SetColor(this.GetColor());
+                // Finish bullet.
+                bullet.SetVelocity(normalized);
+                bullet.SetRadius(Program.BULLET_RADIUS);
+                bullet.SetColor(this.GetColor());
 
-            // Add bullet to actors so it is displayed.
-            cast.AddActor("bullets", bullet);
-
+                // Add bullet to actors so it is displayed.
+                cast.AddActor("bullets", bullet);
+            }
         }
 
         public static void PlayerTakeDamage(int damage)

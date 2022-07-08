@@ -17,6 +17,7 @@ namespace Callof2d.Game.Casting
         private Vector2 position = new Vector2(0, 0);
         private Vector2 velocity = new Vector2(0, 0);
         private float radius;
+        private string text;
 
 
         /// <summary>
@@ -57,6 +58,11 @@ namespace Callof2d.Game.Casting
         public float GetRadius() 
         {   
             return radius;
+        }
+
+        public string GetText()
+        {
+            return text;
         }
 
         /// <summary>
@@ -134,6 +140,11 @@ namespace Callof2d.Game.Casting
         public void SetRadius(float radius) 
         {
             this.radius = radius;
+        }
+
+        public void SetText(string text)
+        {
+            this.text = text;
         }
 
         

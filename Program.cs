@@ -54,9 +54,18 @@ namespace Callof2d
             VideoService videoService = new VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE, false);
             MouseService mouseService = new MouseService();
 
+            //create bullet types
+            Bullet m1Bullet = new Bullet(4);
+            Bullet m1911Bullet = new Bullet(1);
+
+            //create weapons
+            Weapon m1Garand = new Weapon(70,70,7,7,false,0,m1Bullet,"m1 garand");
+            Weapon m1911 = new Weapon(70,70,7,7,false,0,m1911Bullet,"m1911");
 
             // create the player
             Player player = new Player();
+            player.SetHeldWeapon(m1Garand);
+            player.SetStoredWeapon(m1911);
             player.SetColor(WHITE);
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
             player.SetRadius(PLAYER_RADIUS);
@@ -101,7 +110,13 @@ namespace Callof2d
             cast.AddActor("wall",wall3);
             cast.AddActor("wall",wall4);
 
-
+            // creat HUD
+            HUD hUD = new HUD(player);
+            hUD.SetColor(WHITE);
+            hUD.SetPosition(new Vector2(2*MAX_X/3,4*MAX_Y/5));
+            hUD.WeaponHUD();
+            Actor actor = (HUD)hUD;
+            cast.AddActor("HUD",actor);
 
             // create the zombies
             Random random = new Random();
