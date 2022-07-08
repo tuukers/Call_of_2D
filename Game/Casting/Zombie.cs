@@ -10,15 +10,15 @@ namespace Callof2d.Game.Casting
     /// </summary>
     public class Zombie : Actor
     {
-        private float health = 5;
+        private float health;
         private Cast cast;
 
         /// <summary>
         /// Constructs a new instance of an Zombie.
         /// </summary>
-        public Zombie()
+        public Zombie(int health)
         {
-            this.health=5;
+            this.health=health;
         }
 
         public void TakeDamage(int damage)

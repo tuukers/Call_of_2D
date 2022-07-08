@@ -31,6 +31,7 @@ namespace Callof2d
         private static int DEFAULT_ZOMBIES = 20;
         private static float PLAYER_RADIUS = 10;
         private static float ZOMBIE_RADIUS = 10;
+        private static int ZOMBIE_HEALTH =2;
         public static float BULLET_SPEED = 9;
         public static float BULLET_RADIUS = 3;
         private static float ROOM1_HEIGHT = 400;
@@ -71,7 +72,7 @@ namespace Callof2d
             //left wall
             wall1.SetColor(GREY);
             wall1.SetPosition(new Vector2(MAX_X/3, MAX_Y/5));
-            wall1.SetHeight(ROOM1_HEIGHT);
+            wall1.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall1.SetWidth(WALL_THICKNESS);
             wall1.SetHorizontal(false);
 
@@ -91,7 +92,7 @@ namespace Callof2d
 
             //right wall
             wall4.SetColor(GREY);
-            wall4.SetPosition(new Vector2(MAX_X/3+ROOM1_WIDTH, MAX_Y/5));
+            wall4.SetPosition(new Vector2(MAX_X/3+ROOM1_WIDTH-WALL_THICKNESS, MAX_Y/5));
             wall4.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall4.SetWidth(WALL_THICKNESS);
             wall4.SetHorizontal(false);
@@ -116,7 +117,7 @@ namespace Callof2d
                 int b = 0;//random.Next(0, 256);
                 Color color = new Color(r, g, b);
 
-                Zombie zombie = new Zombie();
+                Zombie zombie = new Zombie(ZOMBIE_HEALTH);
                 zombie.SetColor(color);
                 zombie.SetPosition(position);
                 zombie.SetRadius(ZOMBIE_RADIUS);

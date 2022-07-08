@@ -24,7 +24,7 @@ namespace Callof2d.Game.Services
             Wall wall3=(Wall)cast.GetSpecificActor("wall",3);
             Wall wall4=(Wall)cast.GetSpecificActor("wall",4);
         }
-        public float Rotation(Vector2 referencePosition, Vector2 otherPosition){
+        public float Rotation(Vector2 referencePosition, Vector2 otherPosition){ //not finished
                 
                 float x_difference = otherPosition.X - referencePosition.X;
                 float y_difference = otherPosition.Y - referencePosition.Y;
@@ -101,9 +101,9 @@ namespace Callof2d.Game.Services
             return collision;
         }
 
-        public bool WallCollisionBottom(Actor actor)
+        public bool WallCollisionBottom(Actor actor, Wall wall)
         {
-            Wall wall = wall3;
+            //Wall wall = wall3;
             float radius = actor.GetRadius();
             float height = wall.GetHeight();
             float width = wall.GetWidth();
@@ -141,9 +141,9 @@ namespace Callof2d.Game.Services
             return collision;
         }
 
-        public bool WallCollisionTop(Actor actor)
+        public bool WallCollisionTop(Actor actor, Wall wall)
         {
-            Wall wall = wall2;
+            //Wall wall = wall2;
             float radius = actor.GetRadius();
             height = wall.GetHeight();
             float width = wall.GetWidth();
@@ -181,9 +181,9 @@ namespace Callof2d.Game.Services
             return collision;
         }
 
-        public bool WallCollisionRight(Actor actor)
+        public bool WallCollisionRight(Actor actor, Wall wall)
         {
-            Wall wall = wall4;
+            //Wall wall = wall4;
             float radius = actor.GetRadius();
             float height = wall.GetHeight();
             float width = wall.GetWidth();
@@ -221,9 +221,9 @@ namespace Callof2d.Game.Services
             return collision;
         }
 
-        public bool WallCollisionLeft(Actor actor)
+        public bool WallCollisionLeft(Actor actor, Wall wall)
         {
-            Wall wall = wall1;
+           // Wall wall = wall1;
             float radius = actor.GetRadius();
             float height = wall.GetHeight();
             float width = wall.GetWidth();

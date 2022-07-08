@@ -23,11 +23,6 @@ namespace Callof2d.Game.Scripting
         private Point direction = new Point(0,-Program.CELL_SIZE);
         private Point direction2 = new Point(0,-Program.CELL_SIZE);
         private bool collision = false;
-        private bool topCollision = false;
-        private bool leftCollision = false;
-        private bool rightCollision = false;
-        private bool bottomCollision = false;
-
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
@@ -47,8 +42,7 @@ namespace Callof2d.Game.Scripting
             Player player = (Player)cast.GetFirstActor("player");
             List<Actor> walls = cast.GetActors("wall");
             Vector2 playerPosition = player.GetPosition();
-            Vector2 velocity = keyboardService.GetDirection(false,false,false,false);
-            player.SetVelocity(velocity);
+            
             
             
             if(mouseService.IsMousePressed())
@@ -58,82 +52,59 @@ namespace Callof2d.Game.Scripting
                 player.Shoot(cast, mousePosition);
             }
             
+            bool topCollision = false;
+            bool leftCollision = false;
+            bool rightCollision = false;
+            bool bottomCollision = false;
+
             foreach (Actor wallT in walls)
             {
                 Wall wall = (Wall) wallT;
                 collision = contactService.WallCollision(player,wall);
                 if(collision)
                 {
-                    topCollision = contactService.WallCollisionTop((Actor)player);
-                    leftCollision = contactService.WallCollisionLeft((Actor)player);
-                    rightCollision = contactService.WallCollisionRight((Actor)player);
-                    bottomCollision = contactService.WallCollisionTop((Actor)player);
-                    velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
-                    player.SetVelocity(velocity);
+                    // topCollision = contactService.WallCollisionTop((Actor)player);
+                    // leftCollision = contactService.WallCollisionLeft((Actor)player);
+                    // rightCollision = contactService.WallCollisionRight((Actor)player);
+                    // bottomCollision = contactService.WallCollisionTop((Actor)player);
+                    // velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
+                    // player.SetVelocity(velocity);
+                    if(contactService.WallCollisionTop(player, wall))
+                    {
+                        topCollision=true;
+                        // if(contactService.WallCollisionRight(player,wall))
+                        // {
+                        //     velocity = keyboardService.GetDirection(true,false,true,false);
+                        //     player.SetVelocity(velocity);
+                        // }
+                        // else if(contactService.WallCollisionLeft(player,wall))
+                        // {
+                        //     velocity = keyboardService.GetDirection(true,true,false,false);
+                        //     player.SetVelocity(velocity);
+                        // }
+                        // else
+                        // {
+                        //     velocity = keyboardService.GetDirection(true,false,false,false);
+                        //     player.SetVelocity(velocity);
+                        // }
+                    }
+                    else if(contactService.WallCollisionLeft(player, wall))
+                    {
+                        leftCollision = true;
+                    }
+                    else if(contactService.WallCollisionRight(player, wall))
+                    {
+                        rightCollision=true;
+                    }
+                    else if(contactService.WallCollisionBottom(player, wall))
+                    {
+                        bottomCollision=true;
+                    }
                 }
             }
 
-            // foreach (Actor wallT in walls)
-            //         {
-            //             Wall wall= (Wall)wallT;
-            //             bool topCollision = contactService.WallCollisionTop(player);
-            //             if(topCollision)
-            //             {
-            //                 Console.WriteLine("colided");
-            //             }
-            //             bool leftCollision = contactService.WallCollisionLeft(player);
-            //             bool rightCollision = contactService.WallCollisionRight(player);
-            //             bool bottomCollision = contactService.WallCollisionTop(player);
-            //             // if(collision)
-            //             // {
-            //             //     velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
-            //             //     player.SetVelocity(velocity);
-            //             // }
-
-
-
-            //             Vector2 wallPosition = wall.GetPosition(); 
-            //             Vector2 wallCenter = wall.GetCenter(wallPosition);
-            //             collision=contactService.WallCollision(player,wall);
-            //             bool collisionTopRight=contactService.WallCollisionTop(player) & contactService.WallCollisionRight(player);
-            //             bool collisionTopLeft=contactService.WallCollisionTop(player) & contactService.WallCollisionLeft(player);
-            //             bool collisionBottomRight=contactService.WallCollisionBottom(player) & contactService.WallCollisionRight(player);
-            //             bool collisionBottomLeft=contactService.WallCollisionBottom(player) & contactService.WallCollisionLeft(player);
-            //             if(collision)
-            //             {
-            //                 // Console.WriteLine("colided"); //collision testing
-            //                 if(wall.GetHorizontal())
-            //                 {
-            //                     if(playerPosition.Y>wallCenter.Y)
-            //                     {
-            //                         velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
-            //                         // if()
-            //                         // {
-
-            //                         // }
-            //                         player.SetVelocity(velocity);
-            //                     }
-            //                     else
-            //                     {
-            //                         velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
-            //                         player.SetVelocity(velocity);
-            //                     }
-            //                 }
-            //                 else
-            //                 {
-            //                     if(playerPosition.X > wallCenter.X)
-            //                     {
-            //                         velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
-            //                         player.SetVelocity(velocity);
-            //                     }
-            //                     else
-            //                     {
-            //                         velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
-            //                         player.SetVelocity(velocity);
-            //                     }
-            //                 }
-            //             }
-            //         }
+            Vector2 velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
+            player.SetVelocity(velocity);
         }
 
     }
