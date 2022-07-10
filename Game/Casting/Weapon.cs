@@ -127,8 +127,17 @@ namespace Callof2d.Game.Casting
             }
             else if(this.ammoCount>0 & this.ammoCount<this.magazineCapacity)
             {
-                this.magazineCount = this.ammoCount;
-                this.ammoCount = 0;
+                if(ammoCount + magazineCount <7)
+                {
+                    this.magazineCount = this.ammoCount+this.magazineCount;
+                    this.ammoCount = 0;
+                }
+                else
+                {
+                    this.reloading = this.magazineCapacity - this.magazineCount;
+                    this.ammoCount -= this.reloading;
+                    this.magazineCount = this.magazineCapacity; 
+                }
             }
             else
             {
