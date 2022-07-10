@@ -74,6 +74,16 @@ namespace Callof2d.Game.Services
             return pressed;
         }
 
+        public bool VKeyPressed()
+        {
+            bool pressed = false;
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_V))
+            {
+                pressed = true;
+            }
+            return pressed;
+        }
+
         // public Vector2 GetDirectionTopCollision()
         // {
 

@@ -60,6 +60,15 @@ namespace Callof2d.Game.Scripting
                 player.PlayerReload();
                 hud.WeaponHUD();
             }
+
+            if(keyboardService.VKeyPressed())
+            {
+                Weapon weapon1 = player.GetHeldWeapon();
+                Weapon weapon2 = player.GetStoredWeapon();
+                player.SetHeldWeapon(weapon2);
+                player.SetStoredWeapon(weapon1);
+                hud.WeaponHUD();
+            }
             
             bool topCollision = false;
             bool leftCollision = false;

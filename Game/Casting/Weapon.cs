@@ -13,6 +13,7 @@ namespace Callof2d.Game.Casting
         private int fireRate;
         private Bullet bulletType;
         private string weaponName;
+        private int reloading;
 
         public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool fullAuto,int fireRate,Bullet bulletType,string weaponName)
         {
@@ -117,9 +118,22 @@ namespace Callof2d.Game.Casting
         }
 
         public void reload()
-        {
-            this.magazineCount = this.magazineCapacity;
-            this.ammoCount -= this.magazineCapacity-this.magazineCount;
+        { 
+            if(this.ammoCount>=this.magazineCapacity)
+            {
+                this.reloading = this.magazineCapacity - this.magazineCount;
+                this.ammoCount -= this.reloading;
+                this.magazineCount = this.magazineCapacity;
+            }
+            else if(this.ammoCount>0 & this.ammoCount<this.magazineCapacity)
+            {
+                this.magazineCount = this.ammoCount;
+                this.ammoCount = 0;
+            }
+            else
+            {
+                
+            }
         }
     }
 }

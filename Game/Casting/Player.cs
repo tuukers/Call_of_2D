@@ -29,6 +29,11 @@ namespace Callof2d.Game.Casting
         {
             return this.heldWeapon;
         }
+
+        public Weapon GetStoredWeapon()
+        {
+            return this.storedWeapon;
+        }
         
 
         public void Shoot(Cast cast, Vector2 mousePosition)
