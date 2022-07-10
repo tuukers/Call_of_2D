@@ -17,8 +17,8 @@ namespace Callof2d
     class Program
     {
         private static int FRAME_RATE = 45;
-        private static int MAX_X = 1080;
-        private static int MAX_Y = 720;
+        public static int MAX_X = 1080;
+        public static int MAX_Y = 720;
         public static int CELL_SIZE = 15;
         private static int FONT_SIZE = 15;
         private static int PLAYER_SPEED = 2;
@@ -28,10 +28,10 @@ namespace Callof2d
         private static string CAPTION = "Call Of 2d";
         private static Color WHITE = new Color(255, 255, 255);
         private static Color GREY = new Color(100,100,100);
-        private static int DEFAULT_ZOMBIES = 20;
+        public static int DEFAULT_ZOMBIES = 20;
         private static float PLAYER_RADIUS = 10;
-        private static float ZOMBIE_RADIUS = 10;
-        private static int ZOMBIE_HEALTH =2;
+        public static float ZOMBIE_RADIUS = 10;
+        public static int ZOMBIE_HEALTH = 2;
         public static float BULLET_SPEED = 9;
         public static float BULLET_RADIUS = 3;
         private static float ROOM1_HEIGHT = 400;
@@ -120,23 +120,26 @@ namespace Callof2d
 
             // create the zombies
             Random random = new Random();
-            for (int i = 0; i < DEFAULT_ZOMBIES; i++)
-            {
-                int x = random.Next(1, MAX_X);
-                int y = random.Next(1, MAX_Y);
-                Vector2 position = new Vector2(x, y);
+            // for (int i = 0; i < DEFAULT_ZOMBIES; i++)
+            // {
+            //     Console.WriteLine(i);
+            //     int x = random.Next(1, MAX_X);
+            //     int y = random.Next(1, MAX_Y);
+            //     Vector2 position = new Vector2(x, y);
 
-                int r = 0;//random.Next(0, 256);
-                int g = 255;//random.Next(0, 256);
-                int b = 0;//random.Next(0, 256);
-                Color color = new Color(r, g, b);
+            //     int r = 0;//random.Next(0, 256);
+            //     int g = 255;//random.Next(0, 256);
+            //     int b = 0;//random.Next(0, 256);
+            //     Color color = new Color(r, g, b);
 
-                Zombie zombie = new Zombie(ZOMBIE_HEALTH);
-                zombie.SetColor(color);
-                zombie.SetPosition(position);
-                zombie.SetRadius(ZOMBIE_RADIUS);
-                cast.AddActor("zombie", zombie);
-            }
+            //     Zombie zombie = new Zombie(ZOMBIE_HEALTH);
+            //     zombie.SetColor(color);
+            //     zombie.SetPosition(position);
+            //     zombie.SetRadius(ZOMBIE_RADIUS);
+            //     cast.AddActor("zombie", zombie);
+            // }
+
+            Clock clock = new Clock();
 
             // create script
             ContactService contactService = new ContactService(wall1, wall2, wall3, wall4);
@@ -147,10 +150,11 @@ namespace Callof2d
             script.AddAction("updates", new HandleBulletCollisionsAction(contactService));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));
             script.AddAction("outputs", new MoveActorsAction(videoService));
+            script.AddAction("updates", new SpawnZombiesAction(clock));
 
             // start the game
             
-            Director director = new Director(keyboardService, videoService, mouseService);
+            Director director = new Director(keyboardService, videoService, mouseService, clock);
             director.StartGame(cast,script);
         }
     }

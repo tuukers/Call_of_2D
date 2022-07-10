@@ -12,7 +12,7 @@ namespace Callof2d.Game.Casting
     /// </summary>
     public class Cast
     {
-        private Dictionary<string, List<Actor>> actors = new Dictionary<string, List<Actor>>();
+        public Dictionary<string, List<Actor>> actors = new Dictionary<string, List<Actor>>();
         private Dictionary<string, List<Actor>> HUDs = new Dictionary<string, List<Actor>>();        
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Callof2d.Game.Casting
             List<Actor> results = new List<Actor>();
             foreach (List<Actor> result in actors.Values)
             {
-                results.AddRange(result);
+                results.AddRange(result);   
             }
             return results;
         }

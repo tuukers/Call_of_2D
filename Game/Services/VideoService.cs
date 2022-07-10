@@ -90,9 +90,12 @@ namespace Callof2d.Game.Services
         /// <param name="actors">The list of actors to draw.</param>
         public void DrawActors(List<Actor> actors)
         {
-            foreach (Actor actor in actors)
-            {
-                DrawActor(actor);
+            // foreach (Actor actor in actors)
+            // {
+            //     DrawActor(actor);
+            // }
+            for (int i = 0; i < actors.Count; i++) {
+                DrawActor(actors[i]);
             }
         }
 
