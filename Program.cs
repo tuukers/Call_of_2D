@@ -161,6 +161,7 @@ namespace Callof2d
             // }
 
             Clock clock = new Clock();
+            Round round = new Round();
 
             // create script
             ContactService contactService = new ContactService(wall1, wall2, wall3, wall4);
@@ -171,7 +172,7 @@ namespace Callof2d
             script.AddAction("updates", new HandleBulletCollisionsAction(contactService));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));
             script.AddAction("outputs", new MoveActorsAction(videoService));
-            script.AddAction("updates", new SpawnZombiesAction(clock));
+            script.AddAction("updates", new SpawnZombiesAction(clock, round));
 
             // start the game
             

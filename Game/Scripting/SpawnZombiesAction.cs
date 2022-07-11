@@ -16,14 +16,17 @@ namespace Callof2d.Game.Scripting
     public class SpawnZombiesAction : Action
     {
         private Clock clock = null;
+        private Round round =  null;
         private double roundEnd = 0;
+        private int roundMultiplier = 0;
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
         /// </summary>
-        public SpawnZombiesAction(Clock clock)
+        public SpawnZombiesAction(Clock clock, Round round)
         {
-            this.clock = clock;          
+            this.clock = clock;       
+            this.round = round;   
         }
 
         /// <inheritdoc/>
@@ -32,15 +35,18 @@ namespace Callof2d.Game.Scripting
         {
             List<Actor> zombies = cast.GetActors("zombie");
             double difference = clock.GetLifeTime() - roundEnd;
+            Console.WriteLine(round.GetRound());
 
             if (zombies.Count == 0 && difference > 11)
             {
                 roundEnd = clock.GetLifeTime();
+                round.IncrementRound();
+                roundMultiplier = 3 * (round.GetRound());
             }
 
             if (zombies.Count == 0 && clock.GetLifeTime() - roundEnd >= 10) {
                 Random random = new Random();
-                for (int i = 0; i<Program.DEFAULT_ZOMBIES; i++) {
+                for (int i = 0; i<Program.DEFAULT_ZOMBIES + roundMultiplier; i++) {
                     int x = random.Next(1, Program.MAX_X);
                     int y = random.Next(1, Program.MAX_Y);
                     Vector2 position = new Vector2(x, y);
