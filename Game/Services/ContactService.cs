@@ -173,7 +173,7 @@ namespace Callof2d.Game.Services
             if((actorPosition.Y-radius <= wallBottom & actorPosition.Y-radius >= wallTop)& actorPosition.X+radius <= wallRight & actorPosition.X-radius >= wallLeft)
             {
                 collision = true;
-                
+
             }
             else
             {

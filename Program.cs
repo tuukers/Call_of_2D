@@ -28,14 +28,15 @@ namespace Callof2d
         private static string CAPTION = "Call Of 2d";
         private static Color WHITE = new Color(255, 255, 255);
         private static Color GREY = new Color(100,100,100);
+        private static Color BROWN = new Color(80,50,0);
         public static int DEFAULT_ZOMBIES = 20;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
         public static int ZOMBIE_HEALTH = 2;
-        public static float BULLET_SPEED = 9;
+        public static float BULLET_SPEED = 12;
         public static float BULLET_RADIUS = 3;
-        private static float ROOM1_HEIGHT = 400;
-        private static float ROOM1_WIDTH = 600;
+        private static float ROOM1_HEIGHT = 500;
+        private static float ROOM1_WIDTH = 700;
         private static float WALL_THICKNESS = 12;
         
 
@@ -60,7 +61,7 @@ namespace Callof2d
             Bullet buckshot = new Bullet(3);
 
             //create weapons
-            Weapon m1Garand = new Weapon(80,80,8,8,false,true,0,m1Bullet,"m1 garand");
+            Weapon m1Garand = new Weapon(80,80,8,8,false,false,0,m1Bullet,"m1 garand");
             Weapon m1911 = new Weapon(70,70,7,7,false,false,0,m1911Bullet,"m1911");
             Weapon trenchGun = new Weapon(30,30,6,6,true,false,0,buckshot,"Trench Gun");
 
@@ -78,39 +79,57 @@ namespace Callof2d
             Wall wall2 = new Wall();
             Wall wall3 = new Wall();
             Wall wall4 = new Wall();
+            Wall wall5 = new Wall();
+            Wall wall6 = new Wall();
 
             //left wall
             wall1.SetColor(GREY);
-            wall1.SetPosition(new Vector2(MAX_X/5, MAX_Y/5));
+            wall1.SetPosition(new Vector2(MAX_X/10, MAX_Y/10));
             wall1.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall1.SetWidth(WALL_THICKNESS);
             wall1.SetHorizontal(false);
 
             //top wall
             wall2.SetColor(GREY);
-            wall2.SetPosition(new Vector2(MAX_X/5, MAX_Y/5));
+            wall2.SetPosition(new Vector2(MAX_X/10, MAX_Y/10));
             wall2.SetHeight(WALL_THICKNESS);
             wall2.SetWidth(ROOM1_WIDTH);
             wall2.SetHorizontal(true);
 
             //bottom wall
             wall3.SetColor(GREY);
-            wall3.SetPosition(new Vector2(MAX_X/5, MAX_Y/5+ROOM1_HEIGHT));
+            wall3.SetPosition(new Vector2(MAX_X/10, MAX_Y/10+ROOM1_HEIGHT));
             wall3.SetHeight(WALL_THICKNESS);
             wall3.SetWidth(ROOM1_WIDTH);
             wall3.SetHorizontal(true);
 
             //right wall
             wall4.SetColor(GREY);
-            wall4.SetPosition(new Vector2(MAX_X/5+ROOM1_WIDTH-WALL_THICKNESS, MAX_Y/5));
+            wall4.SetPosition(new Vector2(MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS, MAX_Y/10));
             wall4.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall4.SetWidth(WALL_THICKNESS);
             wall4.SetHorizontal(false);
+
+            //center wall
+            wall5.SetColor(BROWN);
+            wall5.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10));
+            wall5.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*3/5);
+            wall5.SetWidth(WALL_THICKNESS/2);
+            wall5.SetHorizontal(true);
+
+            //center wall bottom
+            // wall6.SetColor(BROWN);
+            // wall6.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*3/5));
+            // wall6.SetHeight((WALL_THICKNESS*3));
+            // wall6.SetWidth(WALL_THICKNESS*5);
+            // wall6.SetHorizontal(true);
             
             cast.AddActor("wall",wall1);
             cast.AddActor("wall",wall2);
             cast.AddActor("wall",wall3);
             cast.AddActor("wall",wall4);
+            cast.AddActor("wall",wall5);
+            cast.AddActor("wall",wall6);
 
             // creat HUD
             HUD hUD = new HUD(player);
