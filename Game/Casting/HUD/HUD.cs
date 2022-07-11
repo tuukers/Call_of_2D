@@ -8,6 +8,8 @@ namespace Callof2d.Game.Casting
     {
         private string HUDText;
         private Player player;
+        private Zombie zombie;
+        private Stats stats;
         public HUD(Player player)
         {
             this.player=player;
@@ -30,6 +32,21 @@ namespace Callof2d.Game.Casting
             int ammoCount = weapon.GetAmmoCount();
             string weaponName = weapon.GetWeaponName();
             this.SetText($"{magazineCount}/{ammoCount} {weaponName}");
+        }
+
+        public void ScoreHUD()
+        {
+            float currentHealth = zombie.GetHealth();
+
+            if (currentHealth == 0) {
+                stats.AddPoints(Program.BASE_SCORE, 0, 5);
+            };
+            // else if ([TAKE DAMAGE FLAG]) {
+            //     stats.AddPoints(Program.BASE_SCORE, 0, 1);
+            // };
+
+            int score = stats.GetScore();
+            this.SetText($"HIGH SCORE: {score}");
         }
     }
 }

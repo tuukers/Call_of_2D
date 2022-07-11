@@ -38,6 +38,7 @@ namespace Callof2d
         private static float ROOM1_HEIGHT = 500;
         private static float ROOM1_WIDTH = 700;
         private static float WALL_THICKNESS = 12;
+        public static int BASE_SCORE = 10;
         
 
 
