@@ -15,7 +15,6 @@ namespace Callof2d.Game.Scripting
     /// </summary>
     public class SpawnZombiesAction : Action
     {
-        private Cast cast = null;
         private Clock clock = null;
         private double roundEnd = 0;
 
