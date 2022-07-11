@@ -43,10 +43,20 @@ namespace Callof2d.Game.Scripting
             List<Actor> walls = cast.GetActors("wall");
             HUD hud = (HUD)cast.GetFirstActor("HUD");
             Vector2 playerPosition = player.GetPosition();
+            Weapon weapon1 = player.GetHeldWeapon();
+            Weapon weapon2 = player.GetStoredWeapon();
+            bool fullAuto = weapon1.GetFullAuto();
             
             
             
-            if(mouseService.IsMousePressed())
+            if(mouseService.IsMousePressed()&!fullAuto)
+            {
+                Vector2 mousePosition = mouseService.GetMousePosition();
+
+                player.Shoot(cast, mousePosition);
+                hud.WeaponHUD();
+            }
+            else if(mouseService.IsMouseDown()&fullAuto)
             {
                 Vector2 mousePosition = mouseService.GetMousePosition();
 
@@ -63,8 +73,6 @@ namespace Callof2d.Game.Scripting
 
             if(keyboardService.VKeyPressed())
             {
-                Weapon weapon1 = player.GetHeldWeapon();
-                Weapon weapon2 = player.GetStoredWeapon();
                 player.SetHeldWeapon(weapon2);
                 player.SetStoredWeapon(weapon1);
                 hud.WeaponHUD();

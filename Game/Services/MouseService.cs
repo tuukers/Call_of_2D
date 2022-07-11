@@ -44,5 +44,17 @@ namespace Callof2d.Game.Services
                 return false;
             }
         }
+
+        public bool IsMouseDown()
+        {
+            if (Raylib.IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

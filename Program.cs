@@ -57,15 +57,17 @@ namespace Callof2d
             //create bullet types
             Bullet m1Bullet = new Bullet(4);
             Bullet m1911Bullet = new Bullet(1);
+            Bullet buckshot = new Bullet(3);
 
             //create weapons
-            Weapon m1Garand = new Weapon(80,80,8,8,false,0,m1Bullet,"m1 garand");
-            Weapon m1911 = new Weapon(70,70,7,7,false,0,m1911Bullet,"m1911");
+            Weapon m1Garand = new Weapon(80,80,8,8,false,true,0,m1Bullet,"m1 garand");
+            Weapon m1911 = new Weapon(70,70,7,7,false,false,0,m1911Bullet,"m1911");
+            Weapon trenchGun = new Weapon(30,30,6,6,true,false,0,buckshot,"Trench Gun");
 
             // create the player
             Player player = new Player();
-            player.SetHeldWeapon(m1Garand);
-            player.SetStoredWeapon(m1911);
+            player.SetNewHeldWeapon(m1Garand);
+            player.SetNewStoredWeapon(m1911);
             player.SetColor(WHITE);
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
             player.SetRadius(PLAYER_RADIUS);
@@ -79,28 +81,28 @@ namespace Callof2d
 
             //left wall
             wall1.SetColor(GREY);
-            wall1.SetPosition(new Vector2(MAX_X/3, MAX_Y/5));
+            wall1.SetPosition(new Vector2(MAX_X/5, MAX_Y/5));
             wall1.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall1.SetWidth(WALL_THICKNESS);
             wall1.SetHorizontal(false);
 
             //top wall
             wall2.SetColor(GREY);
-            wall2.SetPosition(new Vector2(MAX_X/3, MAX_Y/5));
+            wall2.SetPosition(new Vector2(MAX_X/5, MAX_Y/5));
             wall2.SetHeight(WALL_THICKNESS);
             wall2.SetWidth(ROOM1_WIDTH);
             wall2.SetHorizontal(true);
 
             //bottom wall
             wall3.SetColor(GREY);
-            wall3.SetPosition(new Vector2(MAX_X/3, MAX_Y/5+ROOM1_HEIGHT));
+            wall3.SetPosition(new Vector2(MAX_X/5, MAX_Y/5+ROOM1_HEIGHT));
             wall3.SetHeight(WALL_THICKNESS);
             wall3.SetWidth(ROOM1_WIDTH);
             wall3.SetHorizontal(true);
 
             //right wall
             wall4.SetColor(GREY);
-            wall4.SetPosition(new Vector2(MAX_X/3+ROOM1_WIDTH-WALL_THICKNESS, MAX_Y/5));
+            wall4.SetPosition(new Vector2(MAX_X/5+ROOM1_WIDTH-WALL_THICKNESS, MAX_Y/5));
             wall4.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall4.SetWidth(WALL_THICKNESS);
             wall4.SetHorizontal(false);

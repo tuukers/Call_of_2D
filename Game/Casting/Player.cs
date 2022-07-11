@@ -25,6 +25,18 @@ namespace Callof2d.Game.Casting
             this.storedWeapon= weapon;
         }
 
+        public void SetNewHeldWeapon(Weapon weapon)
+        {
+            Weapon newWeapon = weapon;
+            this.heldWeapon= newWeapon;
+        }
+
+        public void SetNewStoredWeapon(Weapon weapon)
+        {
+            Weapon newWeapon = weapon;
+            this.storedWeapon= weapon;
+        }
+
         public Weapon GetHeldWeapon()
         {
             return this.heldWeapon;

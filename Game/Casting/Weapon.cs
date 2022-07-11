@@ -9,18 +9,20 @@ namespace Callof2d.Game.Casting
         private int ammoCount;
         private int magazineCapacity;
         private int magazineCount;
+        private bool isShotgun;
         private bool fullAuto;
         private int fireRate;
         private Bullet bulletType;
         private string weaponName;
         private int reloading;
 
-        public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool fullAuto,int fireRate,Bullet bulletType,string weaponName)
+        public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,Bullet bulletType,string weaponName)
         {
             this.maxAmmo=maxAmmo;
             this.ammoCount=ammoCount;
             this.magazineCapacity=magazineCapacity;
             this.magazineCount=magazineCount;
+            this.isShotgun=isShotgun;
             this.fullAuto=fullAuto;
             this.fireRate=fireRate;
             this.bulletType=bulletType;
