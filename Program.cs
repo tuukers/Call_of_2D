@@ -32,9 +32,9 @@ namespace Callof2d
         public static int DEFAULT_ZOMBIES = 20;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
-        public static int ZOMBIE_HEALTH = 2;
+        public static int ZOMBIE_HEALTH = 100;
         public static float BULLET_SPEED = 12;
-        public static float BULLET_RADIUS = 3;
+        public static float BULLET_RADIUS = 2;
         private static float ROOM1_HEIGHT = 500;
         private static float ROOM1_WIDTH = 700;
         private static float WALL_THICKNESS = 12;
@@ -56,20 +56,22 @@ namespace Callof2d
             VideoService videoService = new VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE, false);
             MouseService mouseService = new MouseService();
 
-            //create bullet types
-            Bullet m1Bullet = new Bullet(4);
-            Bullet m1911Bullet = new Bullet(1);
+                        //create bullet types
+            Bullet m1Bullet = new Bullet(75);
+            Bullet m1911Bullet = new Bullet(20);
             Bullet buckshot = new Bullet(3);
+            Bullet machinegunBullet = new Bullet(15);
 
             //create weapons
             Weapon m1Garand = new Weapon(80,80,8,8,false,false,0,m1Bullet,"m1 garand");
             Weapon m1911 = new Weapon(70,70,7,7,false,false,0,m1911Bullet,"m1911");
             Weapon trenchGun = new Weapon(30,30,6,6,true,false,0,buckshot,"Trench Gun");
+            Weapon mg42 = new Weapon(500,500,100,100,false,true,0,machinegunBullet,"MG42");
 
             // create the player
             Player player = new Player();
             player.SetNewHeldWeapon(m1Garand);
-            player.SetNewStoredWeapon(m1911);
+            player.SetNewStoredWeapon(mg42);
             player.SetColor(WHITE);
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
             player.SetRadius(PLAYER_RADIUS);
@@ -133,12 +135,19 @@ namespace Callof2d
             cast.AddActor("wall",wall6);
 
             // creat HUD
-            HUD hUD = new HUD(player);
-            hUD.SetColor(WHITE);
-            hUD.SetPosition(new Vector2(2*MAX_X/3,4*MAX_Y/5));
-            hUD.WeaponHUD();
-            Actor actor = (HUD)hUD;
+            HUD weaponHUD = new HUD(player);
+            weaponHUD.SetColor(WHITE);
+            weaponHUD.SetPosition(new Vector2(2*MAX_X/3,4*MAX_Y/5));
+            weaponHUD.WeaponHUD();
+            Actor actor = (HUD)weaponHUD;
             cast.AddActor("HUD",actor);
+
+            HUD scoreHUD = new HUD(player);
+            scoreHUD.SetColor(WHITE);
+            scoreHUD.SetPosition(new Vector2(MAX_X/3,4*MAX_Y/5));
+            scoreHUD.ScoreHUD();
+            Actor actor1 = (HUD)weaponHUD;
+            cast.AddActor("HUD",actor1);
 
             Clock clock = new Clock();
             Round round = new Round();
