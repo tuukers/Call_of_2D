@@ -20,7 +20,7 @@ namespace Callof2d
         public static int MAX_X = 1080;
         public static int MAX_Y = 720;
         public static int CELL_SIZE = 15;
-        private static int FONT_SIZE = 15;
+        public static int FONT_SIZE = 25;
         private static int PLAYER_SPEED = 2;
         public static float ZOMBIE_NORMAL_SPEED_DIVIDE = 1;
         private static int COLS = 60;
@@ -59,7 +59,7 @@ namespace Callof2d
             Bullet m1911Bullet = new Bullet(1);
 
             //create weapons
-            Weapon m1Garand = new Weapon(70,70,7,7,false,0,m1Bullet,"m1 garand");
+            Weapon m1Garand = new Weapon(80,80,8,8,false,0,m1Bullet,"m1 garand");
             Weapon m1911 = new Weapon(70,70,7,7,false,0,m1911Bullet,"m1911");
 
             // create the player

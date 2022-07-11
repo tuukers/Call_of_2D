@@ -113,7 +113,7 @@ namespace Callof2d.Game.Services
             Casting.Color c = hUD.GetColor();
             Raylib_cs.Color color = ToRaylibColor(c);
             string HUDText = hUD.GetText();
-            Raylib.DrawText(HUDText,(int)position.X,(int)position.Y,10,color);
+            Raylib.DrawText(HUDText,(int)position.X,(int)position.Y,Program.FONT_SIZE,color);
         }
 
         public void DrawHUDs(List<Actor> actors)
