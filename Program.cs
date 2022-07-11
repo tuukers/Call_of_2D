@@ -139,27 +139,6 @@ namespace Callof2d
             Actor actor = (HUD)hUD;
             cast.AddActor("HUD",actor);
 
-            // create the zombies
-            Random random = new Random();
-            // for (int i = 0; i < DEFAULT_ZOMBIES; i++)
-            // {
-            //     Console.WriteLine(i);
-            //     int x = random.Next(1, MAX_X);
-            //     int y = random.Next(1, MAX_Y);
-            //     Vector2 position = new Vector2(x, y);
-
-            //     int r = 0;//random.Next(0, 256);
-            //     int g = 255;//random.Next(0, 256);
-            //     int b = 0;//random.Next(0, 256);
-            //     Color color = new Color(r, g, b);
-
-            //     Zombie zombie = new Zombie(ZOMBIE_HEALTH);
-            //     zombie.SetColor(color);
-            //     zombie.SetPosition(position);
-            //     zombie.SetRadius(ZOMBIE_RADIUS);
-            //     cast.AddActor("zombie", zombie);
-            // }
-
             Clock clock = new Clock();
             Round round = new Round();
 
