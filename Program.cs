@@ -66,10 +66,10 @@ namespace Callof2d
             Bullet machinegunBullet = new Bullet(15);
 
             //create weapons
-            Weapon m1Garand = new Weapon(80,80,8,8,false,false,0,m1Bullet,"m1 garand");
-            Weapon m1911 = new Weapon(70,70,7,7,false,false,0,m1911Bullet,"m1911");
-            Weapon trenchGun = new Weapon(30,30,6,6,true,false,0,buckshot,"Trench Gun");
-            Weapon mg42 = new Weapon(500,500,100,100,false,true,0,machinegunBullet,"MG42");
+            Weapon m1Garand = new Weapon(80,80,8,8,false,false,4,2,m1Bullet,"m1 garand");
+            Weapon m1911 = new Weapon(70,70,7,7,false,false,1,3,m1911Bullet,"m1911");
+            Weapon trenchGun = new Weapon(30,30,6,6,true,false,1,5,buckshot,"Trench Gun");
+            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,5,machinegunBullet,"MG42");
 
             // create the player
             Player player = new Player();
@@ -118,17 +118,11 @@ namespace Callof2d
 
             //center wall
             wall5.SetColor(BROWN);
-            wall5.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10));
-            wall5.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*3/5);
+            wall5.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*3/5));
+            wall5.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
             wall5.SetWidth(WALL_THICKNESS/2);
             wall5.SetHorizontal(true);
 
-            //center wall bottom
-            wall6.SetColor(GREY);
-            wall6.SetPosition(new Vector2(MAX_X/10, MAX_Y*2/10));
-            wall6.SetHeight(WALL_THICKNESS);
-            wall6.SetWidth(ROOM1_WIDTH);
-            wall6.SetHorizontal(true);
             
             cast.AddActor("wall",wall1);
             cast.AddActor("wall",wall2);

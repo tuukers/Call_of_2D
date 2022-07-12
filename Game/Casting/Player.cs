@@ -14,6 +14,7 @@ namespace Callof2d.Game.Casting
         public Player() 
         { 
         }
+        
 
         public void SetHeldWeapon(Weapon weapon)
         {
@@ -68,10 +69,11 @@ namespace Callof2d.Game.Casting
 
                 // Normalize result so contains only direction, not magnitude.
                 Vector2 normalized = Vector2.Normalize(a);
-                normalized = Vector2.Multiply(normalized, Program.BULLET_SPEED);
+                Vector2 bulletDirection =heldWeapon.Spread(normalized);
+                Vector2 bulletVector = Vector2.Multiply(bulletDirection, Program.BULLET_SPEED);
 
                 // Finish bullet.
-                bullet.SetVelocity(normalized);
+                bullet.SetVelocity(bulletVector);
                 bullet.SetRadius(Program.BULLET_RADIUS);
                 bullet.SetColor(this.GetColor());
 

@@ -35,7 +35,7 @@ namespace Callof2d.Game.Scripting
         {
             List<Actor> zombies = cast.GetActors("zombie");
             double difference = clock.GetLifeTime() - roundEnd;
-            Console.WriteLine(round.GetRound());
+            //Console.WriteLine(round.GetRound());
 
             if (zombies.Count == 0 && difference > 11)
             {

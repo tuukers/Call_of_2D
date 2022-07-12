@@ -23,6 +23,7 @@ namespace Callof2d.Game.Scripting
         private Point direction = new Point(0,-Program.CELL_SIZE);
         private Point direction2 = new Point(0,-Program.CELL_SIZE);
         private bool collision = false;
+        private DateTime lastShot;
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
@@ -32,7 +33,8 @@ namespace Callof2d.Game.Scripting
             this.keyboardService = keyboardService;
             this.mouseService = mouseService;
             this.videoService = videoService;
-            this.contactService = contactService;            
+            this.contactService = contactService; 
+            this.lastShot=DateTime.Now;           
         }
 
         /// <inheritdoc/>
@@ -48,20 +50,25 @@ namespace Callof2d.Game.Scripting
             bool fullAuto = weapon1.GetFullAuto();
             
             
-            
-            if(mouseService.IsMousePressed()&!fullAuto)
+            TimeSpan timeSinceLastShot = DateTime.Now - this.lastShot;
+            if((float)timeSinceLastShot.TotalMilliseconds >= 1000/weapon1.GetFireRate())
             {
-                Vector2 mousePosition = mouseService.GetMousePosition();
+                if(mouseService.IsMousePressed()&!fullAuto)
+                {
+                    Vector2 mousePosition = mouseService.GetMousePosition();
 
-                player.Shoot(cast, mousePosition);
-                
-            }
-            else if(mouseService.IsMouseDown()&fullAuto)
-            {
-                Vector2 mousePosition = mouseService.GetMousePosition();
+                    player.Shoot(cast, mousePosition);
+                    this.lastShot = DateTime.Now;
+                    
+                }
+                else if(mouseService.IsMouseDown()&fullAuto)
+                {
+                    Vector2 mousePosition = mouseService.GetMousePosition();
 
-                player.Shoot(cast, mousePosition);
-                
+                    player.Shoot(cast, mousePosition);
+                    this.lastShot = DateTime.Now;
+                    
+                }
             }
 
             if(keyboardService.RKeyPressed())
@@ -100,15 +107,15 @@ namespace Callof2d.Game.Scripting
                     {
                         leftCollision = true;
                     }
-                    else if(contactService.WallCollisionRight(player, wall))
+                    if(contactService.WallCollisionRight(player, wall))
                     {
                         rightCollision=true;
                     }
-                    else if(contactService.WallCollisionBottom(player, wall))
+                    if(contactService.WallCollisionBottom(player, wall))
                     {
                         bottomCollision=true;
                     }
-                    else if(contactService.WallCollisionTop(player, wall))
+                    if(contactService.WallCollisionTop(player, wall))
                     {
                         topCollision=true;
                         // if(contactService.WallCollisionRight(player,wall))

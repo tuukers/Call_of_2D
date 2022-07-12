@@ -12,11 +12,14 @@ namespace Callof2d.Game.Casting
         private bool isShotgun;
         private bool fullAuto;
         private int fireRate;
+        private int weaponSpread;
         private Bullet bulletType;
         private string weaponName;
         private int reloading;
 
-        public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,Bullet bulletType,string weaponName)
+
+
+        public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,int weaponSpread,Bullet bulletType,string weaponName)
         {
             this.maxAmmo=maxAmmo;
             this.ammoCount=ammoCount;
@@ -25,9 +28,12 @@ namespace Callof2d.Game.Casting
             this.isShotgun=isShotgun;
             this.fullAuto=fullAuto;
             this.fireRate=fireRate;
+            this.weaponSpread = weaponSpread;
             this.bulletType=bulletType;
             this.weaponName=weaponName;
         }
+        Random random = new Random();
+        DateTime dateTime = new DateTime();
 
         //Getters and Setters
         public void SetMaxAmmo(int maxAmmo)
@@ -53,6 +59,11 @@ namespace Callof2d.Game.Casting
         public void SetFireRate(int fireRate)
         {
             this.fireRate=fireRate;
+        }
+
+        public void SetWeaponSpread(int weaponSpread)
+        {
+            this.weaponSpread = weaponSpread;
         }
 
         public void SetFullAuto(bool fullAuto)
@@ -95,6 +106,11 @@ namespace Callof2d.Game.Casting
             return this.fullAuto;
         }
 
+        public int GetWeaponSpread()
+        {
+            return this.weaponSpread;
+        }
+
         public Bullet GetBulletType()
         {
             return this.bulletType;
@@ -108,15 +124,30 @@ namespace Callof2d.Game.Casting
         //weapon action
         public bool Shoot()
         {
+            
             if (this.magazineCount>0)
             {
                 this.magazineCount-=1;
-                return true;
+                return true;                
             }
             else
             {
                 return false;
             }
+        }
+
+        public Vector2 Spread(Vector2 aimVector)
+        {
+            Vector2 longVector = aimVector * 60;
+            int xShift = random.Next(0,weaponSpread+1);
+            int yShift = random.Next(0,weaponSpread+1);
+            int xPosition = (int)longVector.X;
+            int yPosition = (int)longVector.Y;
+            int x = xPosition-weaponSpread/2 +xShift;
+            int y = yPosition-weaponSpread/2 +yShift;
+            Vector2 bulletLongVector = new Vector2(x,y);
+            Vector2 bulletVector = Vector2.Normalize(bulletLongVector);
+            return bulletVector;
         }
 
         public void reload()
