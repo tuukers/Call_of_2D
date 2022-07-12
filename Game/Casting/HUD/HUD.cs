@@ -61,6 +61,18 @@ namespace Callof2d.Game.Casting
             this.SetText($"Score: {score}");
         }
 
+        public void LivesHUD()
+        {
+            int lives = stats.GetLives();
+            this.SetText($"Lives: {lives}");
+        }
+
+        public void RoundHUD()
+        {
+            int round = stats.GetRound();
+            this.SetText($"Round {round}");
+        }
+
         public void HUDSetup(int hUDType)
         {
             if (hUDType==0)
