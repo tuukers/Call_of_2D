@@ -54,28 +54,28 @@ namespace Callof2d.Game.Scripting
                 Vector2 mousePosition = mouseService.GetMousePosition();
 
                 player.Shoot(cast, mousePosition);
-                hud.WeaponHUD();
+                
             }
             else if(mouseService.IsMouseDown()&fullAuto)
             {
                 Vector2 mousePosition = mouseService.GetMousePosition();
 
                 player.Shoot(cast, mousePosition);
-                hud.WeaponHUD();
+                
             }
 
             if(keyboardService.RKeyPressed())
             {
                 Weapon weapon = player.GetHeldWeapon();
                 player.PlayerReload();
-                hud.WeaponHUD();
+                
             }
 
             if(keyboardService.VKeyPressed())
             {
                 player.SetHeldWeapon(weapon2);
                 player.SetStoredWeapon(weapon1);
-                hud.WeaponHUD();
+                
             }
             
             bool topCollision = false;
@@ -132,6 +132,7 @@ namespace Callof2d.Game.Scripting
 
             Vector2 velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
             player.SetVelocity(velocity);
+            hud.WeaponHUD();
         }
 
     }

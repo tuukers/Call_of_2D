@@ -23,9 +23,11 @@ namespace Callof2d.Game.Scripting
         /// </summary>
         private ContactService contactService;
         bool collision = false;
-        public HandleBulletCollisionsAction(ContactService contactService)
+        private Stats stats;
+        public HandleBulletCollisionsAction(ContactService contactService, Stats stats)
         {
             this.contactService = contactService;
+            this.stats =stats;
         }
 
         /// <inheritdoc/>
@@ -35,6 +37,7 @@ namespace Callof2d.Game.Scripting
             List<Actor> zombies = cast.GetActors("zombie");
             List<Actor> bullets = cast.GetActors("bullets");
             List<Actor> walls = cast.GetActors("wall");
+            HUD hUD = (HUD)cast.GetFirstActor("scoreHUD");
             
             foreach(Zombie zombie in zombies)
             {
@@ -58,26 +61,28 @@ namespace Callof2d.Game.Scripting
                     {
                         cast.RemoveActor("bullets",bullet);
                         zombie.TakeDamage(shot.GetBulletDamage());
+                        stats.AddPoints(Program.POINTS_PER_HIT,1);
+
                         if (zombie.GetHealth()<=0){
                             cast.RemoveActor("zombie",zombie);
+                            stats.AddPoints(Program.POINTS_PER_KILL,1);
                         }
                     }
                 }
             }
             
             foreach(Actor bullet in bullets)
+            {
+                for (int i=0; i<walls.Count-2;i++)
                 {
-                    for (int i=0; i<walls.Count-2;i++)
+                    Wall wall= (Wall)walls[i];
+                    collision=contactService.WallCollision(bullet,wall);
+                    if(collision)
                     {
-                        Wall wall= (Wall)walls[i];
-                        collision=contactService.WallCollision(bullet,wall);
-                        if(collision)
-                        {
-                            cast.RemoveActor("bullets",bullet);
-                        }
+                        cast.RemoveActor("bullets",bullet);
                     }
                 }
-
+            }
         }
     }
 }

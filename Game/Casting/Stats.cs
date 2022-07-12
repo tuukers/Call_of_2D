@@ -9,7 +9,7 @@ namespace Callof2d.Game.Casting
     {
         private int round;
         private int lives;
-        private int score;
+        private int score = 0;
 
         /// <summary>
         /// Constructs a new instance of Actor.
@@ -44,9 +44,9 @@ namespace Callof2d.Game.Casting
         /// <param name="points">The given points.</param>
         /// <param name="addend">Modifies number of points with addition/subtraction.</param>
         /// <param name="multiplier">Modifies number of points with multiplication.</param>
-        public void AddPoints(int points, float addend, float multiplier)
+        public void AddPoints(int points, int multiplier)
         {
-            score += (int)Math.Ceiling((points + addend) * multiplier);
+            score += points * multiplier;
         }
 
         /// <summary>

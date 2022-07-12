@@ -39,6 +39,9 @@ namespace Callof2d
         private static float ROOM1_WIDTH = 700;
         private static float WALL_THICKNESS = 12;
         public static int BASE_SCORE = 10;
+        public static int POINTS_PER_HIT = 2;
+        public static int POINTS_PER_KILL = 5;
+
         
 
 
@@ -121,11 +124,11 @@ namespace Callof2d
             wall5.SetHorizontal(true);
 
             //center wall bottom
-            // wall6.SetColor(BROWN);
-            // wall6.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*3/5));
-            // wall6.SetHeight((WALL_THICKNESS*3));
-            // wall6.SetWidth(WALL_THICKNESS*5);
-            // wall6.SetHorizontal(true);
+            wall6.SetColor(GREY);
+            wall6.SetPosition(new Vector2(MAX_X/10, MAX_Y*2/10));
+            wall6.SetHeight(WALL_THICKNESS);
+            wall6.SetWidth(ROOM1_WIDTH);
+            wall6.SetHorizontal(true);
             
             cast.AddActor("wall",wall1);
             cast.AddActor("wall",wall2);
@@ -134,19 +137,25 @@ namespace Callof2d
             cast.AddActor("wall",wall5);
             cast.AddActor("wall",wall6);
 
+
+            //create stats
+            Stats stats = new Stats();
+
             // creat HUD
-            HUD weaponHUD = new HUD(player);
+            HUD weaponHUD = new HUD(player, stats);
             weaponHUD.SetColor(WHITE);
             weaponHUD.SetPosition(new Vector2(2*MAX_X/3,4*MAX_Y/5));
-            weaponHUD.WeaponHUD();
+            weaponHUD.SetHUDType(0);
+            weaponHUD.HUDSetup(0);
             Actor actor = (HUD)weaponHUD;
             cast.AddActor("HUD",actor);
 
-            HUD scoreHUD = new HUD(player);
+            HUD scoreHUD = new HUD(player,stats);
             scoreHUD.SetColor(WHITE);
             scoreHUD.SetPosition(new Vector2(MAX_X/3,4*MAX_Y/5));
-            scoreHUD.ScoreHUD();
-            Actor actor1 = (HUD)weaponHUD;
+            scoreHUD.SetHUDType(1);
+            scoreHUD.HUDSetup(1);
+            Actor actor1 = (HUD)scoreHUD;
             cast.AddActor("HUD",actor1);
 
             Clock clock = new Clock();
@@ -158,9 +167,10 @@ namespace Callof2d
             Script script = new Script();
             script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService));
             script.AddAction("updates", new DrawActorsAction(videoService, mouseService));
-            script.AddAction("updates", new HandleBulletCollisionsAction(contactService));
+            script.AddAction("updates", new HandleBulletCollisionsAction(contactService, stats));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));
             script.AddAction("outputs", new MoveActorsAction(videoService));
+            script.AddAction("outputs", new HandleHUDs());
             script.AddAction("updates", new SpawnZombiesAction(clock, round));
 
             // start the game
