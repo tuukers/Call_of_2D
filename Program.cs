@@ -184,6 +184,7 @@ namespace Callof2d
 
             // create script
             ContactService contactService = new ContactService(wall1, wall2, wall3, wall4);
+            // AudioService audioService = new AudioService();
             
             Script script = new Script();
             script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService));
