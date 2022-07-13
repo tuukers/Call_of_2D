@@ -19,18 +19,19 @@ namespace Callof2d.Game.Directing
         private VideoService videoService = null;
         private MouseService mouseService = null;
         private Clock clock = null;
-
+        private AudioService audioService = null;
         /// <summary>
         /// Constructs a new instance of Director using the given KeyboardService and VideoService.
         /// </summary>
         /// <param name="keyboardService">The given KeyboardService.</param>
         /// <param name="videoService">The given VideoService.</param>
-        public Director(KeyboardService keyboardService, VideoService videoService, MouseService mouseService, Clock clock)
+        public Director(KeyboardService keyboardService, VideoService videoService, MouseService mouseService, Clock clock, AudioService audioService)
         {
             this.keyboardService = keyboardService;
             this.videoService = videoService;
             this.mouseService = mouseService;
             this.clock = clock;
+            this.audioService = audioService;
         }
 
         /// <summary>
