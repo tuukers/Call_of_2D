@@ -21,9 +21,9 @@ namespace Callof2d.Game.Services
         /// Constructs a new instance of KeyboardService using the given cell size.
         /// </summary>
         /// <param name="playerSpeed">The cell size (in pixels).</param>
-        public KeyboardService(int playerSpeed)
+        public KeyboardService()
         {
-            this.playerSpeed = playerSpeed;
+
         }
 
         /// <summary>

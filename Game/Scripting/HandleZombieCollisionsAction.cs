@@ -57,7 +57,7 @@ public class HandleZombieZombieCollisionsAction : Action
                         float zombieDivideSpeed = Program.ZOMBIE_NORMAL_SPEED_DIVIDE;
                         Vector2 velocity = Vector2.Divide(normalized,zombieDivideSpeed);
 
-                        zombies[i].SetVelocity(velocity);
+                        zombies[i].SetVelocity(velocity/Program.ZOMBIE_NORMAL_SPEED_DIVIDE);
                     }  
                 }
                 if (i == zombies.Count - 1)
@@ -69,7 +69,7 @@ public class HandleZombieZombieCollisionsAction : Action
                         float zombieDivideSpeed = Program.ZOMBIE_NORMAL_SPEED_DIVIDE;
                         Vector2 velocity = Vector2.Divide(normalized,zombieDivideSpeed);
 
-                        zombies[i].SetVelocity(velocity);
+                        zombies[i].SetVelocity(velocity/Program.ZOMBIE_NORMAL_SPEED_DIVIDE);
                 }
             }
         }

@@ -150,7 +150,7 @@ namespace Callof2d.Game.Scripting
             }
 
             Vector2 velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
-            player.SetVelocity(velocity);
+            player.SetVelocity(velocity/Program.PLAYER_SPEED_DIVIDER);
 
             Wall misteryBox = (Wall)cast.GetFirstActor("box");
             Vector2 position = misteryBox.GetPosition();

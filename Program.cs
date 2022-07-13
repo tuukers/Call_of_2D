@@ -22,13 +22,15 @@ namespace Callof2d
         public static int CELL_SIZE = 15;
         public static int FONT_SIZE = 25;
         public static int FONT_SIZE_SMALL = 15;
-        private static int PLAYER_SPEED = 2;
+        public static int PLAYER_SPEED_DIVIDER = 2;
         public static float ZOMBIE_NORMAL_SPEED_DIVIDE = 1;
         private static int COLS = 60;
         private static int ROWS = 40;
         private static string CAPTION = "Call Of 2d";
         private static Color WHITE = new Color(255, 255, 255);
+        public static Color BLACK = new Color(0,0,0);
         private static Color GREY = new Color(100,100,100);
+        private static Color LIGHT_GREY = new Color(75,75,75);
         private static Color BROWN = new Color(80,50,0);
         private static Color YELLOW = new Color(100,100,0);
         public static int DEFAULT_ZOMBIES = 20;
@@ -57,7 +59,7 @@ namespace Callof2d
             Cast cast = new Cast();
 
             // create survices
-            KeyboardService keyboardService = new KeyboardService(PLAYER_SPEED);
+            KeyboardService keyboardService = new KeyboardService();
             VideoService videoService = new VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE, false);
             MouseService mouseService = new MouseService();
 
@@ -66,6 +68,11 @@ namespace Callof2d
             Bullet m1911Bullet = new Bullet(20);
             Bullet buckshot = new Bullet(3);
             Bullet machinegunBullet = new Bullet(15);
+
+            m1Bullet.SetColor(LIGHT_GREY);
+            m1911Bullet.SetColor(LIGHT_GREY);
+            buckshot.SetColor(BLACK);
+            buckshot.SetColor(LIGHT_GREY);
 
             //create weapons
             Weapon m1Garand = new Weapon(80,80,8,8,false,false,4,2,m1Bullet,"m1 garand",2);
