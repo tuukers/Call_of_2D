@@ -34,6 +34,7 @@ namespace Callof2d
         private static Color LIGHT_GREY = new Color(75,75,75);
         private static Color BROWN = new Color(80,50,0);
         private static Color YELLOW = new Color(100,100,0);
+        private static Color GREEN = new Color(0,255,0);
         public static int DEFAULT_ZOMBIES = 20;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
@@ -168,6 +169,17 @@ namespace Callof2d
 
             cast.AddActor("box",misteryBox);
 
+            //create health bar
+            Wall healthbar = new Wall();
+
+            //health bar
+            healthbar.SetColor(GREEN);
+            healthbar.SetPosition(new Vector2(MAX_X/20, MAX_Y/20));
+            healthbar.SetHeight(WALL_THICKNESS);
+            healthbar.SetWidth(Player.playerHealth * 2);
+            healthbar.SetHorizontal(true);
+
+            cast.AddActor("wall",healthbar);
 
             //create stats
             Stats stats = new Stats();
