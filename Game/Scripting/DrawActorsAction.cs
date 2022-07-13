@@ -33,7 +33,7 @@ namespace Callof2d.Game.Scripting
             List<Actor> actors = cast.GetAllActors();
             List<Actor> walls = cast.GetActors("wall");
             List<Actor> hUDs = cast.GetActors("HUD");
-            Actor misteryBox = cast.GetFirstActor("box");
+            List<Actor> weaponBuys = cast.GetActors("box");
             Vector2 mousePosition = mouseService.GetMousePosition();
 
             foreach (Actor actor in actors)
@@ -42,7 +42,7 @@ namespace Callof2d.Game.Scripting
             }
 
             videoService.ClearBuffer();
-            videoService.DrawWall(misteryBox);
+            videoService.DrawWalls(weaponBuys);
             videoService.DrawActors(actors);
             videoService.DrawWalls(walls);
             videoService.DrawHUDs(hUDs);

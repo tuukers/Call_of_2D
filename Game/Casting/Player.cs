@@ -29,13 +29,15 @@ namespace Callof2d.Game.Casting
         public void SetNewHeldWeapon(Weapon weapon)
         {
             Weapon newWeapon = weapon;
+            newWeapon.SetAmmoCount(newWeapon.GetMaxAmmo());
             this.heldWeapon= newWeapon;
         }
 
         public void SetNewStoredWeapon(Weapon weapon)
         {
             Weapon newWeapon = weapon;
-            this.storedWeapon= weapon;
+            newWeapon.SetAmmoCount(newWeapon.GetMaxAmmo());
+            this.storedWeapon= newWeapon;
         }
 
         public Weapon GetHeldWeapon()

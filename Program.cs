@@ -34,18 +34,18 @@ namespace Callof2d
         private static Color LIGHT_GREY = new Color(75,75,75);
         private static Color BROWN = new Color(80,50,0);
         private static Color YELLOW = new Color(100,100,0);
-        public static int DEFAULT_ZOMBIES = 20;
+        public static int DEFAULT_ZOMBIES = 8;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
         public static int ZOMBIE_HEALTH = 100;
         public static float BULLET_SPEED = 12;
         public static float BULLET_RADIUS = 2;
         private static float ROOM1_HEIGHT = 500;
-        private static float ROOM1_WIDTH = 700;
+        private static float ROOM1_WIDTH = 1080 - 1080/5;
         private static float WALL_THICKNESS = 12;
         public static int BASE_SCORE = 10;
-        public static int POINTS_PER_HIT = 2;
-        public static int POINTS_PER_KILL = 5;
+        public static int POINTS_PER_HIT = 10;
+        public static int POINTS_PER_KILL = 50;
 
         
 
@@ -101,8 +101,8 @@ namespace Callof2d
 
             // create the player
             Player player = new Player();
-            player.SetNewHeldWeapon(trenchSweaper);
-            player.SetNewStoredWeapon(mg42);
+            player.SetNewHeldWeapon(m1911);
+            player.SetNewStoredWeapon(m1911);
             player.SetColor(WHITE);
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
             player.SetRadius(PLAYER_RADIUS);
@@ -166,7 +166,18 @@ namespace Callof2d
             misteryBox.SetPosition(new Vector2(MAX_X/10 + 70,MAX_Y/10+ROOM1_HEIGHT-20-WALL_THICKNESS));
             misteryBox.SetColor(YELLOW);
 
+            
+
+            //creating wallbuy
+            Wall m1Wallbuy = new Wall();
+            //misteryBox.SetRadius(50);
+            m1Wallbuy.SetWidth(75);
+            m1Wallbuy.SetHeight(20);
+            m1Wallbuy.SetPosition(new Vector2(MAX_X/10 + ROOM1_WIDTH - 250, MAX_Y/10+ROOM1_HEIGHT-WALL_THICKNESS));
+            m1Wallbuy.SetColor(YELLOW);
+
             cast.AddActor("box",misteryBox);
+            cast.AddActor("box",m1Wallbuy);
 
 
             //create stats
@@ -175,25 +186,28 @@ namespace Callof2d
             // creat HUD
             HUD weaponHUD = new HUD(player, stats);
             weaponHUD.SetColor(WHITE);
-            weaponHUD.SetPosition(new Vector2(2*MAX_X/3,4*MAX_Y/5));
+            weaponHUD.SetPosition(new Vector2(7*MAX_X/10,9*MAX_Y/10));
             weaponHUD.SetHUDType(0);
             weaponHUD.HUDSetup(0);
+            weaponHUD.SetFontSize(FONT_SIZE);
             Actor actor = (HUD)weaponHUD;
             cast.AddActor("HUD",actor);
 
             HUD scoreHUD = new HUD(player,stats);
             scoreHUD.SetColor(WHITE);
-            scoreHUD.SetPosition(new Vector2(MAX_X/3,4*MAX_Y/5));
+            scoreHUD.SetPosition(new Vector2(MAX_X/5,9*MAX_Y/10));
             scoreHUD.SetHUDType(1);
             scoreHUD.HUDSetup(1);
+            scoreHUD.SetFontSize(FONT_SIZE);
             Actor actor1 = (HUD)scoreHUD;
             cast.AddActor("HUD",actor1);
             
             HUD promptHUD = new HUD(player,stats);
             promptHUD.SetColor(WHITE);
-            promptHUD.SetPosition(new Vector2(MAX_X/2,2*MAX_Y/3));
+            promptHUD.SetPosition(new Vector2(MAX_X*2/5,2*MAX_Y/3));
             promptHUD.SetHUDType(1);
             promptHUD.HUDSetup(1);
+            promptHUD.SetFontSize(FONT_SIZE_SMALL);
             
             Actor actor2 = (HUD)promptHUD;
             cast.AddActor("HUD",actor2);

@@ -11,6 +11,7 @@ namespace Callof2d.Game.Casting
         private Zombie zombie;
         private Stats stats;
         private int hUDType;
+        private int fontSize;
         public HUD(Player player,Stats stats)
         {
             this.player=player;
@@ -26,6 +27,11 @@ namespace Callof2d.Game.Casting
             this.hUDType = hUDType;
         }
 
+        public void SetFontSize(int fontSize)
+        {
+            this.fontSize= fontSize;
+        }
+
         public string GetHUDText()
         {
             return this.HUDText;
@@ -34,6 +40,11 @@ namespace Callof2d.Game.Casting
         public int GetHUDType()
         {
             return this.hUDType;
+        }
+
+        public int GetFontSize()
+        {
+            return fontSize;
         }
 
         public void WeaponHUD()

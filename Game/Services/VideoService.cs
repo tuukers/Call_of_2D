@@ -107,13 +107,14 @@ namespace Callof2d.Game.Services
             }
         }
 
-        public void DrawHUD(Actor hUD)
+        public void DrawHUD(Actor hUDT)
         {
+            HUD hUD = (HUD) hUDT;
             Vector2 position = hUD.GetPosition();
             Casting.Color c = hUD.GetColor();
             Raylib_cs.Color color = ToRaylibColor(c);
             string HUDText = hUD.GetText();
-            Raylib.DrawText(HUDText,(int)position.X,(int)position.Y,Program.FONT_SIZE_SMALL,color);
+            Raylib.DrawText(HUDText,(int)position.X,(int)position.Y,hUD.GetFontSize(),color);
         }
 
         public void DrawHUDs(List<Actor> actors)

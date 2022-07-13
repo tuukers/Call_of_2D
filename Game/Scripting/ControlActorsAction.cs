@@ -61,6 +61,7 @@ namespace Callof2d.Game.Scripting
             {
                 if(mouseService.IsMousePressed()&!fullAuto)
                 {
+                    reload=false;
                     Vector2 mousePosition = mouseService.GetMousePosition();
                     if(!isShotgun)
                     {
@@ -78,6 +79,7 @@ namespace Callof2d.Game.Scripting
                 }
                 else if(mouseService.IsMouseDown()&fullAuto)
                 {
+                    reload=false;
                     Vector2 mousePosition = mouseService.GetMousePosition();
                     if(!isShotgun)
                     {
@@ -180,20 +182,25 @@ namespace Callof2d.Game.Scripting
             Vector2 velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
             player.SetVelocity(velocity/Program.PLAYER_SPEED_DIVIDER);
 
-            Wall misteryBox = (Wall)cast.GetFirstActor("box");
-            Vector2 position = misteryBox.GetPosition();
-            Vector2 center = misteryBox.GetCenter(position);
+            List<Actor> buyLocations = cast.GetActors("box");
+            Wall misteryBox = (Wall) buyLocations[0];
+            Wall m1Wallbuy = (Wall) buyLocations[1];
+            Vector2 mysteryBoxPosition = misteryBox.GetPosition();
+            Vector2 mysteryBoxCenter = misteryBox.GetCenter(mysteryBoxPosition);
+            Vector2 m1WallbuyPostions = m1Wallbuy.GetPosition();
+            Vector2 m1WallbuyCenter = m1Wallbuy.GetCenter(m1WallbuyPostions);
             Random random = new Random();
             List<Actor> weapons = cast.GetActors("weapon");
             
             HUD promptHUD =(HUD) hUDs[2];
 
-            float distance = Vector2.Distance(center, playerPosition);
+            float distance = Vector2.Distance(mysteryBoxCenter, playerPosition);
             if (distance<50)
             {
-                promptHUD.SetText("E for Weapon 950");
-                if(keyboardService.EKeyPressed())
+                promptHUD.SetText("'E' for Weapon [950]");
+                if(keyboardService.EKeyPressed() && stats.GetScore()>0)
                 {
+                    reload=false;
                     Weapon mysteryWeapon = weapon1;
                     while(mysteryWeapon == weapon1 || mysteryWeapon == weapon2)
                     {
@@ -207,6 +214,27 @@ namespace Callof2d.Game.Scripting
             else
             {
                 promptHUD.SetText("");
+            }
+
+            float distance1 = Vector2.Distance(m1WallbuyCenter, playerPosition);
+            if (distance1<50)
+            {
+                promptHUD.SetText("'E' M1 Garand [500] Ammo [250]");
+                if(keyboardService.EKeyPressed() && stats.GetScore()>0)
+                {
+                    reload=false;
+                    Weapon newWeapon = (Weapon) weapons[0];
+                    if (newWeapon != weapon2 && newWeapon != weapon1)
+                    {                    
+                        player.SetNewHeldWeapon(newWeapon);
+                        stats.SpendPoints(500);
+                    }
+                    else if(newWeapon == weapon1  && weapon1.GetAmmoCount() != weapon1.GetMaxAmmo())
+                    {
+                        player.SetNewHeldWeapon(newWeapon);
+                        stats.SpendPoints(250);
+                    }
+                }
             }
         }
 
