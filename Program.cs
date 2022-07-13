@@ -65,9 +65,9 @@ namespace Callof2d
 
                         //create bullet types
             Bullet m1Bullet = new Bullet(75);
-            Bullet m1911Bullet = new Bullet(20);
+            Bullet m1911Bullet = new Bullet(40);
             Bullet buckshot = new Bullet(3);
-            Bullet machinegunBullet = new Bullet(15);
+            Bullet machinegunBullet = new Bullet(25);
 
             m1Bullet.SetColor(LIGHT_GREY);
             m1911Bullet.SetColor(LIGHT_GREY);
