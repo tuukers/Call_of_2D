@@ -57,6 +57,7 @@ public class HandleZombieZombieCollisionsAction : Action
                         float zombieDivideSpeed = Program.ZOMBIE_NORMAL_SPEED_DIVIDE;
                         Vector2 velocity = Vector2.Divide(normalized,zombieDivideSpeed);
 
+                        velocity = Spread(velocity);
                         zombies[i].SetVelocity(velocity/Program.ZOMBIE_NORMAL_SPEED_DIVIDE);
                     }  
                 }
@@ -69,8 +70,27 @@ public class HandleZombieZombieCollisionsAction : Action
                         float zombieDivideSpeed = Program.ZOMBIE_NORMAL_SPEED_DIVIDE;
                         Vector2 velocity = Vector2.Divide(normalized,zombieDivideSpeed);
 
+                        velocity = Spread(velocity);
                         zombies[i].SetVelocity(velocity/Program.ZOMBIE_NORMAL_SPEED_DIVIDE);
                 }
+
             }
+
+            
+        }
+        Random random = new Random();
+        int zombieSpread = Program.ZOMBIE_SPREAD;
+        public Vector2 Spread(Vector2 aimVector)
+        {
+            Vector2 longVector = aimVector * 60;
+            int xShift = random.Next(0,zombieSpread+1);
+            int yShift = random.Next(0,zombieSpread+1);
+            int xPosition = (int)longVector.X;
+            int yPosition = (int)longVector.Y;
+            int x = xPosition-zombieSpread/2 +xShift;
+            int y = yPosition-zombieSpread/2 +yShift;
+            Vector2 bulletLongVector = new Vector2(x,y);
+            Vector2 bulletVector = Vector2.Normalize(bulletLongVector);
+            return bulletVector;
         }
     }

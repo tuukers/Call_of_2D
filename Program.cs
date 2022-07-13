@@ -24,6 +24,7 @@ namespace Callof2d
         public static int FONT_SIZE_SMALL = 15;
         public static int PLAYER_SPEED_DIVIDER = 2;
         public static float ZOMBIE_NORMAL_SPEED_DIVIDE = 1;
+        public static int ZOMBIE_SPREAD =50;
         private static int COLS = 60;
         private static int ROWS = 40;
         private static string CAPTION = "Call Of 2d";
