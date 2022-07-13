@@ -87,6 +87,11 @@ namespace Callof2d.Game.Casting
             this.heldWeapon.reload();
         }
 
+        public void PlayerShotgunReload()
+        {
+            this.heldWeapon.ShotgunReload();
+        }
+
         public static void PlayerTakeDamage(int damage)
         {
             playerHealth -= 20;

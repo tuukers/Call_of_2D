@@ -17,7 +17,7 @@ namespace Callof2d.Game.Casting
         private string weaponName;
         private int reloadTime;
         private int reloading;
-
+        private int buckShotCount;
 
 
         public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,int weaponSpread,Bullet bulletType,string weaponName,int reloadTime)
@@ -33,6 +33,7 @@ namespace Callof2d.Game.Casting
             this.bulletType=bulletType;
             this.weaponName=weaponName;
             this.reloadTime=reloadTime;
+            this.buckShotCount=0;
         }
         Random random = new Random();
         DateTime dateTime = new DateTime();
@@ -103,6 +104,11 @@ namespace Callof2d.Game.Casting
             return this.fireRate;
         }
 
+        public bool GetIsShotGun()
+        {
+            return this.isShotgun;
+        }
+
         public bool GetFullAuto()
         {
             return this.fullAuto;
@@ -132,10 +138,20 @@ namespace Callof2d.Game.Casting
         public bool Shoot()
         {
             
-            if (this.magazineCount>0)
+            if (this.magazineCount>0 && !isShotgun)
             {
                 this.magazineCount-=1;
                 return true;                
+            }
+            else if(isShotgun && this.magazineCount>0)
+            {   
+                buckShotCount +=1;
+                if(buckShotCount == bulletType.GetBuckShot())
+                { 
+                    this.magazineCount-=1;
+                    buckShotCount=0;
+                }
+                return true;
             }
             else
             {
@@ -182,6 +198,15 @@ namespace Callof2d.Game.Casting
             else
             {
                 
+            }
+        }
+
+        public void ShotgunReload()
+        {
+            if(this.magazineCapacity > this.magazineCount && this.ammoCount>0)
+            {
+                this.magazineCount +=1;
+                this.ammoCount -=1;
             }
         }
     }

@@ -66,7 +66,8 @@ namespace Callof2d
                         //create bullet types
             Bullet m1Bullet = new Bullet(75);
             Bullet m1911Bullet = new Bullet(40);
-            Bullet buckshot = new Bullet(3);
+            Bullet buckshot = new Bullet(30);
+            buckshot.SetBuckShot(8);
             Bullet machinegunBullet = new Bullet(25);
 
             m1Bullet.SetColor(LIGHT_GREY);
@@ -76,13 +77,18 @@ namespace Callof2d
 
             //create weapons
             Weapon m1Garand = new Weapon(80,80,8,8,false,false,4,2,m1Bullet,"m1 garand",2);
-            Weapon m1911 = new Weapon(70,70,7,7,false,false,1,3,m1911Bullet,"m1911",3);
-            Weapon trenchGun = new Weapon(30,30,6,6,true,false,1,5,buckshot,"Trench Gun",1);
+            Weapon m1911 = new Weapon(70,70,7,7,false,false,5,3,m1911Bullet,"m1911",3);
+            Weapon trenchGun = new Weapon(30,30,6,6,true,false,2,20,buckshot,"Trench Gun",0);
             Weapon mg42 = new Weapon(500,500,100,100,false,true,25,5,machinegunBullet,"MG42",6);
+
+            cast.AddActor("weapon",m1Garand);
+            cast.AddActor("weapon",m1911);
+            cast.AddActor("weapon",trenchGun);
+            cast.AddActor("weapon",mg42);
 
             // create the player
             Player player = new Player();
-            player.SetNewHeldWeapon(m1Garand);
+            player.SetNewHeldWeapon(trenchGun);
             player.SetNewStoredWeapon(mg42);
             player.SetColor(WHITE);
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
