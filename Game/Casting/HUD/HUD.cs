@@ -73,6 +73,12 @@ namespace Callof2d.Game.Casting
             this.SetText($"Round {round}");
         }
 
+        // public void PromptHUD()
+        // {
+
+        //     this.SetText();
+        // }
+
         public void HUDSetup(int hUDType)
         {
             if (hUDType==0)
@@ -83,6 +89,14 @@ namespace Callof2d.Game.Casting
             {
                 this.ScoreHUD();
             }
+            else if(hUDType==2)
+            {
+                this.RoundHUD();
+            }
+            // else if(hUDType==3)
+            // {
+            //     this.PromptHUD;
+            // }
 
         }
     }

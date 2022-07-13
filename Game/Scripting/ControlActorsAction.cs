@@ -43,7 +43,7 @@ namespace Callof2d.Game.Scripting
         {
             Player player = (Player)cast.GetFirstActor("player");
             List<Actor> walls = cast.GetActors("wall");
-            HUD hud = (HUD)cast.GetFirstActor("HUD");
+            List<Actor> hUDs= cast.GetActors("HUD");
             Vector2 playerPosition = player.GetPosition();
             Weapon weapon1 = player.GetHeldWeapon();
             Weapon weapon2 = player.GetStoredWeapon();
@@ -139,7 +139,22 @@ namespace Callof2d.Game.Scripting
 
             Vector2 velocity = keyboardService.GetDirection(topCollision,leftCollision,rightCollision,bottomCollision);
             player.SetVelocity(velocity);
-            hud.WeaponHUD();
+
+            Wall misteryBox = (Wall)cast.GetFirstActor("box");
+            Vector2 position = misteryBox.GetPosition();
+            Vector2 center = misteryBox.GetCenter(position);
+            
+            HUD promptHUD =(HUD) hUDs[2];
+
+            float distance = Vector2.Distance(center, playerPosition);
+            if (distance<50)
+            {
+                promptHUD.SetText("E for Weapon 950");
+            }
+            else
+            {
+                promptHUD.SetText("");
+            }
         }
 
     }

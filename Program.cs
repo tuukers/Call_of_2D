@@ -21,6 +21,7 @@ namespace Callof2d
         public static int MAX_Y = 720;
         public static int CELL_SIZE = 15;
         public static int FONT_SIZE = 25;
+        public static int FONT_SIZE_SMALL = 15;
         private static int PLAYER_SPEED = 2;
         public static float ZOMBIE_NORMAL_SPEED_DIVIDE = 1;
         private static int COLS = 60;
@@ -29,6 +30,7 @@ namespace Callof2d
         private static Color WHITE = new Color(255, 255, 255);
         private static Color GREY = new Color(100,100,100);
         private static Color BROWN = new Color(80,50,0);
+        private static Color YELLOW = new Color(100,100,0);
         public static int DEFAULT_ZOMBIES = 20;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
@@ -86,7 +88,7 @@ namespace Callof2d
             Wall wall3 = new Wall();
             Wall wall4 = new Wall();
             Wall wall5 = new Wall();
-            Wall wall6 = new Wall();
+
 
             //left wall
             wall1.SetColor(GREY);
@@ -129,7 +131,16 @@ namespace Callof2d
             cast.AddActor("wall",wall3);
             cast.AddActor("wall",wall4);
             cast.AddActor("wall",wall5);
-            cast.AddActor("wall",wall6);
+
+            //creating mistery box
+            Wall misteryBox = new Wall();
+            //misteryBox.SetRadius(50);
+            misteryBox.SetWidth(70);
+            misteryBox.SetHeight(40);
+            misteryBox.SetPosition(new Vector2(MAX_X/10 + 70,MAX_Y/10+ROOM1_HEIGHT-20-WALL_THICKNESS));
+            misteryBox.SetColor(YELLOW);
+
+            cast.AddActor("box",misteryBox);
 
 
             //create stats
@@ -151,6 +162,15 @@ namespace Callof2d
             scoreHUD.HUDSetup(1);
             Actor actor1 = (HUD)scoreHUD;
             cast.AddActor("HUD",actor1);
+            
+            HUD promptHUD = new HUD(player,stats);
+            promptHUD.SetColor(WHITE);
+            promptHUD.SetPosition(new Vector2(MAX_X/2,2*MAX_Y/3));
+            promptHUD.SetHUDType(1);
+            promptHUD.HUDSetup(1);
+            
+            Actor actor2 = (HUD)promptHUD;
+            cast.AddActor("HUD",actor2);
 
             Clock clock = new Clock();
             Round round = new Round();
