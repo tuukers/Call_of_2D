@@ -84,6 +84,16 @@ namespace Callof2d.Game.Services
             return pressed;
         }
 
+        public bool EKeyPressed()
+        {
+            bool pressed = false;
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_E))
+            {
+                pressed = true;
+            }
+            return pressed;
+        }
+
         // public Vector2 GetDirectionTopCollision()
         // {
 

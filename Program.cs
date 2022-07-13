@@ -193,7 +193,7 @@ namespace Callof2d
             // AudioService audioService = new AudioService();
             
             Script script = new Script();
-            script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService));
+            script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService,stats));
             script.AddAction("updates", new DrawActorsAction(videoService, mouseService));
             script.AddAction("updates", new HandleBulletCollisionsAction(contactService, stats));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));

@@ -48,6 +48,11 @@ namespace Callof2d.Game.Casting
             score += points * multiplier;
         }
 
+        public void SpendPoints(int points)
+        {
+            score -= points;
+        }
+
         /// <summary>
         /// Gets the round.
         /// </summary>

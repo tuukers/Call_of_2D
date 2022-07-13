@@ -20,6 +20,7 @@ namespace Callof2d.Game.Scripting
         private MouseService mouseService;
         private VideoService videoService;
         private ContactService contactService;
+        private Stats stats;
         private Point direction = new Point(0,-Program.CELL_SIZE);
         private Point direction2 = new Point(0,-Program.CELL_SIZE);
         private bool collision = false;
@@ -31,12 +32,13 @@ namespace Callof2d.Game.Scripting
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
         /// </summary>
-        public ControlActorsAction(KeyboardService keyboardService, MouseService mouseService, VideoService videoService, ContactService contactService)
+        public ControlActorsAction(KeyboardService keyboardService, MouseService mouseService, VideoService videoService, ContactService contactService,Stats stats)
         {
             this.keyboardService = keyboardService;
             this.mouseService = mouseService;
             this.videoService = videoService;
             this.contactService = contactService; 
+            this.stats = stats;
             this.lastShot=DateTime.Now;           
         }
 
@@ -173,6 +175,8 @@ namespace Callof2d.Game.Scripting
             Wall misteryBox = (Wall)cast.GetFirstActor("box");
             Vector2 position = misteryBox.GetPosition();
             Vector2 center = misteryBox.GetCenter(position);
+            Random random = new Random();
+            List<Actor> weapons = cast.GetActors("weapon");
             
             HUD promptHUD =(HUD) hUDs[2];
 
@@ -180,6 +184,17 @@ namespace Callof2d.Game.Scripting
             if (distance<50)
             {
                 promptHUD.SetText("E for Weapon 950");
+                if(keyboardService.EKeyPressed())
+                {
+                    Weapon mysteryWeapon = weapon1;
+                    while(mysteryWeapon == weapon1 || mysteryWeapon == weapon2)
+                    {
+                        int randomInt=random.Next(0,weapons.Count);
+                        mysteryWeapon = (Weapon) weapons[randomInt];
+                    }
+                    player.SetNewHeldWeapon(mysteryWeapon);
+                    stats.SpendPoints(950);
+                }
             }
             else
             {
