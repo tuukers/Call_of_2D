@@ -93,6 +93,7 @@ namespace Callof2d
             cast.AddActor("weapon",m1Garand);
             cast.AddActor("weapon",kar98);
             cast.AddActor("weapon",m1911);
+            cast.AddActor("weapon",Mouserc96);
             cast.AddActor("weapon",trenchGun);
             cast.AddActor("weapon",trenchSweaper);
             cast.AddActor("weapon",mg42);
