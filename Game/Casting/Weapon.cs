@@ -15,11 +15,12 @@ namespace Callof2d.Game.Casting
         private int weaponSpread;
         private Bullet bulletType;
         private string weaponName;
+        private int reloadTime;
         private int reloading;
 
 
 
-        public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,int weaponSpread,Bullet bulletType,string weaponName)
+        public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,int weaponSpread,Bullet bulletType,string weaponName,int reloadTime)
         {
             this.maxAmmo=maxAmmo;
             this.ammoCount=ammoCount;
@@ -31,6 +32,7 @@ namespace Callof2d.Game.Casting
             this.weaponSpread = weaponSpread;
             this.bulletType=bulletType;
             this.weaponName=weaponName;
+            this.reloadTime=reloadTime;
         }
         Random random = new Random();
         DateTime dateTime = new DateTime();
@@ -119,6 +121,11 @@ namespace Callof2d.Game.Casting
         public string GetWeaponName()
         {
             return this.weaponName;
+        }
+
+        public int GetReloadTime()
+        {
+            return this.reloadTime;
         }
 
         //weapon action

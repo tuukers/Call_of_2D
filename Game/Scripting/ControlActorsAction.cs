@@ -24,6 +24,9 @@ namespace Callof2d.Game.Scripting
         private Point direction2 = new Point(0,-Program.CELL_SIZE);
         private bool collision = false;
         private DateTime lastShot;
+        private bool reload = false;
+        private DateTime reloadTimeInit;
+        private int reloadTime;
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
@@ -71,11 +74,20 @@ namespace Callof2d.Game.Scripting
                 }
             }
 
-            if(keyboardService.RKeyPressed())
+            if(keyboardService.RKeyPressed()&& !reload)
             {
+                reloadTimeInit=DateTime.Now;
                 Weapon weapon = player.GetHeldWeapon();
+                this.reloadTime = weapon.GetReloadTime();
+                this.reload = true;
+            }
+
+            TimeSpan reloadDuration = DateTime.Now - reloadTimeInit;
+
+            if (reloadDuration.Seconds * 4>= this.reloadTime && this.reload)
+            {
                 player.PlayerReload();
-                
+                this.reload = false;
             }
 
             if(keyboardService.VKeyPressed())

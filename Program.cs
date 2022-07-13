@@ -68,10 +68,10 @@ namespace Callof2d
             Bullet machinegunBullet = new Bullet(15);
 
             //create weapons
-            Weapon m1Garand = new Weapon(80,80,8,8,false,false,4,2,m1Bullet,"m1 garand");
-            Weapon m1911 = new Weapon(70,70,7,7,false,false,1,3,m1911Bullet,"m1911");
-            Weapon trenchGun = new Weapon(30,30,6,6,true,false,1,5,buckshot,"Trench Gun");
-            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,5,machinegunBullet,"MG42");
+            Weapon m1Garand = new Weapon(80,80,8,8,false,false,4,2,m1Bullet,"m1 garand",2);
+            Weapon m1911 = new Weapon(70,70,7,7,false,false,1,3,m1911Bullet,"m1911",3);
+            Weapon trenchGun = new Weapon(30,30,6,6,true,false,1,5,buckshot,"Trench Gun",1);
+            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,5,machinegunBullet,"MG42",6);
 
             // create the player
             Player player = new Player();
