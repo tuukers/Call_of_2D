@@ -198,7 +198,7 @@ namespace Callof2d.Game.Scripting
             if (distance<50)
             {
                 promptHUD.SetText("'E' for Weapon [950]");
-                if(keyboardService.EKeyPressed() && stats.GetScore()>0)
+                if(keyboardService.EKeyPressed() && stats.GetScore()>=950)
                 {
                     reload=false;
                     Weapon mysteryWeapon = weapon1;
@@ -220,11 +220,11 @@ namespace Callof2d.Game.Scripting
             if (distance1<50)
             {
                 promptHUD.SetText("'E' M1 Garand [500] Ammo [250]");
-                if(keyboardService.EKeyPressed() && stats.GetScore()>0)
+                if(keyboardService.EKeyPressed() && stats.GetScore()>=250)
                 {
                     reload=false;
                     Weapon newWeapon = (Weapon) weapons[0];
-                    if (newWeapon != weapon2 && newWeapon != weapon1)
+                    if (newWeapon != weapon2 && newWeapon != weapon1 && stats.GetScore()>= 500)
                     {                    
                         player.SetNewHeldWeapon(newWeapon);
                         stats.SpendPoints(500);
