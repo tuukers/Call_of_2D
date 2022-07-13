@@ -167,7 +167,7 @@ namespace Callof2d.Game.Casting
             }
             else if(this.ammoCount>0 & this.ammoCount<this.magazineCapacity)
             {
-                if(ammoCount + magazineCount <7)
+                if(ammoCount + magazineCount <magazineCapacity)
                 {
                     this.magazineCount = this.ammoCount+this.magazineCount;
                     this.ammoCount = 0;
