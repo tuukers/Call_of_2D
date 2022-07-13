@@ -64,8 +64,6 @@ namespace Callof2d.Game.Scripting
                     Vector2 mousePosition = mouseService.GetMousePosition();
                     if(!isShotgun)
                     {
-                        
-
                         player.Shoot(cast, mousePosition);
                         this.lastShot = DateTime.Now;
                     }
@@ -75,15 +73,25 @@ namespace Callof2d.Game.Scripting
                         {
                             player.Shoot(cast, mousePosition);
                         }
+                        this.lastShot = DateTime.Now;
                     }
                 }
                 else if(mouseService.IsMouseDown()&fullAuto)
                 {
                     Vector2 mousePosition = mouseService.GetMousePosition();
-
-                    player.Shoot(cast, mousePosition);
-                    this.lastShot = DateTime.Now;
-                    
+                    if(!isShotgun)
+                    {
+                        player.Shoot(cast, mousePosition);
+                        this.lastShot = DateTime.Now;
+                    }
+                    else
+                    {
+                        for(int i = 0; i<weapon1.GetBulletType().GetBuckShot() + 1; i++)
+                        {
+                            player.Shoot(cast, mousePosition);
+                            this.lastShot = DateTime.Now;
+                        }
+                    }
                 }
             }
 
@@ -114,7 +122,7 @@ namespace Callof2d.Game.Scripting
             {
                 player.SetHeldWeapon(weapon2);
                 player.SetStoredWeapon(weapon1);
-                
+                this.reload=false;                
             }
             
             bool topCollision = false;

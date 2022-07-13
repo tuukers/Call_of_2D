@@ -64,31 +64,42 @@ namespace Callof2d
             MouseService mouseService = new MouseService();
 
                         //create bullet types
-            Bullet m1Bullet = new Bullet(75);
-            Bullet m1911Bullet = new Bullet(40);
+            Bullet rifleBullet = new Bullet(75);
+            Bullet refleBullet2 = new Bullet(120);
+            Bullet pistolBullet = new Bullet(40);
             Bullet buckshot = new Bullet(30);
             buckshot.SetBuckShot(8);
+            Bullet superBuckShot = new Bullet(30);
+            superBuckShot.SetBuckShot(16);
             Bullet machinegunBullet = new Bullet(25);
 
-            m1Bullet.SetColor(LIGHT_GREY);
-            m1911Bullet.SetColor(LIGHT_GREY);
-            buckshot.SetColor(BLACK);
+            rifleBullet.SetColor(LIGHT_GREY);
+            refleBullet2.SetColor(LIGHT_GREY);
+            pistolBullet.SetColor(LIGHT_GREY);
             buckshot.SetColor(LIGHT_GREY);
+            superBuckShot.SetColor(LIGHT_GREY);
+            machinegunBullet.SetColor(LIGHT_GREY);
+            
 
             //create weapons
-            Weapon m1Garand = new Weapon(80,80,8,8,false,false,4,2,m1Bullet,"m1 garand",2);
-            Weapon m1911 = new Weapon(70,70,7,7,false,false,5,3,m1911Bullet,"m1911",3);
+            Weapon m1Garand = new Weapon(80,80,8,8,false,false,4,2,rifleBullet,"m1 garand",2);
+            Weapon kar98 = new Weapon(75,75,5,5,false,false,2,0,refleBullet2,"Kar98",3);
+            Weapon m1911 = new Weapon(70,70,7,7,false,false,5,3,pistolBullet,"m1911",3);
+            Weapon Mouserc96 = new Weapon(80,80,10,10,false,false,6,4,pistolBullet,"Mouser C96",5);
             Weapon trenchGun = new Weapon(30,30,6,6,true,false,2,20,buckshot,"Trench Gun",0);
-            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,5,machinegunBullet,"MG42",6);
+            Weapon trenchSweaper = new Weapon(60,60,12,12,true,true,3,30,superBuckShot, "Trench Sweaper",0);
+            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,10,machinegunBullet,"MG42",6);
 
             cast.AddActor("weapon",m1Garand);
+            cast.AddActor("weapon",kar98);
             cast.AddActor("weapon",m1911);
             cast.AddActor("weapon",trenchGun);
+            cast.AddActor("weapon",trenchSweaper);
             cast.AddActor("weapon",mg42);
 
             // create the player
             Player player = new Player();
-            player.SetNewHeldWeapon(trenchGun);
+            player.SetNewHeldWeapon(trenchSweaper);
             player.SetNewStoredWeapon(mg42);
             player.SetColor(WHITE);
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
