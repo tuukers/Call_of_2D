@@ -157,19 +157,29 @@ namespace Callof2d.Game.Casting
             return bulletVector;
         }
 
+        public void addAmmo()
+        {
+            // When a player picks up ammo, they should gain 1 clip worth of ammo for their current held weapon.
+            // They will not pick up more than the max ammo for that weapon.
+            int newAmmoCount = this.magazineCapacity + this.ammoCount;
+            if (newAmmoCount > this.maxAmmo)
+                newAmmoCount = this.maxAmmo;
+            this.ammoCount = newAmmoCount;
+        }
+
         public void reload()
         { 
-            if(this.ammoCount>=this.magazineCapacity)
+            if(this.ammoCount >= this.magazineCapacity)
             {
                 this.reloading = this.magazineCapacity - this.magazineCount;
                 this.ammoCount -= this.reloading;
                 this.magazineCount = this.magazineCapacity;
             }
-            else if(this.ammoCount>0 & this.ammoCount<this.magazineCapacity)
+            else if(this.ammoCount > 0 & this.ammoCount < this.magazineCapacity)
             {
-                if(ammoCount + magazineCount <magazineCapacity)
+                if(this.ammoCount + this.magazineCount < this.magazineCapacity)
                 {
-                    this.magazineCount = this.ammoCount+this.magazineCount;
+                    this.magazineCount = this.ammoCount + this.magazineCount;
                     this.ammoCount = 0;
                 }
                 else

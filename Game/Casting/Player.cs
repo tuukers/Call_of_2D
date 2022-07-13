@@ -82,6 +82,11 @@ namespace Callof2d.Game.Casting
             }
         }
 
+        public void PlayerPickupAmmo()
+        {
+            this.heldWeapon.addAmmo();
+        }
+        
         public void PlayerReload()
         {
             this.heldWeapon.reload();

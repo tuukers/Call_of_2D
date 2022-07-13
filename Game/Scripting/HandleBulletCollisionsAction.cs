@@ -59,13 +59,30 @@ namespace Callof2d.Game.Scripting
 
                     if(x_difference_abs<10 && y_difference_abs<10)
                     {
+                        // Zombie Hit
                         cast.RemoveActor("bullets",bullet);
                         zombie.TakeDamage(shot.GetBulletDamage());
                         stats.AddPoints(Program.POINTS_PER_HIT,1);
 
                         if (zombie.GetHealth()<=0){
+                            // Zombie Killed
+
+                            // Drop ammo box
+                            //AmmoBox.SpawnAmmoBox(zombie.GetPosition());                            
+                            Random random = new Random();
+                            int ammoRandom = random.Next(0, 11);
+                            if (ammoRandom > 9)
+                            {
+                                AmmoBox ammoBox = new AmmoBox();
+                                ammoBox.SetPosition(zombie.GetPosition());
+                                ammoBox.SetRadius(Program.ZOMBIE_RADIUS / 2);
+                                cast.AddActor("ammoBox", ammoBox);
+                            }
+                            
+                            // Remove zombie and add point
                             cast.RemoveActor("zombie",zombie);
                             stats.AddPoints(Program.POINTS_PER_KILL,1);
+                    
                         }
                     }
                 }
