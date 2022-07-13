@@ -19,7 +19,7 @@ namespace Callof2d.Game.Directing
         private VideoService videoService = null;
         private MouseService mouseService = null;
         private Clock clock = null;
-
+        private AudioService audioService = null;
         /// <summary>
         /// Constructs a new instance of Director using the given KeyboardService and VideoService.
         /// </summary>
@@ -31,6 +31,7 @@ namespace Callof2d.Game.Directing
             this.videoService = videoService;
             this.mouseService = mouseService;
             this.clock = clock;
+            this.audioService = audioService;
         }
 
         /// <summary>
