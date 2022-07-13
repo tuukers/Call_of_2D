@@ -51,6 +51,7 @@ namespace Callof2d.Game.Scripting
             Weapon weapon1 = player.GetHeldWeapon();
             Weapon weapon2 = player.GetStoredWeapon();
             bool fullAuto = weapon1.GetFullAuto();
+            bool isShotgun = weapon1.GetIsShotGun();
             
             
             TimeSpan timeSinceLastShot = DateTime.Now - this.lastShot;
@@ -59,10 +60,20 @@ namespace Callof2d.Game.Scripting
                 if(mouseService.IsMousePressed()&!fullAuto)
                 {
                     Vector2 mousePosition = mouseService.GetMousePosition();
+                    if(!isShotgun)
+                    {
+                        
 
-                    player.Shoot(cast, mousePosition);
-                    this.lastShot = DateTime.Now;
-                    
+                        player.Shoot(cast, mousePosition);
+                        this.lastShot = DateTime.Now;
+                    }
+                    else
+                    {
+                        for(int i = 0; i<weapon1.GetBulletType().GetBuckShot() + 1; i++)
+                        {
+                            player.Shoot(cast, mousePosition);
+                        }
+                    }
                 }
                 else if(mouseService.IsMouseDown()&fullAuto)
                 {
@@ -86,7 +97,14 @@ namespace Callof2d.Game.Scripting
 
             if (reloadDuration.Seconds * 4>= this.reloadTime && this.reload)
             {
-                player.PlayerReload();
+                if(!isShotgun)
+                {
+                    player.PlayerReload();
+                }
+                else
+                {
+                    player.PlayerShotgunReload();
+                }
                 this.reload = false;
             }
 

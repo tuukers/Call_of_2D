@@ -7,7 +7,9 @@ namespace Callof2d.Game.Casting
     public class Bullet : Actor
     {
 
-        int bulletDamage=1;
+        
+        private int bulletDamage=1;
+        private int buckShot;
         public Bullet(int bulletDamage) 
         { 
             this.bulletDamage=bulletDamage;
@@ -17,8 +19,18 @@ namespace Callof2d.Game.Casting
         {
             this.bulletDamage= bulletDamage;
         }
+
+        public void SetBuckShot(int buckShot)
+        {
+            this.buckShot = buckShot;
+        }
         public int GetBulletDamage(){
             return bulletDamage;
+        }
+
+        public int GetBuckShot()
+        {
+            return buckShot;
         }
     }
 }
