@@ -60,6 +60,7 @@ namespace Callof2d.Game.Scripting
                     zombie.SetColor(color);
                     zombie.SetPosition(position);
                     zombie.SetRadius(Program.ZOMBIE_RADIUS);
+                    zombie.SetSpeed(random.Next(1,3));
                     cast.AddActor("zombie", zombie);
                 }
             }

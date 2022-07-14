@@ -24,59 +24,49 @@ public class HandleZombieZombieCollisionsAction : Action
             Actor player = cast.GetFirstActor("player");
             List<Actor> zombies = cast.GetActors("zombie");
             Vector2 playerPosition = player.GetPosition(); 
+            int i = 0;
             
-            for (int i = 0; i < zombies.Count; i++)
+            foreach (Actor zombie in zombies)
             {
-                Vector2 zombiePosition = zombies[i].GetPosition();
+                Vector2 zombiePosition = zombie.GetPosition();
+                i+=1;
 
-                for (int i2 = i + 1; i2 < zombies.Count; i2++)
+                foreach (Actor zombie2 in zombies)
                 {
                     //contact=contactService.Collision(zombie,otherZombie);
-                    float radius1 = zombies[i].GetRadius();
-                    float radius2 = zombies[i2].GetRadius();
+                    float radius1 = zombie.GetRadius();
+                    float radius2 = zombie2.GetRadius();
 
-                    Vector2 actor1Position = zombies[i].GetPosition();
-                    Vector2 actor2Position = zombies[i2].GetPosition();
-
-                    Vector2 vector = actor1Position - actor2Position;
+                    Vector2 actor1Position = zombie.GetPosition();
+                    Vector2 actor2Position = zombie2.GetPosition();
                     float distance = Vector2.Distance(actor1Position,actor2Position);
 
-                    Vector2 otherZombiePosition =  zombies[i2].GetPosition(); //I copied it in and it works. I don't know why
-
-                    if(distance <= radius1 + radius2)
+                    if(distance <= radius1 + radius2 && zombie!=zombie2)
                     {
-                        Vector2 movingAway=otherZombiePosition - zombiePosition;
-                        zombies[i].SetVelocity(Vector2.Normalize(-movingAway));
-                        zombies[i2].SetVelocity(Vector2.Normalize(movingAway));
+                        Vector2 movingAway=actor2Position - actor1Position;
+                        zombie.SetVelocity(Vector2.Normalize(-movingAway));
+                        zombie2.SetVelocity(Vector2.Normalize(movingAway));
                     }
                     else{
                         Vector2 a = Vector2.Subtract(playerPosition, zombiePosition);
 
                         // Normalize result so contains only direction, not magnitude.
                         Vector2 normalized = Vector2.Normalize(a);
-                        float zombieDivideSpeed = Program.ZOMBIE_NORMAL_SPEED_DIVIDE;
-                        Vector2 velocity = Vector2.Divide(normalized,zombieDivideSpeed);
+                        Zombie zombiez = (Zombie) zombie;
 
-                        velocity = Spread(velocity);
-                        zombies[i].SetVelocity(velocity/Program.ZOMBIE_NORMAL_SPEED_DIVIDE);
+                        zombie.SetVelocity(normalized * zombiez.GetSpeed());
                     }  
                 }
                 if (i == zombies.Count - 1)
                 {
                     Vector2 a = Vector2.Subtract(playerPosition, zombiePosition);
 
-                        // Normalize result so contains only direction, not magnitude.
-                        Vector2 normalized = Vector2.Normalize(a);
-                        float zombieDivideSpeed = Program.ZOMBIE_NORMAL_SPEED_DIVIDE;
-                        Vector2 velocity = Vector2.Divide(normalized,zombieDivideSpeed);
-
-                        velocity = Spread(velocity);
-                        zombies[i].SetVelocity(velocity/Program.ZOMBIE_NORMAL_SPEED_DIVIDE);
+                    // Normalize result so contains only direction, not magnitude.
+                    Vector2 normalized = Vector2.Normalize(a);
+                    Zombie zombie1 = (Zombie) zombie;
+                    zombie1.SetVelocity(normalized*zombie1.GetSpeed());
                 }
-
             }
-
-            
         }
         Random random = new Random();
         int zombieSpread = Program.ZOMBIE_SPREAD;

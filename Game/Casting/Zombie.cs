@@ -12,6 +12,7 @@ namespace Callof2d.Game.Casting
     {
         private float health;
         private Cast cast;
+        private int speed;
 
         /// <summary>
         /// Constructs a new instance of an Zombie.
@@ -29,6 +30,16 @@ namespace Callof2d.Game.Casting
         public float GetHealth()
         {
             return this.health;
+        }
+
+        public void SetSpeed(int speed)
+        {
+            this.speed = speed;
+        }
+
+        public int GetSpeed()
+        {
+            return this.speed;
         }
 
         public static void BasicAttack()

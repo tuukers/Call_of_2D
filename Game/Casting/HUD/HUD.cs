@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using Callof2d.Game.Directing;
 
 
 namespace Callof2d.Game.Casting
@@ -12,10 +13,12 @@ namespace Callof2d.Game.Casting
         private Stats stats;
         private int hUDType;
         private int fontSize;
-        public HUD(Player player,Stats stats)
+        private Round round;
+        public HUD(Player player,Stats stats,Round round)
         {
             this.player=player;
             this.stats=stats;
+            this.round=round;
         }
         public void SetHUDText(string HUDText)
         {
@@ -80,8 +83,8 @@ namespace Callof2d.Game.Casting
 
         public void RoundHUD()
         {
-            int round = stats.GetRound();
-            this.SetText($"Round {round}");
+            int roundNum = round.GetRound();
+            this.SetText($"{roundNum + 1}");
         }
 
         // public void PromptHUD()
@@ -90,7 +93,7 @@ namespace Callof2d.Game.Casting
         //     this.SetText();
         // }
 
-        public void HUDSetup(int hUDType)
+        public void HUDSetup()
         {
             if (hUDType==0)
             {

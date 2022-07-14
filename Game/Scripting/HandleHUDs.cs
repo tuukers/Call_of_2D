@@ -21,8 +21,7 @@ namespace Callof2d.Game.Scripting
             foreach(Actor hUDT in hUDs)
             {
                 HUD hUD = (HUD) hUDT;
-                int hUDType = hUD.GetHUDType();
-                hUD.HUDSetup(hUDType);
+                hUD.HUDSetup();
             }
         }
     }
