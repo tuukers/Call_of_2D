@@ -31,6 +31,7 @@ namespace Callof2d.Game.Casting
         {
             Weapon newWeapon = weapon;
             newWeapon.SetAmmoCount(newWeapon.GetMaxAmmo());
+            newWeapon.SetMagazineCount(newWeapon.GetMagazineCapacity());
             this.heldWeapon= newWeapon;
         }
 

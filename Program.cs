@@ -95,6 +95,7 @@ namespace Callof2d
             Weapon trenchGun = new Weapon(30,30,6,6,true,false,2,20,buckshot,"Trench Gun",0);
             Weapon trenchSweaper = new Weapon(60,60,12,12,true,true,3,30,superBuckShot, "Trench Sweaper",0);
             Weapon mg42 = new Weapon(500,500,100,100,false,true,25,10,machinegunBullet,"MG42",6);
+            Weapon ThompsonSubMachinegun = new Weapon(240,240,30,30,false,true,13,15,pistolBullet,"ThompsonSMG",3);
 
             cast.AddActor("weapon",m1Garand);
             cast.AddActor("weapon",kar98);
@@ -103,6 +104,7 @@ namespace Callof2d
             cast.AddActor("weapon",trenchGun);
             cast.AddActor("weapon",trenchSweaper);
             cast.AddActor("weapon",mg42);
+            cast.AddActor("weapon",ThompsonSubMachinegun);
 
             // create the player
             Player player = new Player();
@@ -119,6 +121,7 @@ namespace Callof2d
             Wall wall3 = new Wall();
             Wall wall4 = new Wall();
             Wall wall5 = new Wall();
+            Wall wall6 = new Wall();
 
 
             //left wall
@@ -149,12 +152,19 @@ namespace Callof2d
             wall4.SetWidth(WALL_THICKNESS);
             wall4.SetHorizontal(false);
 
-            //center wall
+            //center wall1
             wall5.SetColor(BROWN);
-            wall5.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*3/5));
+            wall5.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT)*3/5));
             wall5.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
             wall5.SetWidth(WALL_THICKNESS/2);
             wall5.SetHorizontal(true);
+
+            //center wall2
+            wall6.SetColor(BROWN);
+            wall6.SetPosition(new Vector2((MAX_X)*3/5, MAX_Y/10+WALL_THICKNESS));
+            wall6.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
+            wall6.SetWidth(WALL_THICKNESS/2);
+            wall6.SetHorizontal(true);
 
             
             cast.AddActor("wall",wall1);
@@ -162,6 +172,7 @@ namespace Callof2d
             cast.AddActor("wall",wall3);
             cast.AddActor("wall",wall4);
             cast.AddActor("wall",wall5);
+            cast.AddActor("wall",wall6);
 
             //creat background
             Wall grass = new Wall();
