@@ -177,7 +177,7 @@ namespace Callof2d.Game.Casting
         {
             // When a player picks up ammo, they should gain 1 magazine worth of ammo for their current held weapon.
             // They will not pick up more than the max ammo for that weapon.
-            int newAmmoCount = this.magazineCapacity + this.ammoCount;
+            int newAmmoCount = this.magazineCapacity/2 + this.ammoCount;
             if (newAmmoCount > this.maxAmmo)
                 newAmmoCount = this.maxAmmo;
             this.ammoCount = newAmmoCount;

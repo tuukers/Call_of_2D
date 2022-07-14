@@ -33,11 +33,12 @@ namespace Callof2d
         private static Color GREY = new Color(100,100,100);
         private static Color LIGHT_GREY = new Color(75,75,75);
         private static Color BROWN = new Color(80,50,0);
-        private static Color YELLOW = new Color(200,200,0);
+        public static Color YELLOW = new Color(200,200,0);
         private static Color DULL_YELLOW = new Color(100,100,0);
         private static Color DARK_GREEN = new Color(0,100,0);
         private static Color GREEN = new Color(0,255,0);
         public static Color RED = new Color(255,0,0);
+        public static Color ORANGE = new Color(255,100,0);
         public static int DEFAULT_ZOMBIES = 8;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
@@ -195,7 +196,7 @@ namespace Callof2d
             //creating mistery box
             Wall misteryBox = new Wall();
             //misteryBox.SetRadius(50);
-            misteryBox.SetWidth(70);
+            misteryBox.SetWidth(75);
             misteryBox.SetHeight(40);
             misteryBox.SetPosition(new Vector2(MAX_X/10 + 70,MAX_Y/10+ROOM1_HEIGHT-20-WALL_THICKNESS));
             misteryBox.SetColor(YELLOW);
@@ -210,8 +211,22 @@ namespace Callof2d
             m1Wallbuy.SetPosition(new Vector2(MAX_X/10 + ROOM1_WIDTH - 250, MAX_Y/10+ROOM1_HEIGHT-WALL_THICKNESS));
             m1Wallbuy.SetColor(YELLOW);
 
+            Wall jugernog = new Wall();
+            jugernog.SetWidth(40);
+            jugernog.SetHeight(75);
+            jugernog.SetPosition(new Vector2((MAX_X)*3/5-40, MAX_Y/10+WALL_THICKNESS+20));
+            jugernog.SetColor(RED);
+
+            Wall doubletap = new Wall();
+            doubletap.SetWidth(40);
+            doubletap.SetHeight(75);
+            doubletap.SetPosition(new Vector2(MAX_X/10+ROOM1_WIDTH-40-WALL_THICKNESS, MAX_Y/10+ROOM1_HEIGHT-150));
+            doubletap.SetColor(ORANGE);
+
             cast.AddActor("box",misteryBox);
             cast.AddActor("box",m1Wallbuy);
+            cast.AddActor("box",jugernog);
+            cast.AddActor("box",doubletap);
 
             //create health bar
             Wall healthbar = new Wall();
@@ -279,7 +294,7 @@ namespace Callof2d
             // AudioService audioService = new AudioService();
             
             Script script = new Script();
-            script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService,stats));
+            script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService,stats,round));
             script.AddAction("updates", new DrawActorsAction(videoService, mouseService));
             script.AddAction("updates", new HandleBulletCollisionsAction(contactService, stats));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));

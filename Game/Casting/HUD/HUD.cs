@@ -92,6 +92,7 @@ namespace Callof2d.Game.Casting
             this.SetText("GAME OVER");
         }
 
+
         // public void PromptHUD()
         // {
 
@@ -115,6 +116,10 @@ namespace Callof2d.Game.Casting
             else if (hUDType==3)
             {
                 this.GameOverHUD();
+            }
+            else if (hUDType==4)
+            {
+                //this.TextHUD()
             }
             // else if(hUDType==3)
             // {

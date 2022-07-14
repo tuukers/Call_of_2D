@@ -7,8 +7,8 @@ namespace Callof2d.Game.Casting
 {
     public class Player : Actor
     {
-        private int playerMaxHealth=100;
-        private int playerHealth=100;
+        private int playerMaxHealth=75;
+        private int playerHealth=75;
         private Weapon heldWeapon;
         private Weapon storedWeapon;
 

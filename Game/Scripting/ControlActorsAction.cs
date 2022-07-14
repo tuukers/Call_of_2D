@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Callof2d.Game.Casting;
 using Callof2d.Game.Services;
+using Callof2d.Game.Directing;
 
 
 
@@ -21,6 +22,7 @@ namespace Callof2d.Game.Scripting
         private VideoService videoService;
         private ContactService contactService;
         private Stats stats;
+        private Round round;
         private Point direction = new Point(0,-Program.CELL_SIZE);
         private Point direction2 = new Point(0,-Program.CELL_SIZE);
         private bool collision = false;
@@ -28,11 +30,13 @@ namespace Callof2d.Game.Scripting
         private bool reload = false;
         private DateTime reloadTimeInit;
         private int reloadTime;
+        bool jug=false;
+        bool tap=false;
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
         /// </summary>
-        public ControlActorsAction(KeyboardService keyboardService, MouseService mouseService, VideoService videoService, ContactService contactService,Stats stats)
+        public ControlActorsAction(KeyboardService keyboardService, MouseService mouseService, VideoService videoService, ContactService contactService,Stats stats,Round round)
         {
             this.keyboardService = keyboardService;
             this.mouseService = mouseService;
@@ -40,6 +44,7 @@ namespace Callof2d.Game.Scripting
             this.contactService = contactService; 
             this.stats = stats;
             this.lastShot=DateTime.Now;           
+            this.round = round;
         }
 
         /// <inheritdoc/>
@@ -181,12 +186,19 @@ namespace Callof2d.Game.Scripting
             player.SetVelocity(velocity/Program.PLAYER_SPEED_DIVIDER);
 
             List<Actor> buyLocations = cast.GetActors("box");
+            List<Actor> bullets = cast.GetActors("bullets");
             Wall misteryBox = (Wall) buyLocations[0];
             Wall m1Wallbuy = (Wall) buyLocations[1];
+            Wall jugernog = (Wall) buyLocations[2];
+            Wall doubletap = (Wall) buyLocations[3];
             Vector2 mysteryBoxPosition = misteryBox.GetPosition();
             Vector2 mysteryBoxCenter = misteryBox.GetCenter(mysteryBoxPosition);
             Vector2 m1WallbuyPostions = m1Wallbuy.GetPosition();
             Vector2 m1WallbuyCenter = m1Wallbuy.GetCenter(m1WallbuyPostions);
+            Vector2 jugernogPostions = jugernog.GetPosition();
+            Vector2 jugernogCenter = jugernog.GetCenter(jugernogPostions);
+            Vector2 doubletapPostions = doubletap.GetPosition();
+            Vector2 doubletapCenter = doubletap.GetCenter(doubletapPostions);
             Random random = new Random();
             List<Actor> weapons = cast.GetActors("weapon");
             
@@ -214,6 +226,7 @@ namespace Callof2d.Game.Scripting
                 promptHUD.SetText("");
             }
 
+            //m1 wall buy collision
             float distance1 = Vector2.Distance(m1WallbuyCenter, playerPosition);
             if (distance1<50)
             {
@@ -233,6 +246,65 @@ namespace Callof2d.Game.Scripting
                         stats.SpendPoints(250);
                     }
                 }
+            }
+
+
+            //jugernog
+            
+            float distance2 = Vector2.Distance(jugernogCenter, playerPosition);
+            if (distance2<50)
+            {
+                promptHUD.SetText("'E' Jugernog [2500]");
+                if(keyboardService.EKeyPressed() && stats.GetScore()>=2500 && !jug)
+                {
+                    reload=false;
+                    int playerHealth = player.GetPlayerMaxHealth();
+                    player.SetPlayerMaxHealth(playerHealth*2);
+                    stats.SpendPoints(2500);
+                    jug = true;
+
+                    HUD jugHUD = new HUD(player,stats,round);
+                    jugHUD.SetColor(Program.RED);
+                    jugHUD.SetFontSize(Program.FONT_SIZE);
+                    jugHUD.SetHUDType(4);
+                    jugHUD.SetText("J");
+                    jugHUD.SetPosition(new Vector2(Program.MAX_X/2-Program.CELL_SIZE,Program.MAX_Y*9/10));
+
+                    cast.AddActor("HUD",jugHUD);
+                }
+            }
+
+            //doubletap
+            float distance3 = Vector2.Distance(doubletapCenter, playerPosition);
+            if (distance3<50)
+            {
+                promptHUD.SetText("'E' Doubletap ll [2000]");
+                if(keyboardService.EKeyPressed() && stats.GetScore()>=2000 && !tap)
+                {
+                    reload=false;
+                    foreach(Weapon weapon in weapons)
+                    {
+                        weapon.SetFireRate(weapon.GetFireRate()*2);
+                        
+                    }
+                    foreach(Actor bulletT in bullets)
+                    {
+                        Bullet bullet = (Bullet) bulletT;
+                        bullet.SetBulletDamage(bullet.GetBulletDamage()*2);
+                    }
+                    tap =true;
+                    stats.SpendPoints(2000);
+                    
+                    HUD tapHUD = new HUD(player,stats,round);
+                    tapHUD.SetColor(Program.YELLOW);
+                    tapHUD.SetFontSize(Program.FONT_SIZE);
+                    tapHUD.SetHUDType(4);
+                    tapHUD.SetText("D");
+                    tapHUD.SetPosition(new Vector2(Program.MAX_X/2+Program.CELL_SIZE,Program.MAX_Y*9/10));
+
+                    cast.AddActor("HUD",tapHUD);
+                }
+            
             }
 
             // AmmoBox Collision
