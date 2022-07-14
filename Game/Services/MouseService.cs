@@ -45,6 +45,30 @@ namespace Callof2d.Game.Services
             }
         }
 
+        public bool IsRightMousePressed()
+        {
+            if (Raylib.IsMouseButtonPressed(MOUSE_RIGHT_BUTTON))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsScrolled()
+        {
+            if (Raylib.GetMouseWheelMove()!=0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool IsMouseDown()
         {
             if (Raylib.IsMouseButtonDown(MOUSE_LEFT_BUTTON))

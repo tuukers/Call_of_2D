@@ -67,5 +67,18 @@ namespace Callof2d.Game.Scripting
             }
         }
 
+        public void RemoveAllActions()
+        {
+            foreach (List<Action> result in actions.Values)
+            {
+                foreach(Action action in result)
+                {
+                    this.RemoveAction("updates",action); 
+                    this.RemoveAction("inputs",action); 
+                    this.RemoveAction("outputs",action); 
+                }
+            }
+        }
+
     }
 }

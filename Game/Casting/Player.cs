@@ -7,7 +7,8 @@ namespace Callof2d.Game.Casting
 {
     public class Player : Actor
     {
-        public static int playerHealth = 100;
+        private int playerMaxHealth=100;
+        private int playerHealth=100;
         private Weapon heldWeapon;
         private Weapon storedWeapon;
 
@@ -40,6 +41,11 @@ namespace Callof2d.Game.Casting
             this.storedWeapon= newWeapon;
         }
 
+        public void SetPlayerMaxHealth(int playerMaxHealth)
+        {
+            this.playerMaxHealth = playerMaxHealth;
+        }
+
         public Weapon GetHeldWeapon()
         {
             return this.heldWeapon;
@@ -48,6 +54,16 @@ namespace Callof2d.Game.Casting
         public Weapon GetStoredWeapon()
         {
             return this.storedWeapon;
+        }
+
+        public int GetPlayerHealth()
+        {
+            return this.playerHealth;
+        }
+
+        public int GetPlayerMaxHealth()
+        {
+            return this.playerMaxHealth;
         }
         
 
@@ -99,10 +115,18 @@ namespace Callof2d.Game.Casting
             this.heldWeapon.ShotgunReload();
         }
 
-        public static void PlayerTakeDamage(int damage)
+        public void PlayerTakeDamage()
         {
-            playerHealth -= 20;
-            Console.WriteLine($"Player took {damage} damage. Player Health: {playerHealth}");
+            this.playerHealth -= 30;
+            Console.WriteLine($"Player took 30 damage. Player Health: {this.playerHealth}");
+        }
+
+        public void PlayerRegen()
+        {
+            if (this.playerHealth < this.playerMaxHealth)
+            {
+                this.playerHealth +=1;
+            }
         }
     }
 }

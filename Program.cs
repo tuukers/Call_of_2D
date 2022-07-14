@@ -23,7 +23,7 @@ namespace Callof2d
         public static int FONT_SIZE = 25;
         public static int FONT_SIZE_SMALL = 15;
         public static int PLAYER_SPEED_DIVIDER = 2;
-        public static float ZOMBIE_NORMAL_SPEED_DIVIDE = 1;
+        //public static float ZOMBIE_NORMAL_SPEED_DIVIDE = 1;
         public static int ZOMBIE_SPREAD =50;
         private static int COLS = 60;
         private static int ROWS = 40;
@@ -33,12 +33,16 @@ namespace Callof2d
         private static Color GREY = new Color(100,100,100);
         private static Color LIGHT_GREY = new Color(75,75,75);
         private static Color BROWN = new Color(80,50,0);
-        private static Color YELLOW = new Color(100,100,0);
-        public static int DEFAULT_ZOMBIES = 8;
+        private static Color YELLOW = new Color(200,200,0);
+        private static Color DULL_YELLOW = new Color(100,100,0);
+        private static Color DARK_GREEN = new Color(0,100,0);
         private static Color GREEN = new Color(0,255,0);
+        public static Color RED = new Color(255,0,0);
+        public static int DEFAULT_ZOMBIES = 8;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
         public static int ZOMBIE_HEALTH = 100;
+        public static int ZOMBIE_HEALTH_PER_ROUND = 10;
         public static float BULLET_SPEED = 12;
         public static float BULLET_RADIUS = 2;
         private static float ROOM1_HEIGHT = 500;
@@ -159,6 +163,24 @@ namespace Callof2d
             cast.AddActor("wall",wall4);
             cast.AddActor("wall",wall5);
 
+            //creat background
+            Wall grass = new Wall();
+            Wall floor = new Wall();
+
+            grass.SetColor(DARK_GREEN);
+            grass.SetPosition(new Vector2(0,0));
+            grass.SetWidth(MAX_X);
+            grass.SetHeight(MAX_Y);
+
+            floor.SetColor(DULL_YELLOW);
+            floor.SetPosition(new Vector2(MAX_X/10,MAX_Y/10));
+            floor.SetWidth(ROOM1_WIDTH);
+            floor.SetHeight(ROOM1_HEIGHT);
+            
+            cast.AddActor("background",grass);
+            cast.AddActor("background",floor);
+
+
             //creating mistery box
             Wall misteryBox = new Wall();
             //misteryBox.SetRadius(50);
@@ -184,48 +206,62 @@ namespace Callof2d
             Wall healthbar = new Wall();
 
             //health bar
-            healthbar.SetColor(GREEN);
+            healthbar.SetColor(RED);
             healthbar.SetPosition(new Vector2(MAX_X/20, MAX_Y/20));
             healthbar.SetHeight(WALL_THICKNESS);
-            healthbar.SetWidth(Player.playerHealth * 2);
+            healthbar.SetWidth(player.GetPlayerHealth() * 2);
             healthbar.SetHorizontal(true);
 
-            cast.AddActor("wall",healthbar);
+            cast.AddActor("healthbar",healthbar);
 
-            //create stats
+            //create utilities
             Stats stats = new Stats();
+            Clock clock = new Clock();
+            Round round = new Round();
+
+
+
 
             // creat HUD
-            HUD weaponHUD = new HUD(player, stats);
+            HUD weaponHUD = new HUD(player, stats,round);
             weaponHUD.SetColor(WHITE);
             weaponHUD.SetPosition(new Vector2(7*MAX_X/10,9*MAX_Y/10));
             weaponHUD.SetHUDType(0);
-            weaponHUD.HUDSetup(0);
+            weaponHUD.HUDSetup();
             weaponHUD.SetFontSize(FONT_SIZE);
             Actor actor = (HUD)weaponHUD;
             cast.AddActor("HUD",actor);
 
-            HUD scoreHUD = new HUD(player,stats);
+            HUD scoreHUD = new HUD(player,stats,round);
             scoreHUD.SetColor(WHITE);
             scoreHUD.SetPosition(new Vector2(MAX_X/5,9*MAX_Y/10));
             scoreHUD.SetHUDType(1);
-            scoreHUD.HUDSetup(1);
+            scoreHUD.HUDSetup();
             scoreHUD.SetFontSize(FONT_SIZE);
             Actor actor1 = (HUD)scoreHUD;
             cast.AddActor("HUD",actor1);
             
-            HUD promptHUD = new HUD(player,stats);
+            HUD promptHUD = new HUD(player,stats,round);
             promptHUD.SetColor(WHITE);
             promptHUD.SetPosition(new Vector2(MAX_X*2/5,2*MAX_Y/3));
             promptHUD.SetHUDType(1);
-            promptHUD.HUDSetup(1);
+            promptHUD.HUDSetup();
             promptHUD.SetFontSize(FONT_SIZE_SMALL);
             
             Actor actor2 = (HUD)promptHUD;
             cast.AddActor("HUD",actor2);
 
-            Clock clock = new Clock();
-            Round round = new Round();
+            HUD RoundHUD = new HUD(player,stats,round);
+            RoundHUD.SetColor(WHITE);
+            RoundHUD.SetPosition(new Vector2(MAX_X*9/10,2*MAX_Y/30-CELL_SIZE));
+            RoundHUD.SetHUDType(2);
+            RoundHUD.HUDSetup();
+            RoundHUD.SetFontSize(FONT_SIZE);
+            
+            Actor actor3 = (HUD)RoundHUD;
+            cast.AddActor("HUD",actor3);
+
+            
 
             // create script
             ContactService contactService = new ContactService(wall1, wall2, wall3, wall4);
@@ -236,6 +272,7 @@ namespace Callof2d
             script.AddAction("updates", new DrawActorsAction(videoService, mouseService));
             script.AddAction("updates", new HandleBulletCollisionsAction(contactService, stats));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));
+            script.AddAction("updates", new HandlePlayerHealthAction(contactService,stats,round));
             script.AddAction("outputs", new MoveActorsAction(videoService));
             script.AddAction("outputs", new HandleHUDs());
             script.AddAction("updates", new SpawnZombiesAction(clock, round));
