@@ -57,11 +57,10 @@ namespace Callof2d.Game.Scripting
             
             
             TimeSpan timeSinceLastShot = DateTime.Now - this.lastShot;
-            if((float)timeSinceLastShot.TotalMilliseconds >= 1000/weapon1.GetFireRate())
+            if((float)timeSinceLastShot.TotalMilliseconds >= 1000/weapon1.GetFireRate() && !reload)
             {
                 if(mouseService.IsMousePressed()&!fullAuto)
                 {
-                    reload=false;
                     Vector2 mousePosition = mouseService.GetMousePosition();
                     if(!isShotgun)
                     {
@@ -79,7 +78,6 @@ namespace Callof2d.Game.Scripting
                 }
                 else if(mouseService.IsMouseDown()&fullAuto)
                 {
-                    reload=false;
                     Vector2 mousePosition = mouseService.GetMousePosition();
                     if(!isShotgun)
                     {
