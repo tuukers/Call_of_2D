@@ -236,6 +236,28 @@ namespace Callof2d.Game.Scripting
                     }
                 }
             }
+
+            // AmmoBox Collision
+            List<Actor> ammoBoxes = cast.GetActors("ammoBox");
+            if (ammoBoxes != null) // This if-statement makes sure the code is only run if an ammoBox exists on screen
+            {
+                foreach(AmmoBox ammoBox in ammoBoxes)
+                {
+                    Vector2 ammoBoxPosition = ammoBox.GetPosition();
+
+                    float distanceToAmmo = Vector2.Distance(ammoBoxPosition, playerPosition);
+                    if (distanceToAmmo < 10)
+                    {
+                        // Ammo will not be picked up if the current weapon has full ammo
+                        Weapon heldWeapon = player.GetHeldWeapon();
+                        if (heldWeapon.GetAmmoCount() < heldWeapon.GetMaxAmmo())
+                        {
+                            player.PlayerPickupAmmo();
+                            cast.RemoveActor("ammoBox", ammoBox);
+                        }
+                    }
+                }
+            }
         }
 
     }
