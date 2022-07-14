@@ -7,12 +7,6 @@ using Callof2d.Game.Services;
 
 namespace Callof2d.Game.Scripting
 {
-    /// <summary>
-    /// <para>An input action that controls the snake.</para>
-    /// <para>
-    /// The responsibility of ControlActorsAction is to get the direction and move the snake's head.
-    /// </para>
-    /// </summary>
     public class SpawnZombiesAction : Action
     {
         private Clock clock = null;
@@ -56,11 +50,21 @@ namespace Callof2d.Game.Scripting
                     int b = 0;//random.Next(0, 256);
                     Color color = new Color(r, g, b);
 
-                    Zombie zombie = new Zombie(Program.ZOMBIE_HEALTH);
+
+
+                    Zombie zombie = new Zombie(Program.ZOMBIE_HEALTH+Program.ZOMBIE_HEALTH_PER_ROUND*round.GetRound());
                     zombie.SetColor(color);
                     zombie.SetPosition(position);
                     zombie.SetRadius(Program.ZOMBIE_RADIUS);
-                    zombie.SetSpeed(random.Next(1,3));
+                    int randomNum= random.Next(0,100);
+                    if(randomNum>=10)
+                    {
+                        zombie.SetSpeed(1);
+                    }   
+                    else
+                    {
+                        zombie.SetSpeed(2);
+                    }                 
                     cast.AddActor("zombie", zombie);
                 }
             }

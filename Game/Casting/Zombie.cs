@@ -44,7 +44,6 @@ namespace Callof2d.Game.Casting
 
         public static void BasicAttack()
         {
-            Player.PlayerTakeDamage(20);
             Console.WriteLine("BasicAttack performed");
         }
     }

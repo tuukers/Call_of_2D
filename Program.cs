@@ -37,11 +37,12 @@ namespace Callof2d
         private static Color DULL_YELLOW = new Color(100,100,0);
         private static Color DARK_GREEN = new Color(0,100,0);
         private static Color GREEN = new Color(0,255,0);
-        private static Color RED = new Color(255,0,0);
+        public static Color RED = new Color(255,0,0);
         public static int DEFAULT_ZOMBIES = 8;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
         public static int ZOMBIE_HEALTH = 100;
+        public static int ZOMBIE_HEALTH_PER_ROUND = 10;
         public static float BULLET_SPEED = 12;
         public static float BULLET_RADIUS = 2;
         private static float ROOM1_HEIGHT = 500;
@@ -208,10 +209,10 @@ namespace Callof2d
             healthbar.SetColor(RED);
             healthbar.SetPosition(new Vector2(MAX_X/20, MAX_Y/20));
             healthbar.SetHeight(WALL_THICKNESS);
-            healthbar.SetWidth(Player.playerHealth * 2);
+            healthbar.SetWidth(player.GetPlayerHealth() * 2);
             healthbar.SetHorizontal(true);
 
-            cast.AddActor("background",healthbar);
+            cast.AddActor("healthbar",healthbar);
 
             //create utilities
             Stats stats = new Stats();
@@ -271,6 +272,7 @@ namespace Callof2d
             script.AddAction("updates", new DrawActorsAction(videoService, mouseService));
             script.AddAction("updates", new HandleBulletCollisionsAction(contactService, stats));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));
+            script.AddAction("updates", new HandlePlayerHealthAction(contactService,stats,round));
             script.AddAction("outputs", new MoveActorsAction(videoService));
             script.AddAction("outputs", new HandleHUDs());
             script.AddAction("updates", new SpawnZombiesAction(clock, round));

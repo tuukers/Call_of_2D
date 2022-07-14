@@ -120,7 +120,7 @@ namespace Callof2d.Game.Scripting
                 this.reload = false;
             }
 
-            if(keyboardService.VKeyPressed())
+            if(mouseService.IsScrolled())
             {
                 player.SetHeldWeapon(weapon2);
                 player.SetStoredWeapon(weapon1);

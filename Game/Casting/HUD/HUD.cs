@@ -87,6 +87,11 @@ namespace Callof2d.Game.Casting
             this.SetText($"{roundNum + 1}");
         }
 
+        public void GameOverHUD()
+        {
+            this.SetText("GAME OVER");
+        }
+
         // public void PromptHUD()
         // {
 
@@ -106,6 +111,10 @@ namespace Callof2d.Game.Casting
             else if(hUDType==2)
             {
                 this.RoundHUD();
+            }
+            else if (hUDType==3)
+            {
+                this.GameOverHUD();
             }
             // else if(hUDType==3)
             // {
