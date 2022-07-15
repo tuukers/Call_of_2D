@@ -19,6 +19,9 @@ namespace Callof2d.Game.Scripting
         private Round round =  null;
         private double roundEnd = 0;
         private int roundMultiplier = 0;
+        private double lastSpawn = 0;
+        private int roundZombies = 0;
+        private int spawnedZombies = 0;
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
@@ -26,7 +29,7 @@ namespace Callof2d.Game.Scripting
         public SpawnZombiesAction(Clock clock, Round round)
         {
             this.clock = clock;       
-            this.round = round;   
+            this.round = round;
         }
 
         /// <inheritdoc/>
@@ -34,6 +37,7 @@ namespace Callof2d.Game.Scripting
         public void Execute(Cast cast, Script script)
         {
             List<Actor> zombies = cast.GetActors("zombie");
+            List<Actor> walls = cast.GetActors("wall");
             double difference = clock.GetLifeTime() - roundEnd;
             //Console.WriteLine(round.GetRound());
 
@@ -41,15 +45,30 @@ namespace Callof2d.Game.Scripting
             {
                 roundEnd = clock.GetLifeTime();
                 round.IncrementRound();
-                roundMultiplier = 3 * (round.GetRound());
+                roundMultiplier = 4 * (round.GetRound());
             }
 
             if (zombies.Count == 0 && clock.GetLifeTime() - roundEnd >= 10) {
-                Random random = new Random();
-                for (int i = 0; i<Program.DEFAULT_ZOMBIES + roundMultiplier; i++) {
-                    int x = random.Next(1, Program.MAX_X);
-                    int y = random.Next(1, Program.MAX_Y);
-                    Vector2 position = new Vector2(x, y);
+                roundZombies = Program.DEFAULT_ZOMBIES + roundMultiplier;
+                spawnedZombies = 0;
+            }
+
+            if (spawnedZombies < roundZombies)
+            {
+                SpawnZombies(cast, walls);
+            }
+        }
+
+        public void SpawnZombies (Cast cast, List<Actor> walls) 
+        {
+            if (clock.GetLifeTime() - lastSpawn > 2)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    Wall wall = (Wall)walls[i];
+
+                    Vector2 position = wall.GetCenter(wall.GetPosition());
+                    Console.WriteLine(position);
 
                     int r = 0;//random.Next(0, 256);
                     int g = 255;//random.Next(0, 256);
@@ -61,6 +80,8 @@ namespace Callof2d.Game.Scripting
                     zombie.SetPosition(position);
                     zombie.SetRadius(Program.ZOMBIE_RADIUS);
                     cast.AddActor("zombie", zombie);
+                    lastSpawn = clock.GetLifeTime();
+                    spawnedZombies++;
                 }
             }
         }

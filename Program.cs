@@ -33,7 +33,7 @@ namespace Callof2d
         private static Color LIGHT_GREY = new Color(75,75,75);
         private static Color BROWN = new Color(80,50,0);
         private static Color YELLOW = new Color(100,100,0);
-        public static int DEFAULT_ZOMBIES = 20;
+        public static int DEFAULT_ZOMBIES = 8;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
         public static int ZOMBIE_HEALTH = 100;
