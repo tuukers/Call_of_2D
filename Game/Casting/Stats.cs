@@ -14,7 +14,7 @@ namespace Callof2d.Game.Casting
         /// <summary>
         /// Constructs a new instance of Actor.
         /// </summary>
-        public Stats(int round = 1, int lives = 3, int score = 50000, 
+        public Stats(int round = 1, int lives = 3, int score = 500, 
                 bool debug = false)
         {
             this.round = round;
