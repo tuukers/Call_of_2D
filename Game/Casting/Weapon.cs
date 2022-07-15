@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using Callof2d.Game.Services;
 
 namespace Callof2d.Game.Casting
 {
@@ -17,10 +18,12 @@ namespace Callof2d.Game.Casting
         private string weaponName;
         private int reloadTime;
         private int reloading;
+        private int buckShotCount;
+        private AudioService audioService;
+        private string audioPath;
 
 
-
-        public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,int weaponSpread,Bullet bulletType,string weaponName,int reloadTime)
+        public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,int weaponSpread,Bullet bulletType,string weaponName,int reloadTime,AudioService audioService,string audioPath)
         {
             this.maxAmmo=maxAmmo;
             this.ammoCount=ammoCount;
@@ -33,6 +36,9 @@ namespace Callof2d.Game.Casting
             this.bulletType=bulletType;
             this.weaponName=weaponName;
             this.reloadTime=reloadTime;
+            this.buckShotCount=0;
+            this.audioService=audioService;
+            this.audioPath=audioPath;
         }
         Random random = new Random();
         DateTime dateTime = new DateTime();
@@ -103,6 +109,11 @@ namespace Callof2d.Game.Casting
             return this.fireRate;
         }
 
+        public bool GetIsShotGun()
+        {
+            return this.isShotgun;
+        }
+
         public bool GetFullAuto()
         {
             return this.fullAuto;
@@ -132,10 +143,22 @@ namespace Callof2d.Game.Casting
         public bool Shoot()
         {
             
-            if (this.magazineCount>0)
+            if (this.magazineCount>0 && !isShotgun)
             {
+                this.audioService.PlaySound("Game/assets/sound/gun-gunshot-01.wav", (float) 1.0);
                 this.magazineCount-=1;
                 return true;                
+            }
+            else if(isShotgun && this.magazineCount>0)
+            {   
+                buckShotCount +=1;
+                if(buckShotCount == bulletType.GetBuckShot())
+                { 
+                    this.audioService.PlaySound("Game/assets/sound/gun-gunshot-01.wav", (float) 1.0);
+                    this.magazineCount-=1;
+                    buckShotCount=0;
+                }
+                return true;
             }
             else
             {
@@ -157,23 +180,44 @@ namespace Callof2d.Game.Casting
             return bulletVector;
         }
 
+        public void addAmmo()
+        {
+            // When a player picks up ammo, they should gain 1 magazine worth of ammo for their current held weapon.
+            // They will not pick up more than the max ammo for that weapon.
+            int newAmmoCount = 0;
+            if (isShotgun)
+            {
+                newAmmoCount = 1 + this.ammoCount;
+            }
+            else
+            {
+                newAmmoCount = this.magazineCapacity/2 + this.ammoCount;
+            }
+            
+            if (newAmmoCount > this.maxAmmo)
+                newAmmoCount = this.maxAmmo;
+            this.ammoCount = newAmmoCount;
+        }
+
         public void reload()
         { 
-            if(this.ammoCount>=this.magazineCapacity)
+            if(this.ammoCount >= this.magazineCapacity)
             {
                 this.reloading = this.magazineCapacity - this.magazineCount;
                 this.ammoCount -= this.reloading;
                 this.magazineCount = this.magazineCapacity;
             }
-            else if(this.ammoCount>0 & this.ammoCount<this.magazineCapacity)
+            else if(this.ammoCount > 0 & this.ammoCount < this.magazineCapacity)
             {
-                if(ammoCount + magazineCount <magazineCapacity)
+                if(this.ammoCount + this.magazineCount < this.magazineCapacity)
                 {
-                    this.magazineCount = this.ammoCount+this.magazineCount;
+                    this.audioService.PlaySound(audioPath, (float) 1.0);
+                    this.magazineCount = this.ammoCount + this.magazineCount;
                     this.ammoCount = 0;
                 }
                 else
                 {
+                    this.audioService.PlaySound(audioPath, (float) 1.0);
                     this.reloading = this.magazineCapacity - this.magazineCount;
                     this.ammoCount -= this.reloading;
                     this.magazineCount = this.magazineCapacity; 
@@ -183,6 +227,21 @@ namespace Callof2d.Game.Casting
             {
                 
             }
+        }
+
+        public void ShotgunReload()
+        {
+            if(this.magazineCapacity > this.magazineCount && this.ammoCount>0)
+            {
+                this.audioService.PlaySound(audioPath, (float) 1.0);
+                this.magazineCount +=1;
+                this.ammoCount -=1;
+            }
+        }
+
+        public void ReloadSound()
+        {
+            this.audioService.PlaySound(audioPath, (float) 1.0);
         }
     }
 }

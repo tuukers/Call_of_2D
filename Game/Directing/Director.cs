@@ -25,7 +25,7 @@ namespace Callof2d.Game.Directing
         /// </summary>
         /// <param name="keyboardService">The given KeyboardService.</param>
         /// <param name="videoService">The given VideoService.</param>
-        public Director(KeyboardService keyboardService, VideoService videoService, MouseService mouseService, Clock clock)
+        public Director(KeyboardService keyboardService, VideoService videoService, MouseService mouseService, Clock clock, AudioService audioService)
         {
             this.keyboardService = keyboardService;
             this.videoService = videoService;

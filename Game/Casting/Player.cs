@@ -7,7 +7,8 @@ namespace Callof2d.Game.Casting
 {
     public class Player : Actor
     {
-        public static int playerHealth = 100;
+        private int playerMaxHealth=75;
+        private int playerHealth=75;
         private Weapon heldWeapon;
         private Weapon storedWeapon;
 
@@ -29,13 +30,21 @@ namespace Callof2d.Game.Casting
         public void SetNewHeldWeapon(Weapon weapon)
         {
             Weapon newWeapon = weapon;
+            newWeapon.SetAmmoCount(newWeapon.GetMaxAmmo());
+            newWeapon.SetMagazineCount(newWeapon.GetMagazineCapacity());
             this.heldWeapon= newWeapon;
         }
 
         public void SetNewStoredWeapon(Weapon weapon)
         {
             Weapon newWeapon = weapon;
-            this.storedWeapon= weapon;
+            newWeapon.SetAmmoCount(newWeapon.GetMaxAmmo());
+            this.storedWeapon= newWeapon;
+        }
+
+        public void SetPlayerMaxHealth(int playerMaxHealth)
+        {
+            this.playerMaxHealth = playerMaxHealth;
         }
 
         public Weapon GetHeldWeapon()
@@ -46,6 +55,16 @@ namespace Callof2d.Game.Casting
         public Weapon GetStoredWeapon()
         {
             return this.storedWeapon;
+        }
+
+        public int GetPlayerHealth()
+        {
+            return this.playerHealth;
+        }
+
+        public int GetPlayerMaxHealth()
+        {
+            return this.playerMaxHealth;
         }
         
 
@@ -82,15 +101,33 @@ namespace Callof2d.Game.Casting
             }
         }
 
+        public void PlayerPickupAmmo()
+        {
+            this.heldWeapon.addAmmo();
+        }
+        
         public void PlayerReload()
         {
             this.heldWeapon.reload();
         }
 
-        public static void PlayerTakeDamage(int damage)
+        public void PlayerShotgunReload()
         {
-            playerHealth -= 20;
-            Console.WriteLine($"Player took {damage} damage. Player Health: {playerHealth}");
+            this.heldWeapon.ShotgunReload();
+        }
+
+        public void PlayerTakeDamage()
+        {
+            this.playerHealth -= 30;
+            Console.WriteLine($"Player took 30 damage. Player Health: {this.playerHealth}");
+        }
+
+        public void PlayerRegen()
+        {
+            if (this.playerHealth < this.playerMaxHealth)
+            {
+                this.playerHealth +=1;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using Callof2d.Game.Directing;
 
 
 namespace Callof2d.Game.Casting
@@ -11,10 +12,13 @@ namespace Callof2d.Game.Casting
         private Zombie zombie;
         private Stats stats;
         private int hUDType;
-        public HUD(Player player,Stats stats)
+        private int fontSize;
+        private Round round;
+        public HUD(Player player,Stats stats,Round round)
         {
             this.player=player;
             this.stats=stats;
+            this.round=round;
         }
         public void SetHUDText(string HUDText)
         {
@@ -26,6 +30,11 @@ namespace Callof2d.Game.Casting
             this.hUDType = hUDType;
         }
 
+        public void SetFontSize(int fontSize)
+        {
+            this.fontSize= fontSize;
+        }
+
         public string GetHUDText()
         {
             return this.HUDText;
@@ -34,6 +43,11 @@ namespace Callof2d.Game.Casting
         public int GetHUDType()
         {
             return this.hUDType;
+        }
+
+        public int GetFontSize()
+        {
+            return fontSize;
         }
 
         public void WeaponHUD()
@@ -69,9 +83,15 @@ namespace Callof2d.Game.Casting
 
         public void RoundHUD()
         {
-            int round = stats.GetRound();
-            this.SetText($"Round {round}");
+            int roundNum = round.GetRound();
+            this.SetText($"{roundNum + 1}");
         }
+
+        public void GameOverHUD()
+        {
+            this.SetText("GAME OVER");
+        }
+
 
         // public void PromptHUD()
         // {
@@ -79,7 +99,7 @@ namespace Callof2d.Game.Casting
         //     this.SetText();
         // }
 
-        public void HUDSetup(int hUDType)
+        public void HUDSetup()
         {
             if (hUDType==0)
             {
@@ -92,6 +112,14 @@ namespace Callof2d.Game.Casting
             else if(hUDType==2)
             {
                 this.RoundHUD();
+            }
+            else if (hUDType==3)
+            {
+                this.GameOverHUD();
+            }
+            else if (hUDType==4)
+            {
+                //this.TextHUD()
             }
             // else if(hUDType==3)
             // {
