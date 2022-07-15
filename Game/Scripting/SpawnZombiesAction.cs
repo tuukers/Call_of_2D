@@ -35,19 +35,19 @@ namespace Callof2d.Game.Scripting
             double difference = clock.GetLifeTime() - roundEnd;
             //Console.WriteLine(round.GetRound());
 
-            if (zombies.Count == 0 && difference > 11)
+            if (zombies.Count == 0 && difference > 11 && spawnedZombies == roundZombies)
             {
                 roundEnd = clock.GetLifeTime();
                 round.IncrementRound();
                 roundMultiplier = 4 * (round.GetRound());
             }
 
-            if (zombies.Count == 0 && clock.GetLifeTime() - roundEnd >= 10) {
+            if (zombies.Count == 0 && clock.GetLifeTime() - roundEnd >= 10 && spawnedZombies == roundZombies) {
                 roundZombies = Program.DEFAULT_ZOMBIES + roundMultiplier;
                 spawnedZombies = 0;
             }
 
-            if (spawnedZombies < roundZombies)
+            if (spawnedZombies < roundZombies && clock.GetLifeTime() - lastSpawn > 2)
             {
                 SpawnZombies(cast, walls);
             }
@@ -55,40 +55,35 @@ namespace Callof2d.Game.Scripting
 
         public void SpawnZombies (Cast cast, List<Actor> walls) 
         {
-            if (clock.GetLifeTime() - lastSpawn > 2)
+            Random random = new Random();
+
+            int num = random.Next(1,5); 
+
+            Wall wall = (Wall)walls[num];
+
+            Vector2 position = wall.GetCenter(wall.GetPosition());
+
+            int r = 0;//random.Next(0, 256);
+            int g = 255;//random.Next(0, 256);
+            int b = 0;//random.Next(0, 256);
+            Color color = new Color(r, g, b);
+
+            Zombie zombie = new Zombie(Program.ZOMBIE_HEALTH+Program.ZOMBIE_HEALTH_PER_ROUND*round.GetRound());
+            zombie.SetColor(color);
+            zombie.SetPosition(position);
+            zombie.SetRadius(Program.ZOMBIE_RADIUS);
+            int randomNum = random.Next(0,100);
+            if(randomNum>=10)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    Wall wall = (Wall)walls[i];
-
-                    Vector2 position = wall.GetCenter(wall.GetPosition());
-                    Console.WriteLine(position);
-
-                    int r = 0;//random.Next(0, 256);
-                    int g = 255;//random.Next(0, 256);
-                    int b = 0;//random.Next(0, 256);
-                    Color color = new Color(r, g, b);
-
-
-
-                    Zombie zombie = new Zombie(Program.ZOMBIE_HEALTH+Program.ZOMBIE_HEALTH_PER_ROUND*round.GetRound());
-                    zombie.SetColor(color);
-                    zombie.SetPosition(position);
-                    zombie.SetRadius(Program.ZOMBIE_RADIUS);
-                    int randomNum= random.Next(0,100);
-                    if(randomNum>=10)
-                    {
-                        zombie.SetSpeed(1);
-                    }   
-                    else
-                    {
-                        zombie.SetSpeed(2);
-                    }                 
-                    cast.AddActor("zombie", zombie);
-                    lastSpawn = clock.GetLifeTime();
-                    spawnedZombies++;
-                }
-            }
+                zombie.SetSpeed(1);
+            }   
+            else
+            {
+                zombie.SetSpeed(2);
+            }                 
+            cast.AddActor("zombie", zombie);
+            lastSpawn = clock.GetLifeTime();
+            spawnedZombies++;
         }
     }
 }
