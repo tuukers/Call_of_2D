@@ -102,6 +102,10 @@ namespace Callof2d.Game.Scripting
 
             if(keyboardService.RKeyPressed()&& !reload)
             {
+                if (weapon1.GetMagazineCount()<weapon1.GetMagazineCapacity())
+                {
+                    weapon1.ReloadSound();
+                }
                 reloadTimeInit=DateTime.Now;
                 Weapon weapon = player.GetHeldWeapon();
                 this.reloadTime = weapon.GetReloadTime();

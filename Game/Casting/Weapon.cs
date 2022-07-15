@@ -184,7 +184,16 @@ namespace Callof2d.Game.Casting
         {
             // When a player picks up ammo, they should gain 1 magazine worth of ammo for their current held weapon.
             // They will not pick up more than the max ammo for that weapon.
-            int newAmmoCount = this.magazineCapacity/2 + this.ammoCount;
+            int newAmmoCount = 0;
+            if (isShotgun)
+            {
+                newAmmoCount = 1 + this.ammoCount;
+            }
+            else
+            {
+                newAmmoCount = this.magazineCapacity/2 + this.ammoCount;
+            }
+            
             if (newAmmoCount > this.maxAmmo)
                 newAmmoCount = this.maxAmmo;
             this.ammoCount = newAmmoCount;
@@ -194,7 +203,6 @@ namespace Callof2d.Game.Casting
         { 
             if(this.ammoCount >= this.magazineCapacity)
             {
-                this.audioService.PlaySound(audioPath, (float) 1.0);
                 this.reloading = this.magazineCapacity - this.magazineCount;
                 this.ammoCount -= this.reloading;
                 this.magazineCount = this.magazineCapacity;
@@ -229,6 +237,11 @@ namespace Callof2d.Game.Casting
                 this.magazineCount +=1;
                 this.ammoCount -=1;
             }
+        }
+
+        public void ReloadSound()
+        {
+            this.audioService.PlaySound(audioPath, (float) 1.0);
         }
     }
 }

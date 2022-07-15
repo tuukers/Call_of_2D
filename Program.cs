@@ -50,8 +50,8 @@ namespace Callof2d
         private static float ROOM1_WIDTH = 1080 - 1080/5;
         private static float WALL_THICKNESS = 12;
         public static int BASE_SCORE = 10;
-        public static int POINTS_PER_HIT = 10;
-        public static int POINTS_PER_KILL = 50;
+        public static int POINTS_PER_HIT = 5;
+        public static int POINTS_PER_KILL = 20;
 
         
 
@@ -94,9 +94,9 @@ namespace Callof2d
             Weapon kar98 = new Weapon(75,75,5,5,false,false,2,0,refleBullet2,"Kar98",3,audioService,"Game/assets/sound/kar98_fullreload.wav");
             Weapon m1911 = new Weapon(70,70,7,7,false,false,5,3,pistolBullet,"m1911",3,audioService,"Game/assets/sound/1911_reload.wav");
             Weapon Mouserc96 = new Weapon(80,80,10,10,false,false,6,4,pistolBullet,"Mouser C96",5,audioService,"Game/assets/sound/mauser_reload.wav");
-            Weapon trenchGun = new Weapon(30,30,6,6,true,false,2,20,buckshot,"Trench Gun",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
-            Weapon trenchSweaper = new Weapon(60,60,12,12,true,true,3,30,superBuckShot, "Trench Sweaper",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
-            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,10,machinegunBullet,"MG42",6,audioService,"Game/assets/sound/mg42_reload.wav");
+            Weapon trenchGun = new Weapon(40,40,6,6,true,false,1,20,buckshot,"Trench Gun",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
+            Weapon trenchSweaper = new Weapon(30,30,3,3,true,true,3,30,superBuckShot, "Trench Sweaper",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
+            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,10,machinegunBullet,"MG42",40,audioService,"Game/assets/sound/mg42_reload.wav");
             Weapon ThompsonSubMachinegun = new Weapon(240,240,30,30,false,true,13,15,pistolBullet,"ThompsonSMG",3,audioService,"Game/assets/sound/drum_smg_reload.wav");
 
             cast.AddActor("weapon",m1Garand);
