@@ -7,8 +7,8 @@ namespace Callof2d.Game.Casting
 {
     public class Player : Actor
     {
-        private int playerMaxHealth=75;
-        private int playerHealth=75;
+        private int playerMaxHealth=80;
+        private int playerHealth=80;
         private Weapon heldWeapon;
         private Weapon storedWeapon;
 
@@ -118,8 +118,8 @@ namespace Callof2d.Game.Casting
 
         public void PlayerTakeDamage()
         {
-            this.playerHealth -= 30;
-            Console.WriteLine($"Player took 30 damage. Player Health: {this.playerHealth}");
+            this.playerHealth -= 40;
+            Console.WriteLine($"Player took 40 damage. Player Health: {this.playerHealth}");
         }
 
         public void PlayerRegen()

@@ -145,7 +145,7 @@ namespace Callof2d.Game.Casting
             
             if (this.magazineCount>0 && !isShotgun)
             {
-                this.audioService.PlaySound("Game/assets/sound/gun-gunshot-01.wav", (float) 1.0);
+                this.audioService.PlaySound("Game/assets/sound/gun-gunshot-01-[AudioTrimmer.com].wav", (float) 1.0);
                 this.magazineCount-=1;
                 return true;                
             }
