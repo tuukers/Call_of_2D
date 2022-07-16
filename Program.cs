@@ -160,43 +160,31 @@ namespace Callof2d
 
             //center wall left 1
             wall5.SetColor(BROWN);
-<<<<<<< HEAD
-            wall5.SetPosition(new Vector2((MAX_X/12+ROOM1_WIDTH-INNER_WALL_THICKNESS)*2/5 - 1, MAX_Y/13+(ROOM1_HEIGHT)*3/5));
+            wall5.SetPosition(new Vector2((MAX_X/12+ROOM1_WIDTH-INNER_WALL_THICKNESS)*2/5, MAX_Y/13+(ROOM1_HEIGHT)*3/5 + 2));
             wall5.SetHeight((ROOM1_HEIGHT+INNER_WALL_THICKNESS)*2/5);
             wall5.SetWidth(INNER_WALL_THICKNESS/2);
-=======
-            wall5.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT)*3/5));
-            wall5.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall5.SetWidth(WALL_THICKNESS);
->>>>>>> 07df970cfd2756ce95604243228573e26bdff5e8
             wall5.SetHorizontal(true);
 
             //cennter wall left 2
             wall7.SetColor(BROWN);
-            wall7.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10));
-            wall7.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall7.SetWidth(WALL_THICKNESS);
+            wall7.SetPosition(new Vector2((MAX_X/12+ROOM1_WIDTH-INNER_WALL_THICKNESS)*2/5, MAX_Y/12));
+            wall7.SetHeight((ROOM1_HEIGHT+INNER_WALL_THICKNESS)*2/5);
+            wall7.SetWidth(INNER_WALL_THICKNESS/2);
             wall7.SetHorizontal(true);
 
             //creat door
             wall8.SetColor(BLACK);
-            wall8.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*3/10));
-            wall8.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall8.SetWidth(WALL_THICKNESS);
+            wall8.SetPosition(new Vector2((MAX_X/12+ROOM1_WIDTH-INNER_WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*39/100));
+            wall8.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/10);
+            wall8.SetWidth(INNER_WALL_THICKNESS/2);
             wall8.SetHorizontal(true);
         
 
             //center wall2
             wall6.SetColor(BROWN);
-<<<<<<< HEAD
             wall6.SetPosition(new Vector2((MAX_X)*3/5 + 20, MAX_Y/26+INNER_WALL_THICKNESS));
             wall6.SetHeight((ROOM1_HEIGHT+INNER_WALL_THICKNESS)*2/5);
             wall6.SetWidth(INNER_WALL_THICKNESS/2);
-=======
-            wall6.SetPosition(new Vector2((MAX_X)*3/5, MAX_Y/10+WALL_THICKNESS));
-            wall6.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall6.SetWidth(WALL_THICKNESS);
->>>>>>> 07df970cfd2756ce95604243228573e26bdff5e8
             wall6.SetHorizontal(true);
 
             

@@ -103,9 +103,9 @@ namespace Callof2d.Game.Services
 
         public void DrawWalls(List<Actor> actors)
         {
-            for (int i = 0; i < 4; i++)
+            foreach (Actor wall in actors)
             {
-                DrawWall(actors[i]);
+                DrawWall(wall);
             }
         }
 
