@@ -10,7 +10,7 @@ public class HandleZombieZombieCollisionsAction : Action
     {
 
         /// <summary>
-        /// Constructs a new instance of HandleCollisionsAction.
+        /// Constructs a new instance of HandleZombieCollisionsAction.
         /// </summary>
         private ContactService contactService;
         public HandleZombieZombieCollisionsAction(ContactService contactService)

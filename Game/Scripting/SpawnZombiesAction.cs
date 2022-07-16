@@ -18,7 +18,7 @@ namespace Callof2d.Game.Scripting
         private int spawnedZombies = 0;
 
         /// <summary>
-        /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
+        /// Constructs a new instance of SpawnZombiesAction using the given KeyboardService.
         /// </summary>
         public SpawnZombiesAction(Clock clock, Round round)
         {

@@ -30,8 +30,14 @@ namespace Callof2d.Game.Scripting
         /// <inheritdoc/>
         public void Execute(Cast cast, Script script)
         {
+            // Step 1: Create a list for each desired "layer" to be drawn.
             List<Actor> actors = cast.GetAllActors();
+            List<Actor> bloodSprays = cast.GetActors("bloodSpray");
+            List<Actor> ammoBoxes = cast.GetActors("ammoBox");
             List<Actor> walls = cast.GetActors("wall");
+            List<Actor> player = cast.GetActors("player");
+            List<Actor> zombies = cast.GetActors("zombie");
+            List<Actor> bullets = cast.GetActors("bullets");
             List<Actor> hUDs = cast.GetActors("HUD");
             List<Actor> weaponBuys = cast.GetActors("box");
             List<Actor> background = cast.GetActors("background");
@@ -45,12 +51,17 @@ namespace Callof2d.Game.Scripting
             }
 
 
-            
+            // Step 2: Draw each list of actors in the desired order. Lists drawn last will show on top of the preceeding list.
             videoService.ClearBuffer();
             videoService.DrawBackground();
             // videoService.DrawWalls(background);
+            videoService.DrawActors(bloodSprays);
             videoService.DrawWalls(weaponBuys);
-            videoService.DrawActors(actors);
+            videoService.DrawActors(ammoBoxes);
+            //videoService.DrawActors(actors);// draws all actors. Disabled because it doesn't draw them in the desired order.
+            videoService.DrawActors(bullets);
+            videoService.DrawActors(zombies);
+            videoService.DrawActors(player);
             videoService.DrawWalls(walls);
             videoService.DrawHUDs(hUDs);
             videoService.DrawWall(healthbar);

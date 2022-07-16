@@ -38,7 +38,9 @@ namespace Callof2d
         private static Color DARK_GREEN = new Color(0,100,0);
         public static Color GREEN = new Color(0,255,0);
         public static Color RED = new Color(255,0,0);
-        public static Color DARK_RED = new Color(190, 0, 0);
+        public static Color DARK_RED = new Color(170, 0, 0);
+        public static Color DARKER_RED = new Color(150, 0, 0);
+        public static Color DARKEST_RED = new Color(130, 0, 0);
         public static Color ORANGE = new Color(255,100,0);
         public static int DEFAULT_ZOMBIES = 10;
         private static float PLAYER_RADIUS = 10;
@@ -52,7 +54,7 @@ namespace Callof2d
         private static float WALL_THICKNESS = 12;
         private static float INNER_WALL_THICKNESS = 40;
         public static int BASE_SCORE = 10;
-        public static int POINTS_PER_QUARTER_OF_DAMAGE = 1;
+        public static int POINTS_PER_HIT = 5;
         public static int POINTS_PER_KILL = 50;
 
         

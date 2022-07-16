@@ -12,8 +12,8 @@ namespace Callof2d.Game.Scripting
     /// <summary>
     /// <para>An update action that handles interactions between the actors.</para>
     /// <para>
-    /// The responsibility of HandleCollisionsAction is to handle the situation when the snake 
-    /// collides with its segments, or the game is over.
+    /// The responsibility of HandleCollisionsAction is to handle the situation when a bullet 
+    /// collides with it a zombie or wall.
     /// </para>
     /// </summary>
     public class HandleBulletCollisionsAction : Action
@@ -64,7 +64,7 @@ namespace Callof2d.Game.Scripting
                         // Zombie Hit
                         cast.RemoveActor("bullets", bullet);
                         zombie.TakeDamage(shot.GetBulletDamage());
-                        stats.AddPoints(shot.GetBulletDamage() / 4, Program.POINTS_PER_QUARTER_OF_DAMAGE);
+                        stats.AddPoints(Program.POINTS_PER_HIT, 1);
 
                         // Blood spray
                         Random random = new Random();
@@ -134,6 +134,12 @@ namespace Callof2d.Game.Scripting
             await Task.Delay(200);
             bloodSpray.SetVelocity(bloodSpray.GetVelocity() - bloodSpray.GetVelocity());
             bloodSpray.SetColor(Program.DARK_RED);
+            Random random = new Random();
+
+            await Task.Delay(random.Next(20000, 30001));
+            bloodSpray.SetColor(Program.DARKER_RED);
+            await Task.Delay(random.Next(20000, 30001));
+            bloodSpray.SetColor(Program.DARKEST_RED);
 
             // After between 3 and 45 seconds, remove the blood splatter.
             // Note: There is an issue in the following commented out code when removing too many actors at the same time where the cast seems to become a null value and it crashes the game.
@@ -141,7 +147,7 @@ namespace Callof2d.Game.Scripting
             // The high variance in blood despawn time actually mitigates this, but the crash seems to be inevitable.
             // Unless a permanent fix is found, the blood will have to stay.
             
-            // Random random = new Random();
+            
             // int stayTime = random.Next(3000, 45001);
             // await Task.Delay(stayTime);
             // cast.RemoveActor("bloodSpray", bloodSpray);

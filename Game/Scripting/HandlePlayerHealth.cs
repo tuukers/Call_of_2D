@@ -11,7 +11,7 @@ public class HandlePlayerHealthAction : Action
     {
 
         /// <summary>
-        /// Constructs a new instance of HandleCollisionsAction.
+        /// Handles the player's health bar
         /// </summary>
         private ContactService contactService;
         private DateTime lastZombieHit;

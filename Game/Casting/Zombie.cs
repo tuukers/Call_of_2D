@@ -3,7 +3,7 @@ using System;
 namespace Callof2d.Game.Casting
 {
     /// <summary>
-    /// <para>An item of cultural or historical interest.</para>
+    /// <para>The main enemy of the game. They will eat your brains!</para>
     /// <para>
     /// The responsibility of an Zombie is to chase the player.
     /// </para>
