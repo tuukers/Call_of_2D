@@ -100,7 +100,7 @@ namespace Callof2d
             Weapon Mouserc96 = new Weapon(80,80,10,10,false,false,6,4,pistolBullet,"Mouser C96",5,audioService,"Game/assets/sound/mauser_reload.wav");
             Weapon trenchGun = new Weapon(40,40,6,6,true,false,1,20,buckshot,"Trench Gun",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
             Weapon trenchSweaper = new Weapon(30,30,3,3,true,true,3,30,superBuckShot, "Trench Sweaper",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
-            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,10,machinegunBullet,"MG42",40,audioService,"Game/assets/sound/mg42_reload.wav");
+            Weapon mg42 = new Weapon(500,500,250,250,false,true,25,10,machinegunBullet,"MG42",40,audioService,"Game/assets/sound/mg42_reload.wav");
             Weapon ThompsonSubMachinegun = new Weapon(240,240,30,30,false,true,12,15,pistolBullet,"ThompsonSMG",3,audioService,"Game/assets/sound/drum_smg_reload.wav");
 
             cast.AddActor("weapon",m1Garand);
