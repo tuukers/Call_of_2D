@@ -47,7 +47,7 @@ namespace Callof2d.Game.Scripting
                 spawnedZombies = 0;
             }
 
-            if (spawnedZombies < roundZombies && clock.GetLifeTime() - lastSpawn > 2)
+            if (spawnedZombies < roundZombies && clock.GetLifeTime() - lastSpawn > 1)
             {
                 SpawnZombies(cast, walls);
             }

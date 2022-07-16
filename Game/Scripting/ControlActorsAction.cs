@@ -30,13 +30,15 @@ namespace Callof2d.Game.Scripting
         private bool reload = false;
         private DateTime reloadTimeInit;
         private int reloadTime;
+        private AudioService audioService;
         bool jug=false;
         bool tap=false;
+        bool doorOpen=false;
 
         /// <summary>
         /// Constructs a new instance of ControlActorsAction using the given KeyboardService.
         /// </summary>
-        public ControlActorsAction(KeyboardService keyboardService, MouseService mouseService, VideoService videoService, ContactService contactService,Stats stats,Round round)
+        public ControlActorsAction(KeyboardService keyboardService, MouseService mouseService, VideoService videoService,AudioService audioService, ContactService contactService,Stats stats,Round round)
         {
             this.keyboardService = keyboardService;
             this.mouseService = mouseService;
@@ -45,6 +47,7 @@ namespace Callof2d.Game.Scripting
             this.stats = stats;
             this.lastShot=DateTime.Now;           
             this.round = round;
+            this.audioService = audioService;
         }
 
         /// <inheritdoc/>
@@ -223,6 +226,7 @@ namespace Callof2d.Game.Scripting
                     }
                     player.SetNewHeldWeapon(mysteryWeapon);
                     stats.SpendPoints(950);
+                    audioService.PlaySound("Game/assets/sound/mystery_box.wav",1);
                 }
             }
             else
@@ -308,7 +312,30 @@ namespace Callof2d.Game.Scripting
 
                     cast.AddActor("HUD",tapHUD);
                 }
-            
+            }
+
+            //door
+            if(!doorOpen)
+            {
+                Wall door = (Wall) walls[7];
+
+
+                Vector2 doorPostions = door.GetPosition();
+                Vector2 doorCenter = door.GetCenter(doorPostions);
+                float distance4 = Vector2.Distance(doorCenter, playerPosition);
+                if (distance4<50)
+                {
+                    promptHUD.SetText("'E'Open Door [750]");
+                    if(keyboardService.EKeyPressed() && stats.GetScore()>=750 && !doorOpen)
+                    {
+                        reload=false;
+                        
+                        doorOpen =true;
+                        stats.SpendPoints(750);
+                        
+                        cast.RemoveActor("wall",door);
+                    }
+                }
             }
 
             // AmmoBox Collision

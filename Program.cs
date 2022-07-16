@@ -96,8 +96,8 @@ namespace Callof2d
             Weapon Mouserc96 = new Weapon(80,80,10,10,false,false,6,4,pistolBullet,"Mouser C96",5,audioService,"Game/assets/sound/mauser_reload.wav");
             Weapon trenchGun = new Weapon(40,40,6,6,true,false,1,20,buckshot,"Trench Gun",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
             Weapon trenchSweaper = new Weapon(30,30,3,3,true,true,3,30,superBuckShot, "Trench Sweaper",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
-            Weapon mg42 = new Weapon(500,500,100,100,false,true,18,10,machinegunBullet,"MG42",40,audioService,"Game/assets/sound/mg42_reload.wav");
-            Weapon ThompsonSubMachinegun = new Weapon(240,240,30,30,false,true,10,15,pistolBullet,"ThompsonSMG",3,audioService,"Game/assets/sound/drum_smg_reload.wav");
+            Weapon mg42 = new Weapon(500,500,100,100,false,true,25,10,machinegunBullet,"MG42",40,audioService,"Game/assets/sound/mg42_reload.wav");
+            Weapon ThompsonSubMachinegun = new Weapon(240,240,30,30,false,true,12,15,pistolBullet,"ThompsonSMG",3,audioService,"Game/assets/sound/drum_smg_reload.wav");
 
             cast.AddActor("weapon",m1Garand);
             cast.AddActor("weapon",kar98);
@@ -110,8 +110,8 @@ namespace Callof2d
 
             // create the player
             Player player = new Player();
-            player.SetNewHeldWeapon(ThompsonSubMachinegun);
-            player.SetNewStoredWeapon(mg42);
+            player.SetNewHeldWeapon(m1911);
+            player.SetNewStoredWeapon(m1911);
             player.SetColor(WHITE);
             player.SetPosition(new Vector2(MAX_X / 2, MAX_Y / 2));
             player.SetRadius(PLAYER_RADIUS);
@@ -124,6 +124,9 @@ namespace Callof2d
             Wall wall4 = new Wall();
             Wall wall5 = new Wall();
             Wall wall6 = new Wall();
+            Wall wall7 = new Wall();
+            Wall wall8 = new Wall();
+
 
 
             //left wall
@@ -154,18 +157,33 @@ namespace Callof2d
             wall4.SetWidth(WALL_THICKNESS);
             wall4.SetHorizontal(false);
 
-            //center wall1
+            //center wall left 1
             wall5.SetColor(BROWN);
             wall5.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT)*3/5));
             wall5.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall5.SetWidth(WALL_THICKNESS/2);
+            wall5.SetWidth(WALL_THICKNESS);
             wall5.SetHorizontal(true);
+
+            //cennter wall left 2
+            wall7.SetColor(BROWN);
+            wall7.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10));
+            wall7.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
+            wall7.SetWidth(WALL_THICKNESS);
+            wall7.SetHorizontal(true);
+
+            //creat door
+            wall8.SetColor(BLACK);
+            wall8.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*3/10));
+            wall8.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
+            wall8.SetWidth(WALL_THICKNESS);
+            wall8.SetHorizontal(true);
+        
 
             //center wall2
             wall6.SetColor(BROWN);
             wall6.SetPosition(new Vector2((MAX_X)*3/5, MAX_Y/10+WALL_THICKNESS));
             wall6.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall6.SetWidth(WALL_THICKNESS/2);
+            wall6.SetWidth(WALL_THICKNESS);
             wall6.SetHorizontal(true);
 
             
@@ -175,6 +193,8 @@ namespace Callof2d
             cast.AddActor("wall",wall4);
             cast.AddActor("wall",wall5);
             cast.AddActor("wall",wall6);
+            cast.AddActor("wall",wall7);
+            cast.AddActor("wall",wall8);
 
             //creat background
             Wall grass = new Wall();
@@ -295,7 +315,7 @@ namespace Callof2d
             // AudioService audioService = new AudioService();
             
             Script script = new Script();
-            script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,contactService,stats,round));
+            script.AddAction("inputs", new ControlActorsAction(keyboardService,mouseService,videoService,audioService,contactService,stats,round));
             script.AddAction("updates", new DrawActorsAction(videoService, mouseService));
             script.AddAction("updates", new HandleBulletCollisionsAction(contactService, stats));
             script.AddAction("updates", new HandleZombieZombieCollisionsAction(contactService));
