@@ -90,9 +90,9 @@ namespace Callof2d.Game.Scripting
             
             foreach(Actor bullet in bullets)
             {
-                for (int i=0; i<walls.Count-2;i++)
+                foreach(Actor wallT in walls)
                 {
-                    Wall wall= (Wall)walls[i];
+                    Wall wall= (Wall)wallT;
                     collision=contactService.WallCollision(bullet,wall);
                     if(collision)
                     {

@@ -21,6 +21,7 @@ namespace Callof2d.Game.Casting
         private int buckShotCount;
         private AudioService audioService;
         private string audioPath;
+        private DateTime lastShot;
 
 
         public Weapon(int maxAmmo,int ammoCount,int magazineCapacity,int magazineCount,bool isShotgun,bool fullAuto,int fireRate,int weaponSpread,Bullet bulletType,string weaponName,int reloadTime,AudioService audioService,string audioPath)
@@ -39,6 +40,7 @@ namespace Callof2d.Game.Casting
             this.buckShotCount=0;
             this.audioService=audioService;
             this.audioPath=audioPath;
+            this.lastShot=DateTime.Now;
         }
         Random random = new Random();
         DateTime dateTime = new DateTime();
@@ -145,7 +147,16 @@ namespace Callof2d.Game.Casting
             
             if (this.magazineCount>0 && !isShotgun)
             {
-                this.audioService.PlaySound("Game/assets/sound/gun-gunshot-01-[AudioTrimmer.com].wav", (float) 1.0);
+                TimeSpan timeSpan = DateTime.Now - lastShot;
+                if(!fullAuto)
+                {
+                    this.audioService.PlaySound("Game/assets/sound/gun-gunshot-01-[AudioTrimmer.com].wav", (float) 1.0);
+                }
+                else if(timeSpan.Milliseconds >= 70)
+                {
+                    this.audioService.PlaySound("Game/assets/sound/Rifle-Burst-Fire-C-www.fesliyanstudios.com-[AudioTrimmer.com].mp3", (float) 1.0);
+                    lastShot = DateTime.Now;
+                }//
                 this.magazineCount-=1;
                 return true;                
             }
