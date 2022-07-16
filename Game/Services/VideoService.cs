@@ -21,6 +21,7 @@ namespace Callof2d.Game.Services
         private int height = 480;
         private int frameRate = 0;
         private bool debug = false;
+        private Texture2D background;
 
         /// <summary>
         /// Constructs a new instance of KeyboardService using the given cell size.
@@ -43,6 +44,7 @@ namespace Callof2d.Game.Services
         public void CloseWindow()
         {
             Raylib.CloseWindow();
+            Raylib.UnloadTexture(background);
         }
 
         /// <summary>
@@ -101,9 +103,9 @@ namespace Callof2d.Game.Services
 
         public void DrawWalls(List<Actor> actors)
         {
-            foreach (Actor actor in actors)
+            foreach (Actor wall in actors)
             {
-                DrawWall(actor);
+                DrawWall(wall);
             }
         }
 
@@ -138,6 +140,12 @@ namespace Callof2d.Game.Services
         }
 
         
+        public void DrawBackground ()
+        {
+            Raylib.DrawTexture(background, Program.MAX_X/12, Program.MAX_Y/12, ToRaylibColor(Program.WHITE));
+        }
+
+
         /// <summary>
         /// Copies the buffer contents to the screen. This method should be called at the end of
         /// the game's output phase.
@@ -190,6 +198,10 @@ namespace Callof2d.Game.Services
         {
             Raylib.InitWindow(width, height, caption);
             Raylib.SetTargetFPS(frameRate);
+
+            Image image = Raylib.LoadImage("Game/assets/map.png");
+            this.background = Raylib.LoadTextureFromImage(image);
+            Raylib.UnloadImage(image);
         }
 
         /// <summary>

@@ -17,8 +17,8 @@ namespace Callof2d
     class Program
     {
         private static int FRAME_RATE = 45;
-        public static int MAX_X = 1080;
-        public static int MAX_Y = 720;
+        public static int MAX_X = 1200;
+        public static int MAX_Y = 900;
         public static int CELL_SIZE = 15;
         public static int FONT_SIZE = 25;
         public static int FONT_SIZE_SMALL = 15;
@@ -28,7 +28,7 @@ namespace Callof2d
         private static int COLS = 60;
         private static int ROWS = 40;
         private static string CAPTION = "Call Of 2d";
-        private static Color WHITE = new Color(255, 255, 255);
+        public static Color WHITE = new Color(255, 255, 255);
         public static Color BLACK = new Color(0,0,0);
         private static Color GREY = new Color(100,100,100);
         private static Color LIGHT_GREY = new Color(75,75,75);
@@ -46,9 +46,10 @@ namespace Callof2d
         public static int ZOMBIE_HEALTH_PER_ROUND = 10;
         public static float BULLET_SPEED = 12;
         public static float BULLET_RADIUS = 2;
-        private static float ROOM1_HEIGHT = 500;
-        private static float ROOM1_WIDTH = 1080 - 1080/5;
+        private static float ROOM1_HEIGHT = 750;
+        private static float ROOM1_WIDTH = 1000;
         private static float WALL_THICKNESS = 12;
+        private static float INNER_WALL_THICKNESS = 40;
         public static int BASE_SCORE = 10;
         public static int POINTS_PER_HIT = 10;
         public static int POINTS_PER_KILL = 50;
@@ -131,59 +132,59 @@ namespace Callof2d
 
             //left wall
             wall1.SetColor(GREY);
-            wall1.SetPosition(new Vector2(MAX_X/10, MAX_Y/10));
+            wall1.SetPosition(new Vector2(MAX_X/12, MAX_Y/12));
             wall1.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall1.SetWidth(WALL_THICKNESS);
             wall1.SetHorizontal(false);
 
             //top wall
             wall2.SetColor(GREY);
-            wall2.SetPosition(new Vector2(MAX_X/10, MAX_Y/10));
+            wall2.SetPosition(new Vector2(MAX_X/12, MAX_Y/12));
             wall2.SetHeight(WALL_THICKNESS);
             wall2.SetWidth(ROOM1_WIDTH);
             wall2.SetHorizontal(true);
 
             //bottom wall
             wall3.SetColor(GREY);
-            wall3.SetPosition(new Vector2(MAX_X/10, MAX_Y/10+ROOM1_HEIGHT));
+            wall3.SetPosition(new Vector2(MAX_X/12, MAX_Y/12+ROOM1_HEIGHT));
             wall3.SetHeight(WALL_THICKNESS);
             wall3.SetWidth(ROOM1_WIDTH);
             wall3.SetHorizontal(true);
 
             //right wall
             wall4.SetColor(GREY);
-            wall4.SetPosition(new Vector2(MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS, MAX_Y/10));
+            wall4.SetPosition(new Vector2(MAX_X/12+ROOM1_WIDTH-WALL_THICKNESS, MAX_Y/12));
             wall4.SetHeight(ROOM1_HEIGHT+WALL_THICKNESS);
             wall4.SetWidth(WALL_THICKNESS);
             wall4.SetHorizontal(false);
 
             //center wall left 1
             wall5.SetColor(BROWN);
-            wall5.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT)*3/5));
-            wall5.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall5.SetWidth(WALL_THICKNESS);
+            wall5.SetPosition(new Vector2((MAX_X/12+ROOM1_WIDTH-INNER_WALL_THICKNESS)*2/5, MAX_Y/13+(ROOM1_HEIGHT)*3/5 + 2));
+            wall5.SetHeight((ROOM1_HEIGHT+INNER_WALL_THICKNESS)*2/5);
+            wall5.SetWidth(INNER_WALL_THICKNESS/2);
             wall5.SetHorizontal(true);
 
             //cennter wall left 2
             wall7.SetColor(BROWN);
-            wall7.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10));
-            wall7.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall7.SetWidth(WALL_THICKNESS);
+            wall7.SetPosition(new Vector2((MAX_X/12+ROOM1_WIDTH-INNER_WALL_THICKNESS)*2/5, MAX_Y/12));
+            wall7.SetHeight((ROOM1_HEIGHT+INNER_WALL_THICKNESS)*2/5);
+            wall7.SetWidth(INNER_WALL_THICKNESS/2);
             wall7.SetHorizontal(true);
 
             //creat door
             wall8.SetColor(BLACK);
-            wall8.SetPosition(new Vector2((MAX_X/10+ROOM1_WIDTH-WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*3/10));
-            wall8.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall8.SetWidth(WALL_THICKNESS);
+            wall8.SetPosition(new Vector2((MAX_X/12+ROOM1_WIDTH-INNER_WALL_THICKNESS)*2/5, MAX_Y/10+(ROOM1_HEIGHT+WALL_THICKNESS)*39/100));
+            wall8.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/10);
+            wall8.SetWidth(INNER_WALL_THICKNESS/2);
             wall8.SetHorizontal(true);
         
 
             //center wall2
             wall6.SetColor(BROWN);
-            wall6.SetPosition(new Vector2((MAX_X)*3/5, MAX_Y/10+WALL_THICKNESS));
-            wall6.SetHeight((ROOM1_HEIGHT+WALL_THICKNESS)*2/5);
-            wall6.SetWidth(WALL_THICKNESS);
+            wall6.SetPosition(new Vector2((MAX_X)*3/5 + 20, MAX_Y/26+INNER_WALL_THICKNESS));
+            wall6.SetHeight((ROOM1_HEIGHT+INNER_WALL_THICKNESS)*2/5);
+            wall6.SetWidth(INNER_WALL_THICKNESS/2);
             wall6.SetHorizontal(true);
 
             
@@ -218,8 +219,8 @@ namespace Callof2d
             Wall misteryBox = new Wall();
             //misteryBox.SetRadius(50);
             misteryBox.SetWidth(75);
-            misteryBox.SetHeight(40);
-            misteryBox.SetPosition(new Vector2(MAX_X/10 + 70,MAX_Y/10+ROOM1_HEIGHT-20-WALL_THICKNESS));
+            misteryBox.SetHeight(50);
+            misteryBox.SetPosition(new Vector2(MAX_X/9 + 70,MAX_Y/14+ROOM1_HEIGHT-20-WALL_THICKNESS));
             misteryBox.SetColor(YELLOW);
 
             
@@ -229,19 +230,19 @@ namespace Callof2d
             //misteryBox.SetRadius(50);
             m1Wallbuy.SetWidth(75);
             m1Wallbuy.SetHeight(20);
-            m1Wallbuy.SetPosition(new Vector2(MAX_X/10 + ROOM1_WIDTH - 250, MAX_Y/10+ROOM1_HEIGHT-WALL_THICKNESS));
+            m1Wallbuy.SetPosition(new Vector2(MAX_X/10 + ROOM1_WIDTH - 250, MAX_Y/13+ROOM1_HEIGHT-WALL_THICKNESS));
             m1Wallbuy.SetColor(YELLOW);
 
             Wall jugernog = new Wall();
             jugernog.SetWidth(40);
             jugernog.SetHeight(75);
-            jugernog.SetPosition(new Vector2((MAX_X)*3/5-40, MAX_Y/10+WALL_THICKNESS+20));
+            jugernog.SetPosition(new Vector2((MAX_X)*3/5-20, MAX_Y/10+WALL_THICKNESS+20));
             jugernog.SetColor(RED);
 
             Wall doubletap = new Wall();
             doubletap.SetWidth(40);
             doubletap.SetHeight(75);
-            doubletap.SetPosition(new Vector2(MAX_X/10+ROOM1_WIDTH-40-WALL_THICKNESS, MAX_Y/10+ROOM1_HEIGHT-150));
+            doubletap.SetPosition(new Vector2(MAX_X/12+ROOM1_WIDTH-40-WALL_THICKNESS, MAX_Y/14+ROOM1_HEIGHT-250));
             doubletap.SetColor(ORANGE);
 
             cast.AddActor("box",misteryBox);
@@ -254,7 +255,7 @@ namespace Callof2d
 
             //health bar
             healthbar.SetColor(RED);
-            healthbar.SetPosition(new Vector2(MAX_X/20, MAX_Y/20));
+            healthbar.SetPosition(new Vector2(MAX_X/12, 30));
             healthbar.SetHeight(WALL_THICKNESS);
             healthbar.SetWidth(player.GetPlayerHealth() * 2);
             healthbar.SetHorizontal(true);
@@ -272,7 +273,7 @@ namespace Callof2d
             // creat HUD
             HUD weaponHUD = new HUD(player, stats,round);
             weaponHUD.SetColor(WHITE);
-            weaponHUD.SetPosition(new Vector2(7*MAX_X/10,9*MAX_Y/10));
+            weaponHUD.SetPosition(new Vector2(825, 855));
             weaponHUD.SetHUDType(0);
             weaponHUD.HUDSetup();
             weaponHUD.SetFontSize(FONT_SIZE);
@@ -281,7 +282,7 @@ namespace Callof2d
 
             HUD scoreHUD = new HUD(player,stats,round);
             scoreHUD.SetColor(WHITE);
-            scoreHUD.SetPosition(new Vector2(MAX_X/5,9*MAX_Y/10));
+            scoreHUD.SetPosition(new Vector2(MAX_X/2 - 70,25));
             scoreHUD.SetHUDType(1);
             scoreHUD.HUDSetup();
             scoreHUD.SetFontSize(FONT_SIZE);
@@ -300,15 +301,13 @@ namespace Callof2d
 
             HUD RoundHUD = new HUD(player,stats,round);
             RoundHUD.SetColor(WHITE);
-            RoundHUD.SetPosition(new Vector2(MAX_X*9/10,2*MAX_Y/30-CELL_SIZE));
+            RoundHUD.SetPosition(new Vector2(1000,25));
             RoundHUD.SetHUDType(2);
             RoundHUD.HUDSetup();
             RoundHUD.SetFontSize(FONT_SIZE);
             
             Actor actor3 = (HUD)RoundHUD;
             cast.AddActor("HUD",actor3);
-
-            
 
             // create script
             ContactService contactService = new ContactService(wall1, wall2, wall3, wall4);
