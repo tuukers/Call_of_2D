@@ -36,7 +36,7 @@ namespace Callof2d
         public static Color YELLOW = new Color(200,200,0);
         private static Color DULL_YELLOW = new Color(100,100,0);
         private static Color DARK_GREEN = new Color(0,100,0);
-        private static Color GREEN = new Color(0,255,0);
+        public static Color GREEN = new Color(0,255,0);
         public static Color RED = new Color(255,0,0);
         public static Color ORANGE = new Color(255,100,0);
         public static int DEFAULT_ZOMBIES = 10;

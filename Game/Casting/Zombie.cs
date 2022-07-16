@@ -47,4 +47,11 @@ namespace Callof2d.Game.Casting
             Console.WriteLine("BasicAttack performed");
         }
     }
+
+    public class BloodSpray : Actor
+    {
+        public BloodSpray()
+        {
+        }
+    }
 }
