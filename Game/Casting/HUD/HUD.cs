@@ -84,7 +84,7 @@ namespace Callof2d.Game.Casting
         public void RoundHUD()
         {
             int roundNum = round.GetRound();
-            this.SetText($"{roundNum + 1}");
+            this.SetText($"Round: {roundNum + 1}");
         }
 
         public void GameOverHUD()

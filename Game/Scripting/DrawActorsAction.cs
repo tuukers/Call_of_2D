@@ -37,19 +37,24 @@ namespace Callof2d.Game.Scripting
             List<Actor> background = cast.GetActors("background");
             Actor healthbar = cast.GetFirstActor("healthbar");
             Vector2 mousePosition = mouseService.GetMousePosition();
+            
 
             foreach (Actor actor in actors)
             {
                 actor.MoveNext();
             }
 
+
+            
             videoService.ClearBuffer();
-            videoService.DrawWalls(background);
+            videoService.DrawBackground();
+            // videoService.DrawWalls(background);
             videoService.DrawWalls(weaponBuys);
             videoService.DrawActors(actors);
             videoService.DrawWalls(walls);
             videoService.DrawHUDs(hUDs);
             videoService.DrawWall(healthbar);
+            
             videoService.DrawPointer(cast.GetFirstActor("player"), mousePosition);
             videoService.FlushBuffer();
         }
