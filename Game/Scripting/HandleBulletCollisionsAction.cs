@@ -64,7 +64,7 @@ namespace Callof2d.Game.Scripting
                         // Zombie Hit
                         cast.RemoveActor("bullets", bullet);
                         zombie.TakeDamage(shot.GetBulletDamage());
-                        stats.AddPoints(Program.POINTS_PER_HIT, 1);
+                        stats.AddPoints(shot.GetBulletDamage() / 4, Program.POINTS_PER_QUARTER_OF_DAMAGE);
 
                         // Blood spray
                         Random random = new Random();
@@ -133,6 +133,7 @@ namespace Callof2d.Game.Scripting
             // After 0.2 seconds, make the blood stop in it's place
             await Task.Delay(200);
             bloodSpray.SetVelocity(bloodSpray.GetVelocity() - bloodSpray.GetVelocity());
+            bloodSpray.SetColor(Program.DARK_RED);
 
             // After between 3 and 45 seconds, remove the blood splatter.
             // Note: There is an issue in the following commented out code when removing too many actors at the same time where the cast seems to become a null value and it crashes the game.
