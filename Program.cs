@@ -39,7 +39,7 @@ namespace Callof2d
         private static Color GREEN = new Color(0,255,0);
         public static Color RED = new Color(255,0,0);
         public static Color ORANGE = new Color(255,100,0);
-        public static int DEFAULT_ZOMBIES = 8;
+        public static int DEFAULT_ZOMBIES = 10;
         private static float PLAYER_RADIUS = 10;
         public static float ZOMBIE_RADIUS = 10;
         public static int ZOMBIE_HEALTH = 100;
@@ -50,8 +50,8 @@ namespace Callof2d
         private static float ROOM1_WIDTH = 1080 - 1080/5;
         private static float WALL_THICKNESS = 12;
         public static int BASE_SCORE = 10;
-        public static int POINTS_PER_HIT = 5;
-        public static int POINTS_PER_KILL = 20;
+        public static int POINTS_PER_HIT = 10;
+        public static int POINTS_PER_KILL = 50;
 
         
 
@@ -73,7 +73,7 @@ namespace Callof2d
 
                         //create bullet types
             Bullet rifleBullet = new Bullet(75);
-            Bullet refleBullet2 = new Bullet(120);
+            Bullet rifleBullet2 = new Bullet(200);
             Bullet pistolBullet = new Bullet(40);
             Bullet buckshot = new Bullet(30);
             buckshot.SetBuckShot(8);
@@ -82,7 +82,7 @@ namespace Callof2d
             Bullet machinegunBullet = new Bullet(25);
 
             rifleBullet.SetColor(LIGHT_GREY);
-            refleBullet2.SetColor(LIGHT_GREY);
+            rifleBullet2.SetColor(LIGHT_GREY);
             pistolBullet.SetColor(LIGHT_GREY);
             buckshot.SetColor(LIGHT_GREY);
             superBuckShot.SetColor(LIGHT_GREY);
@@ -91,7 +91,7 @@ namespace Callof2d
 
             //create weapons
             Weapon m1Garand = new Weapon(80,80,8,8,false,false,4,2,rifleBullet,"m1 garand",2,audioService,"Game/assets/sound/M1_Garand_Ping.wav");
-            Weapon kar98 = new Weapon(75,75,5,5,false,false,2,0,refleBullet2,"Kar98",3,audioService,"Game/assets/sound/kar98_fullreload.wav");
+            Weapon kar98 = new Weapon(75,75,5,5,false,false,2,0,rifleBullet2,"Kar98",3,audioService,"Game/assets/sound/kar98_fullreload.wav");
             Weapon m1911 = new Weapon(70,70,7,7,false,false,5,3,pistolBullet,"m1911",3,audioService,"Game/assets/sound/1911_reload.wav");
             Weapon Mouserc96 = new Weapon(80,80,10,10,false,false,6,4,pistolBullet,"Mouser C96",5,audioService,"Game/assets/sound/mauser_reload.wav");
             Weapon trenchGun = new Weapon(40,40,6,6,true,false,1,20,buckshot,"Trench Gun",0,audioService,"Game/assets/sound/shotgun_shell_load.wav");
