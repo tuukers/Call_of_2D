@@ -73,7 +73,7 @@ namespace Callof2d.Game.Scripting
             zombie.SetPosition(position);
             zombie.SetRadius(Program.ZOMBIE_RADIUS);
             int randomNum = random.Next(0,100);
-            if(randomNum>=10)
+            if(randomNum>=20)
             {
                 zombie.SetSpeed(1);
             }   

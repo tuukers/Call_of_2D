@@ -25,7 +25,7 @@ public class HandlePlayerHealthAction : Action
         {
             this.lastZombieHit = DateTime.Now;
             this.zombieAttackFrequancy = 60;
-            this.regenDelay = 12;
+            this.regenDelay = 4;
             this.stats = stats;
             this.round = round;
         }

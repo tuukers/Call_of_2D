@@ -54,7 +54,7 @@ namespace Callof2d
         private static float WALL_THICKNESS = 12;
         private static float INNER_WALL_THICKNESS = 40;
         public static int BASE_SCORE = 10;
-        public static int POINTS_PER_HIT = 5;
+        public static int POINTS_PER_HIT = 0;
         public static int POINTS_PER_KILL = 50;
 
         
