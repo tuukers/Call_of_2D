@@ -1,5 +1,5 @@
 # Call of 2D
-Classic Call of duty zombies in a 2d format. Buy and weapons perks and stratagize how to survive 
+Classic Call of duty zombies in a 2d format. Buy weapons and perks and stratagize how to survive 
 against infinite waves of zombies. How long can you survive? 
 ---
 ## Getting Started
