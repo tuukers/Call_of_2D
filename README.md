@@ -1,6 +1,14 @@
 # Call of 2D
 Classic Call of duty zombies in a 2d format. Buy weapons and perks and stratagize how to survive 
 against infinite waves of zombies. How long can you survive? 
+
+# How to Play - Game Controls
+* WASD to move
+* Mouse to aim
+* Mouse Scroll to swap between your two weapons
+* R to reload
+* E to interact / purchase upgrades
+
 ---
 ## Getting Started
 Make sure you have dotnet 6.0 or newer installed on your machine. Open 
@@ -23,7 +31,7 @@ root                    (project root folder)
 +-- Game                (source code folder)
 +-- Program.cs          (program entry point)    
 +-- README.md           (general info)
-+-- Unit05.csproj       (dotnet project file)
++-- Callof2D.csproj       (dotnet project file)
 ```
 
 ## Required Technologies
